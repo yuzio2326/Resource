@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+DIGIMON/.vsconfig
+DIGIMON/DIGIMON.sln
+DIGIMON/.vs/
+DIGIMON/Binaries/
+
+
+

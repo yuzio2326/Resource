@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "DIGIMON",
+			"Path": "..\\Source\\DIGIMON.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "DIGIMONEditor",
+			"Path": "..\\Source\\DIGIMONEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
