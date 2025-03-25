@@ -3,6 +3,12 @@
 
 #include "SkillBase.h"
 
+
+FSkillDataRow::FSkillDataRow()
+{
+}
+
+
 // Sets default values
 ASkillBase::ASkillBase()
 {

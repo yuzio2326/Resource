@@ -4,7 +4,45 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/DataAsset.h"
 #include "SkillBase.generated.h"
+
+USTRUCT()		//나중에
+struct DIGIMON_API  FSkillDataRow : public FTableRowBase
+{
+	GENERATED_BODY()
+	FSkillDataRow();
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	int UseSPNum;		//CanChange
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	FTransform Transform = FTransform::Identity;
+	//Delete 
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	float Damage;		//Projectile같은 melee만들고 거기서 데미지랑 이펙트 넣고 딜 ㄱㄱ
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	float SkillCoolTime;
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	float CurrentSkillCoolTime;
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	TSubclassOf<ASkillBase> SkillBaseClass;
+
+	//SkillAnim
+	//UPROPERTY(EditAnywhere, Category = "Weapon|Animation")
+	//TSubclassOf<UCustomDioAnimInstance> AnimClass;
+	UPROPERTY(EditAnywhere, Category = "SkillAnimation")
+	TArray<UAnimMontage*> SkillAnimation;
+	//UPROPERTY(EditAnywhere, Category = "Enemy|Animation")
+	//TArray<UAnimMontage*> HitReactMontage;
+
+
+
+
+};
+
+
+
 
 UCLASS()
 class DIGIMON_API ASkillBase : public AActor
