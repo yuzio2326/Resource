@@ -2,6 +2,8 @@
 
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
+#include "Components/CapsuleComponent.h"
+
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -24,16 +26,10 @@ public:
 	TSubclassOf<UPawnAnimInstance> AnimClass;
 
 public:
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//TSubclassOf<UShapeComponent> CollisionClass = USphereComponent::StaticClass();
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//float CollisionSphereRadius = 32.f;
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//FVector CollisionBoxExtent = FVector(32.0, 32.0, 32.0);
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//float CollisionCapsuleRadius = 22.f;
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//float CollisionCapsuleHalfHeight = 44.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleRadius = 22.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleHalfHeight = 44.f;
 
 public: // Animation
 	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
