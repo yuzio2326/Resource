@@ -7,7 +7,7 @@
 //#include "Ba"
 #include "../PawnAnimInstance.h"
 
-
+#include "SkillComponent.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "StatusComponent.generated.h"
@@ -61,6 +61,8 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.PawnTableRow"))//만들어야함
 	FDataTableRowHandle DataTableRowHandle;
 
+	UPROPERTY(VisibleAnywhere)
+	USkillComponent* MonsterSkillComponent;
 
 
 protected:

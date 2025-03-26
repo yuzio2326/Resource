@@ -11,6 +11,8 @@ USTRUCT()		//나중에
 struct DIGIMON_API  FSkillDataRow : public FTableRowBase
 {
 	GENERATED_BODY()
+
+
 	FSkillDataRow();
 
 public:
