@@ -5,11 +5,13 @@
 
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
-//add MovementComponent
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "BaseMonster.generated.h"
+
+
+
 
 UCLASS()
 class DIGIMON_API ABaseMonster : public APawn

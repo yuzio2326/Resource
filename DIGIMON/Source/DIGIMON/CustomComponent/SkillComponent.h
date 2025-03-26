@@ -43,7 +43,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 protected:
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.SkillTableRow"))
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.SkillTableRow"))
 	FDataTableRowHandle DataTableRowHandle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill Data")

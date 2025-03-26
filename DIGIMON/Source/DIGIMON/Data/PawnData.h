@@ -1,0 +1,80 @@
+#pragma once
+
+#include "../CustomComponent/StatusComponent.h"
+#include "../CustomComponent/SkillComponent.h"
+
+#include "CoreMinimal.h"
+#include "GameFramework/Pawn.h"
+#include "PawnData.generated.h"
+
+
+
+USTRUCT()		//나중에
+struct DIGIMON_API  FBasePawnData : public FTableRowBase
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Category = "Pawn")
+	USkeletalMesh* SkeletalMesh = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "Pawn")
+	FTransform MeshTransform = FTransform::Identity;
+
+	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
+	TSubclassOf<UPawnAnimInstance> AnimClass;
+
+public:
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	//TSubclassOf<UShapeComponent> CollisionClass = USphereComponent::StaticClass();
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	//float CollisionSphereRadius = 32.f;
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	//FVector CollisionBoxExtent = FVector(32.0, 32.0, 32.0);
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	//float CollisionCapsuleRadius = 22.f;
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	//float CollisionCapsuleHalfHeight = 44.f;
+
+public: // Animation
+	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
+	TArray<UAnimMontage*> HitReactMontage;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
+	TArray<UAnimMontage*> DieMontage;
+	//Can Control Anim
+	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
+	TArray<UAnimMontage*> AttackMontage;
+
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
+	//TArray<UAnimMontage*> DashMontage;
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
+	//TArray<UAnimMontage*> SkillMontage;
+
+	UPROPERTY(EditAnywhere, Category = "Pawn|Skill", meta = (RowType = "/Script/DIGIMON.SkillTableRow"))
+	FDataTableRowHandle OwnSkillData;
+
+
+public: // Movement
+	UPROPERTY(EditAnywhere, Category = "Pawn|Movement")
+	float MovementMaxSpeed = 400.f;
+
+public: // AI (Enemy만 적용)
+	//UPROPERTY(EditAnywhere, Category = "Pawn|AI")
+	//TSubclassOf<AAIController> AIControllerClass;
+
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	float HP = 0;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	float STR = 0;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	float STR_DEF = 0;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	float INT = 0;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	float INT_DEF = 0;
+	//UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	//float DMG = 0;
+
+
+	/*UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	TArray<float> SkillDMGArray;*/
+};
