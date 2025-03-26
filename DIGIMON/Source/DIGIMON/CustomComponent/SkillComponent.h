@@ -13,8 +13,8 @@ struct DIGIMON_API FSkillTableRow : public FTableRowBase
 {
 	GENERATED_BODY()
 public: // Skill
-	UPROPERTY(EditAnywhere, Category = "Skill", meta = (RowType = "/Script/KDT3D.SkillDataRow"))
-	TArray<FSkillDataRow> SkillArray;	//FSkillDataRow = skillbase쪽에 있는 데이터 가지고 와서 설정
+	UPROPERTY(EditAnywhere, Category = "Skill", meta = (RowType = "/Script/DIGIMON.SkillDataRow"))
+	TArray<FDataTableRowHandle> SkillArray;	//FSkillDataRow = skillbase쪽에 있는 데이터 가지고 와서 설정
 
 };
 

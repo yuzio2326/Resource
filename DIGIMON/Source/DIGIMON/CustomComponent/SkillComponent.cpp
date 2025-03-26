@@ -52,6 +52,20 @@ void USkillComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 
 void USkillComponent::InitializeSkillData(UDataTable* SkillDataTable)
 {
+	if (!SkillDataTable) return;
+
+	static const FString ContextString(TEXT("Skill Data Context"));
+	TArray<FSkillDataRow*> AllSkillData;
+	SkillDataTable->GetAllRows<FSkillDataRow>(ContextString, AllSkillData);
+
+	for (FSkillDataRow* SkillData : AllSkillData)
+	{
+		if (SkillData)
+		{
+			// 필요한 데이터만 저장하거나, 초기화합니다.
+			//SkillDataArray.Add(*SkillData);
+		}
+	}
 }
 
 
@@ -61,5 +75,7 @@ void USkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+
+
 }
 

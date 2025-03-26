@@ -11,18 +11,20 @@ USTRUCT()		//나중에
 struct DIGIMON_API  FSkillDataRow : public FTableRowBase
 {
 	GENERATED_BODY()
-
-
 	FSkillDataRow();
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Skill")
-	int UseSPNum;		//CanChange
-	UPROPERTY(EditAnywhere, Category = "Skill")
-	FTransform Transform = FTransform::Identity;
+	float UseMP;		//CanChange
 	//Delete 
+	//UPROPERTY(EditAnywhere, Category = "Skill")
+	//FTransform Transform = FTransform::Identity;
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float Damage;		//Projectile같은 melee만들고 거기서 데미지랑 이펙트 넣고 딜 ㄱㄱ
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	float BonusDamage;		//status 기반 추가뎀(계수)
+	UPROPERTY(EditAnywhere, Category = "Skill")
+	bool SkillDamageType;		//AD=0, AP=1		
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float SkillCoolTime;
 	UPROPERTY(EditAnywhere, Category = "Skill")
@@ -62,5 +64,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+protected:
+	UPROPERTY(VisibleAnywhere)
+	USceneComponent* DefaultSceneRoot;
 
 };
