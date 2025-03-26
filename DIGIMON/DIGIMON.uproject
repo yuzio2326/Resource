@@ -1,27 +1,26 @@
 {
-  "FileVersion": 3,
-  "EngineAssociation": "5.4",
-  "Category": "",
-  "Description": "",
-  "Modules": [
-    {
-      "Name": "DIGIMON",
-      "Type": "Runtime",
-      "LoadingPhase": "Default"
-    }
-  ],
-  "Plugins": [
-    {
-      "Name": "ModelingToolsEditorMode",
-      "Enabled": true
-    },
-    {
-      "Name": "VisualStudioTools",
-      "Enabled": true
-    }
-  ],
-  "TargetPlatforms": [],
-  "AdditionalRootDirectories": [],
-  "AdditionalPluginDirectories": [],
-  "EpicSampleNameHash": ""
+	"FileVersion": 3,
+	"EngineAssociation": "{EE98C328-4D63-5C5B-27C9-C3A1E436B299}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "DIGIMON",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true
+		},
+		{
+			"Name": "VisualStudioTools",
+			"Enabled": true
+		}
+	]
 }

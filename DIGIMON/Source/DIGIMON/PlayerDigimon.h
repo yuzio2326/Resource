@@ -18,6 +18,11 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void OnConstruction(const FTransform& Transform) override;
+
+protected:
+	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
+
 
 public:	
 	// Called every frame
@@ -25,5 +30,10 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.PawnTableRow"))
+	FDataTableRowHandle DataTableRowHandle;
+
 
 };

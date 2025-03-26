@@ -18,6 +18,17 @@ void APlayerDigimon::BeginPlay()
 	
 }
 
+void APlayerDigimon::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+
+}
+
+void APlayerDigimon::SetData(const FDataTableRowHandle& InDataTableRowHandle)
+{
+
+}
+
 // Called every frame
 void APlayerDigimon::Tick(float DeltaTime)
 {

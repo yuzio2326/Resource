@@ -3,6 +3,7 @@
 
 #include "StatusComponent.h"
 
+
 // Sets default values for this component's properties
 UStatusComponent::UStatusComponent()
 {
@@ -11,6 +12,14 @@ UStatusComponent::UStatusComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+}
+
+void UStatusComponent::SetData(const FDataTableRowHandle& InDataTableRowHandle)
+{
+	DataTableRowHandle = InDataTableRowHandle;
+	//FPawnTableRow* CharacterData = DataTableRowHandle.GetRow<FPawnTableRow>(TEXT("Character"));
+	HP = MaxHP;
+
 }
 
 
@@ -29,6 +38,31 @@ void UStatusComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (EXP >= MaxEXP)
+	{
+		LevelUp();
+	}
+
 	// ...
+}
+
+void UStatusComponent::LevelUp()
+{
+	if (EXP >= MaxEXP)
+	{
+
+	}
+	else { return; }
+
+
+
+	return ;
+}
+
+bool UStatusComponent::KillEnemy()
+{
+
+
+	return false;
 }
 

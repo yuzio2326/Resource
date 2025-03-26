@@ -5,8 +5,6 @@
 //#include "Animation/BaisicCharacterAnimInstance.h"
 
 //#include "Ba"
-#include "../PawnAnimInstance.h"
-
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
