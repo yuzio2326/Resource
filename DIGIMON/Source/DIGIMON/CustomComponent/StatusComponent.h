@@ -68,17 +68,30 @@ protected:
 
 
 protected:
+	//Add UPROPERTY(VisibleAnywhere) For Visable In UE
+	UPROPERTY(VisibleAnywhere)
 	int Level;
+	UPROPERTY(VisibleAnywhere)
 	int Type;
+	UPROPERTY(VisibleAnywhere)
 	float MaxHP;
+	UPROPERTY(VisibleAnywhere)
 	float HP;
+	UPROPERTY(VisibleAnywhere)
 	float MaxMP;	//마나 역할
+	UPROPERTY(VisibleAnywhere)
 	float MP;
+	UPROPERTY(VisibleAnywhere)
 	float MaxEXP;
+	UPROPERTY(VisibleAnywhere)
 	float EXP;		//Monster의 경우 주는 경험치 양
+	UPROPERTY(VisibleAnywhere)
 	float STR;
+	UPROPERTY(VisibleAnywhere)
 	float INT;
+	UPROPERTY(VisibleAnywhere)
 	float STRDEF;
+	UPROPERTY(VisibleAnywhere)
 	float INTDEF;
 
 
