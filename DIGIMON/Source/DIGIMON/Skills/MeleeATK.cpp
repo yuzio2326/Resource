@@ -68,7 +68,20 @@ void AMeleeATK::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 	GetWorld()->GetSubsystem<UActorPoolSubsystem>()->SpawnEffect(NewTransform, MeleeATKData->HitEffectTableRowHandle);
 	Destroy();
 
+
+	//add Skill or Attack Type 
+	//
+	{
+		//여기에 데미지 관련 수식 넣고 데미지 만든 뒤에 fDamage에 해당 데미지 관련 값 넣기
+		// bool SkillDataTableRowHandle의 damage type을 받고 해당하는 status를 가지고 온뒤 
+		// SkillDataTableRowHandle의 계수 * INT(STR) 에 baseDMG를 더하기
+		// baseDMG + 
+	}
+
 	float fDamage = MeleeATKData->DMG;
+
+
+
 	UGameplayStatics::ApplyDamage(OtherActor, fDamage, GetInstigator()->GetController(), this, nullptr);
 
 

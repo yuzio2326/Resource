@@ -13,7 +13,7 @@ player로 한다면 총이나 다른 무기를 가지고 몬스터에게 공격�
 monster code [ㅁ]
 
 Skill 만들기[ㅇ]
-ㄴ> damage 설정은 만드는중	//Base Damage + Status Bonus Damage
+ㄴ> damage 설정은 만드는중[@]	//Base Damage + Status Bonus Damage
 
 Status 만들기[ㅇ]
 
