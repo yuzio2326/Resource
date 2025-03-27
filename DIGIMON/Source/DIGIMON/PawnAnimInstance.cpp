@@ -1,8 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+#include "PawnAnimInstance.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "PawnAnimInstance.h"
 
 void UPawnAnimInstance::NativeInitializeAnimation()
 {

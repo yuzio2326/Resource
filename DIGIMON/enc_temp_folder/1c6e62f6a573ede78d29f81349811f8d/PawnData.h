@@ -3,8 +3,6 @@
 #pragma once
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
-#include "Components/SphereComponent.h"
-#include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 
 
@@ -28,20 +26,10 @@ public:
 	TSubclassOf<UPawnAnimInstance> AnimClass;
 
 public:
-	//Make Base Capsule
 	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	TSubclassOf<UShapeComponent> CollisionClass = UCapsuleComponent::StaticClass();
-	//유년기 다수 사용 가능
+	float CollisionCapsuleRadius = 22.f;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	float CollisionSphereRadius = 32.f;
-	// 안쓸수도?
-	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	FVector CollisionBoxExtent = FVector(32.0, 32.0, 32.0);
-	
-	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	float CollisionCapsuleRadius = 50.f;
-	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	float CollisionCapsuleHalfHeight = 100.f;
+	float CollisionCapsuleHalfHeight = 44.f;
 
 public: // Animation
 	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
