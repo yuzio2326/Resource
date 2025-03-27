@@ -23,6 +23,11 @@ void AMeleeATK::BeginPlay()
 	
 }
 
+void AMeleeATK::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	
+}
+
 // Called every frame
 void AMeleeATK::Tick(float DeltaTime)
 {
