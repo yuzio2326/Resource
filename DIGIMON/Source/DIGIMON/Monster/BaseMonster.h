@@ -5,6 +5,8 @@
 
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
+//#include "Engine/"
+#include "CapsuleComponent.generated.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"

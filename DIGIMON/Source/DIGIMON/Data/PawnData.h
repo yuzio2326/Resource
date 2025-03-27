@@ -3,6 +3,7 @@
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
 
+
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "PawnData.generated.h"
@@ -30,10 +31,10 @@ public:
 	//float CollisionSphereRadius = 32.f;
 	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
 	//FVector CollisionBoxExtent = FVector(32.0, 32.0, 32.0);
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//float CollisionCapsuleRadius = 22.f;
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//float CollisionCapsuleHalfHeight = 44.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleRadius = 22.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleHalfHeight = 44.f;
 
 public: // Animation
 	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
@@ -71,6 +72,9 @@ public: // AI (Enemy만 적용)
 	float INT = 0;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	float INT_DEF = 0;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	int PawnType = 0;	// Data =1 / Virus=2 / Vaccine=3
+
 	//UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	//float DMG = 0;
 
