@@ -38,6 +38,8 @@ public:
 	// Sets default values for this component's properties
 	UStatusComponent();
 
+	void StatusSetting(int SetLevel, float SetEXP,float SetMaxHP, float SetMaxMP, float SetSTR, float SetSTR_DEF, float SetINT, float SetINT_DEF, int SetPawnType) 
+	{Level = SetLevel, EXP = SetEXP, MaxHP = SetMaxHP, HP = SetMaxHP, MaxMP = SetMaxMP, MP = SetMaxMP, STR = SetSTR, STRDEF = SetSTR_DEF, INT = SetINT, INTDEF = SetINT_DEF, Type = SetPawnType;}
 
 protected:
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
@@ -58,7 +60,7 @@ public:
 
 
 protected:
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.PawnTableRow"))//만들어야함
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BasePawnData"))//만들어야함
 	FDataTableRowHandle DataTableRowHandle;
 
 	UPROPERTY(VisibleAnywhere)
@@ -67,20 +69,24 @@ protected:
 
 protected:
 	int Level;
+	int Type;
 	float MaxHP;
 	float HP;
 	float MaxMP;	//마나 역할
 	float MP;
 	float MaxEXP;
 	float EXP;		//Monster의 경우 주는 경험치 양
-	float AD;
-	float AP;
+	float STR;
+	float INT;
+	float STRDEF;
+	float INTDEF;
 
 
-	float MainSTR;
-	float MainINT;
-	float MainDEX;
-	float MainLUK;
+
+	float MainSTR;		//STR, HP_GENERATION
+	float MainINT;		//INT, MP_GENERATION
+	float MainHealth;	//HP, HP_Generation
+	float MainPatient;	//DEF, MP_GENERATION
 
 
 

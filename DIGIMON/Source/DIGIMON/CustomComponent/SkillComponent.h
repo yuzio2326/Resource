@@ -13,8 +13,10 @@ struct DIGIMON_API FSkillTableRow : public FTableRowBase
 {
 	GENERATED_BODY()
 public: // Skill
+	//FSkillDataRow = skillbase쪽에 있는 데이터 가지고 와서 설정 
+	// mp랑 dmg전부 그쪽에 있고 얘는 그냥 해당 몬스터가 가지고있는 스킬 Array임
 	UPROPERTY(EditAnywhere, Category = "Skill", meta = (RowType = "/Script/DIGIMON.SkillDataRow"))
-	TArray<FDataTableRowHandle> SkillArray;	//FSkillDataRow = skillbase쪽에 있는 데이터 가지고 와서 설정
+	TArray<FDataTableRowHandle> SkillArray;	
 
 };
 

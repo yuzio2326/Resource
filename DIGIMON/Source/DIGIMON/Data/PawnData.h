@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
+//#include "../Misc/Utils.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -67,7 +68,13 @@ public: // AI (Enemy만 적용)
 	//TSubclassOf<AAIController> AIControllerClass;
 
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	int Level = 1;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	float EXP = 0;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	float HP = 0;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	float MP = 0;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	float STR = 0;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")

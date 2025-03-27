@@ -6,6 +6,7 @@
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
 #include "../Data/PawnData.h"
+#include "../Misc/Utils.h"
 //#include "Engine/"
 
 #include "CoreMinimal.h"
@@ -21,6 +22,10 @@ public:
 	//DropItem
 	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/KDT3D.ItemPackTableRow"))
 	//FDataTableRowHandle DropItem;
+	
+	//특수 객체 만들기 힘들다는 단점이 있긴함...
+	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/DIGIMON.PawnTableRow"))
+	//FDataTableRowHandle BasePawnData;
 
 };
 
@@ -43,8 +48,12 @@ protected:
 	virtual void PostLoadSubobjects(FObjectInstancingGraph* OuterInstanceGraph) override;
 
 protected:
+	/** Allow actors to initialize themselves on the C++ side after all of their components have been initialized, only called during gameplay */
+	virtual void PostInitializeComponents() override;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void OnConstruction(const FTransform& Transform);
+
 
 public:	
 	// Called every frame
@@ -68,11 +77,13 @@ protected:
 	FBaseMonsterTableRow* MonsterData;
 
 protected:
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BaseMonsterTableRow"))
+	FDataTableRowHandle BaseMonsterDataTableRowHandle;
+
 	UPROPERTY(VisibleAnywhere)
 	UStatusComponent* StatusComponent;
 	UPROPERTY(VisibleAnywhere)
 	USkillComponent* SkillComponent;
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.PawnTableRow"))
-	FDataTableRowHandle BasePawnDataTableRowHandle;
 
+	FSkillTableRow* MonsterSkillData;
 };
