@@ -1,0 +1,55 @@
+Backstep Motion을 RootMotion으로 나중에 바꾸기
+
+player를 사람으로 할지 or digimon으로 할지 고민중 [미정 ]
+digimon으로 한다면 플레이어블 디지몬 2~4종류 정도만 만들고 나머지 몬스터로 만들기
+player로 한다면 총이나 다른 무기를 가지고 몬스터에게 공격시 아군 파티 몬스터도 다같이 공격
+
+기본 몬스터 플레이어 캐릭터 코드 작성 ㄱㄱ[ㅁ]
+
+현재 길몬 코로몬 2종 완성
+
+필수
+
+monster code [ㅁ]
+
+Skill 만들기[ㅇ]
+ㄴ> damage 설정은 만드는중	//Base Damage + Status Bonus Damage
+
+Status 만들기[ㅇ]
+
+DMG및 skill DMG 등 데미지 관련 및 경험치 상호작용 만들기[]
+
+
+Movement 만들기[X]
+Monster AI [X]
+
+PartyDigimon AI 만들기[X]
+ㄴ> 아군 공격시 or 아군 dmg받을시 PartyDigimon 공격 대상 공격
+
+UI만들기[]
+
+드랍테이블 및 아이템[]
+ㄴ> 디지몬 Data(포획), 알, 특수 진화 재료, 장비, 소비
+
+
+
+
+서버 만들기
+서버 위치 애니메이션 공격 기반 등
+서버 드랍 아이템 등
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
