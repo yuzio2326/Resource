@@ -22,6 +22,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "MeleeATK")
 	TSubclassOf<AMeleeATK> MeleeATKClass;
 
+	UPROPERTY(EditAnywhere, Category = "MeleeATK|Effect", meta = (RowType = "/Script/KDT3D.EffectTableRow"))
+	FDataTableRowHandle HitEffectTableRowHandle;
+
 	UPROPERTY(EditAnywhere, Category = "MeleeATK | Damage")
 	float DMG = 0;
 
@@ -60,4 +63,9 @@ protected:
 	UPROPERTY()
 	UCapsuleComponent* MeleeCapsuleComponent;
 
+protected:
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.MeleeATKTableRow"))
+	FDataTableRowHandle DataTableRowHandle;
+
+	FMeleeATKTableRow* MeleeATKData;
 };
