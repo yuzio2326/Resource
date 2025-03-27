@@ -60,7 +60,7 @@ public:
 
 
 protected:
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BasePawnData"))//만들어야함
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BasePawnData"))
 	FDataTableRowHandle DataTableRowHandle;
 
 	UPROPERTY(VisibleAnywhere)

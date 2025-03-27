@@ -22,6 +22,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float Damage;		//Projectile같은 melee만들고 거기서 데미지랑 이펙트 넣고 딜 ㄱㄱ
 	UPROPERTY(EditAnywhere, Category = "Skill")
+	bool IsUseStatusSTR;		//INT STR 
+	UPROPERTY(EditAnywhere, Category = "Skill")
 	float BonusDamage;		//status 기반 추가뎀(계수)
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	bool SkillDamageType;		//AD=0, AP=1		
