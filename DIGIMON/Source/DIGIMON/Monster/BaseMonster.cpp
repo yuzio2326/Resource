@@ -37,43 +37,43 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 
 	//MovementComponent->MaxSpeed = MonsterData->MovementMaxSpeed;
 
-	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != MonsterData->CollisionClass)
-	{
-		EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
-		CollisionComponent = NewObject<UShapeComponent>(this, MonsterData->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
-		CollisionComponent->RegisterComponent();
-		CollisionComponent->SetCollisionProfileName(CollisionProfileName::Enemy);
-		CollisionComponent->SetCanEverAffectNavigation(false);
-		SetRootComponent(CollisionComponent);
-		DefaultSceneRoot->SetRelativeTransform(FTransform::Identity);
-		DefaultSceneRoot->AttachToComponent(CollisionComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	}
+	//if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != MonsterData->CollisionClass)
+	//{
+	//	EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
+	//	CollisionComponent = NewObject<UShapeComponent>(this, MonsterData->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
+	//	CollisionComponent->RegisterComponent();
+	//	CollisionComponent->SetCollisionProfileName(CollisionProfileName::Enemy);
+	//	CollisionComponent->SetCanEverAffectNavigation(false);
+	//	SetRootComponent(CollisionComponent);
+	//	DefaultSceneRoot->SetRelativeTransform(FTransform::Identity);
+	//	DefaultSceneRoot->AttachToComponent(CollisionComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	//}
 
-	if (USphereComponent* SphereComponent = Cast<USphereComponent>(CollisionComponent))
-	{
-		SphereComponent->SetSphereRadius(MonsterData->CollisionSphereRadius);
-	}
-	else if (UBoxComponent* BoxComponent = Cast<UBoxComponent>(CollisionComponent))
-	{
-		BoxComponent->SetBoxExtent(MonsterData->CollisionBoxExtent);
-	}
-	else if (UCapsuleComponent* CapsuleComponent = Cast<UCapsuleComponent>(CollisionComponent))
-	{
-		CapsuleComponent->SetCapsuleSize(MonsterData->CollisionCapsuleRadius, MonsterData->CollisionCapsuleHalfHeight);
-	}
+	//if (USphereComponent* SphereComponent = Cast<USphereComponent>(CollisionComponent))
+	//{
+	//	SphereComponent->SetSphereRadius(MonsterData->CollisionSphereRadius);
+	//}
+	//else if (UBoxComponent* BoxComponent = Cast<UBoxComponent>(CollisionComponent))
+	//{
+	//	BoxComponent->SetBoxExtent(MonsterData->CollisionBoxExtent);
+	//}
+	//else if (UCapsuleComponent* CapsuleComponent = Cast<UCapsuleComponent>(CollisionComponent))
+	//{
+	//	CapsuleComponent->SetCapsuleSize(MonsterData->CollisionCapsuleRadius, MonsterData->CollisionCapsuleHalfHeight);
+	//}
 
-	SkeletalMeshComponent->SetSkeletalMesh(MonsterData->SkeletalMesh);
-	SkeletalMeshComponent->SetAnimClass(MonsterData->AnimClass);
-	SkeletalMeshComponent->SetRelativeTransform(MonsterData->MeshTransform);
+	//SkeletalMeshComponent->SetSkeletalMesh(MonsterData->SkeletalMesh);
+	//SkeletalMeshComponent->SetAnimClass(MonsterData->AnimClass);
+	//SkeletalMeshComponent->SetRelativeTransform(MonsterData->MeshTransform);
 
-	if (MonsterData->HP != 0 && MonsterData->DMG != 0)
-	{
-		StatusComponent->StatusSetting(MonsterData->HP, MonsterData->DMG);
-		MonsterDMG = MonsterData->DMG;
-		MonsterHP = MonsterData->HP;
-	}
+	//if (MonsterData->HP != 0 && MonsterData->DMG != 0)
+	//{
+	//	StatusComponent->StatusSetting(MonsterData->HP, MonsterData->DMG);
+	//	MonsterDMG = MonsterData->DMG;
+	//	MonsterHP = MonsterData->HP;
+	//}
 
-	AnimInstance = SkeletalMeshComponent->GetAnimInstance();
+	//AnimInstance = SkeletalMeshComponent->GetAnimInstance();
 
 }
 
