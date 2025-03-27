@@ -2,7 +2,9 @@
 
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
-
+#include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -25,16 +27,18 @@ public:
 	TSubclassOf<UPawnAnimInstance> AnimClass;
 
 public:
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//TSubclassOf<UShapeComponent> CollisionClass = USphereComponent::StaticClass();
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//float CollisionSphereRadius = 32.f;
-	//UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	//FVector CollisionBoxExtent = FVector(32.0, 32.0, 32.0);
+	//Make Base Capsule
 	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	float CollisionCapsuleRadius = 22.f;
+	TSubclassOf<UShapeComponent> CollisionClass = UCapsuleComponent::StaticClass();
 	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	float CollisionCapsuleHalfHeight = 44.f;
+	float CollisionSphereRadius = 32.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	FVector CollisionBoxExtent = FVector(32.0, 32.0, 32.0);
+
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleRadius = 50.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleHalfHeight = 100.f;
 
 public: // Animation
 	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
@@ -81,4 +85,26 @@ public: // AI (Enemy만 적용)
 
 	/*UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	TArray<float> SkillDMGArray;*/
+};
+
+UCLASS()
+class DIGIMON_API APawnData : public APawn
+{
+	GENERATED_BODY()
+
+public:
+	// Sets default values for this pawn's properties
+	APawnData();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 };

@@ -5,13 +5,24 @@
 
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
+#include "../Data/PawnData.h"
 //#include "Engine/"
-#include "CapsuleComponent.generated.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "BaseMonster.generated.h"
 
+USTRUCT()
+struct DIGIMON_API FBaseMonsterTableRow : public FBasePawnData
+{
+	GENERATED_BODY()
+
+public:
+	//DropItem
+	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/KDT3D.ItemPackTableRow"))
+	//FDataTableRowHandle DropItem;
+
+};
 
 
 
@@ -25,7 +36,11 @@ public:
 	ABaseMonster();
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
 	virtual void SetSkillData(const FDataTableRowHandle& InSkillDataTableRowHandle);
-
+protected:
+	//Duplacte In Editor
+	virtual void PostDuplicate(EDuplicateMode::Type DuplicateMode) override;
+	virtual void PostLoad() override;
+	virtual void PostLoadSubobjects(FObjectInstancingGraph* OuterInstanceGraph) override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -47,12 +62,17 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USkeletalMeshComponent> SkeletalMeshComponent;
 
+	UPROPERTY()
+	TObjectPtr<UShapeComponent> CollisionComponent;
+
+	FBaseMonsterTableRow* MonsterData;
 
 protected:
 	UPROPERTY(VisibleAnywhere)
 	UStatusComponent* StatusComponent;
 	UPROPERTY(VisibleAnywhere)
 	USkillComponent* SkillComponent;
-
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.PawnTableRow"))
+	FDataTableRowHandle BasePawnDataTableRowHandle;
 
 };
