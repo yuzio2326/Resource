@@ -8,8 +8,18 @@ public class DIGIMON : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
-        "UMG", "MoviePlayer", "AIModule", "Paper2D"
-		});
-	}
+        PublicDependencyModuleNames.AddRange(
+            new string[]
+            {
+                "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
+                "UMG", "MoviePlayer", "AIModule", "Paper2D"
+            });
+
+        PrivateDependencyModuleNames.AddRange(new string[] { });
+
+        PublicIncludePaths.AddRange(new string[]
+        {
+            this.Name
+        });
+    }
 }

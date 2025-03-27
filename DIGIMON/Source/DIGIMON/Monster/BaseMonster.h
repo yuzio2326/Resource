@@ -5,7 +5,12 @@
 #include "../Data/PawnData.h"
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
+<<<<<<< HEAD
 #include "Components/CapsuleComponent.h"
+=======
+//#include "Engine/"
+#include "CapsuleComponent.generated.h"
+>>>>>>> cb52730353b82fd9bfed43b7a48dfc9299d1b050
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
