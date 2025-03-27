@@ -2,25 +2,17 @@
 
 #pragma once
 
-#include "../Data/PawnData.h"
+
 #include "../CustomComponent/StatusComponent.h"
 #include "../CustomComponent/SkillComponent.h"
-#include "Components/CapsuleComponent.h"
+//#include "Engine/"
+#include "CapsuleComponent.generated.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "BaseMonster.generated.h"
-USTRUCT()
-struct DIGIMON_API FBaseMonsterTableRow : public FBasePawnData
-{
-	GENERATED_BODY()
 
-public:
-	//나중에 DropTable 추가 이후 사용할 예정
-	UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/DIGIMON.ItemPackTableRow"))
-	FDataTableRowHandle DropItem;
 
-};
 
 
 UCLASS()
@@ -33,11 +25,6 @@ public:
 	ABaseMonster();
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
 	virtual void SetSkillData(const FDataTableRowHandle& InSkillDataTableRowHandle);
-protected:
-	//Duplacte In Editor
-	virtual void PostDuplicate(EDuplicateMode::Type DuplicateMode) override;
-	virtual void PostLoad() override;
-	virtual void PostLoadSubobjects(FObjectInstancingGraph* OuterInstanceGraph) override;
 
 
 protected:
@@ -52,21 +39,13 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
-protected:
-	UPROPERTY()
-	TObjectPtr<UShapeComponent> CollisionComponent;
 
+protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USceneComponent> DefaultSceneRoot;
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USkeletalMeshComponent> SkeletalMeshComponent;
-protected:
-	//base Pawn data table 만들어서 해당 데이터 참고 해가지구 player와 monster모두 사용 가능하게 함
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.PawnTableRow"))
-	FDataTableRowHandle BasePawnDataTableRowHandle;
-
-	FBaseMonsterTableRow* MonsterData;
 
 
 protected:
