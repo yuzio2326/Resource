@@ -41,9 +41,9 @@ void USkillComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 		SkillCooldowns[i] = 0.0f;
 	}
 	if (SkillTableRow.SkillDataArray.Num() > 0)
-		OnUsingSkill.Broadcast(false, true);
+		OnUsingSkill.Broadcast(false, true, true);
 	else
-		OnUsingSkill.Broadcast(false, true);
+		OnUsingSkill.Broadcast(false, true, false);
 
 
 
@@ -77,11 +77,108 @@ void USkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	// ...
 
 
+
+	//Monster의 경우 순환하는 구조로 사용 가능한 스킬이 하나라도 있을 경우 해당 스킬을 사용하도록 한다.
+	if (bIsAI)
+	{
+		int32 RangedSkillNum = SkillTableRow.RangedSkillArray.Num();
+
+		int32 MeleeSkillNum = SkillTableRow.SkillDataArray.Num();
+
+		//MeleeSkill이 있으면
+		if (MeleeSkillNum > 0)
+		{
+			//TODO:: BroadCast로 ISAllSkillCooltime얘가 모두 쿨이면 사용 가능 여부를 false로 ㄱㄱ
+			for (int32 i = 0; i < MeleeSkillNum; i++)
+			{
+				//단 하나라도 쿨타임이 다 돌았으면 false
+				if (SkillCooldowns[i] <= 0)
+				{
+					ISMeleeSkillCooltime = false;
+					break;
+				}
+				else { ISMeleeSkillCooltime = true; }
+			}
+			for (int32 i = 0; i < MeleeSkillNum; i++) {
+				if (SkillCooldowns[i] > 0.0f) {
+					SkillCooldowns[i] -= DeltaTime;
+					SkillCooldowns[i] = FMath::Max(SkillCooldowns[i], 0.0f);  // 0보다 작아지지 않도록
+				}
+			}
+
+		}
+		else { ISMeleeSkillCooltime = true; }
+
+		//Ranged Skill 이 있으면
+		if (RangedSkillNum > 0)
+		{
+			//모든 스킬 쿨타임인지 아는 bool의 기본값을 true로
+			for (int32 i = 0; i < RangedSkillNum; i++)
+			{
+				//단 하나라도 쿨타임이 다 돌았으면 false
+				if (RangedSkillCooldowns[i] <= 0)
+				{
+					ISRangedSkillCooltime = false;
+					break;
+				}
+				else { ISRangedSkillCooltime = true; }
+			}
+			for (int32 i = 0; i < RangedSkillNum; i++) {
+				if (RangedSkillCooldowns[i] > 0.0f) {
+					RangedSkillCooldowns[i] -= DeltaTime;
+					RangedSkillCooldowns[i] = FMath::Max(RangedSkillCooldowns[i], 0.0f);  // 0보다 작아지지 않도록
+				}
+			}
+
+		}
+		else { ISRangedSkillCooltime = true; }
+
+		//melee나 range둘중에 하나라도 쿨타임이 돌면
+		if (!ISRangedSkillCooltime)
+			OnUsingSkill.Broadcast(UsingSkill, true, true);
+		else if (!ISMeleeSkillCooltime)
+			OnUsingSkill.Broadcast(UsingSkill, true, false);
+
+	}
+
+
+
 }
 
 void USkillComponent::CanUseSkill()
 {
 	//skill data의 cooltime을 비교 하면서 사용 가능한지 아닌지 여기서 확인하고 useSkill을 사용합니다.
+	
+	bool UseSkill = false;
+
+	//Skill 사용중이 아니면
+	if (!bIsUsingSkill) 
+	{ 
+		int32 SkillNum = SkillTableRow.SkillDataArray.Num();
+
+		//skill 갯수 부족으로 false로 
+		if (SkillNum <= 0)
+		{
+			OnUsingSkill.Broadcast(UsingSkill, UseSkill, true);
+			return;
+		}
+
+
+
+		//bIsAI로 monster가 해당 컴포넌트 보유 중이면 랜덤하게 뽑아서 사용하도록 합니다.
+		if (bIsAI)
+		{
+			while (!ISMeleeSkillCooltime)
+			{
+
+			}
+		}
+
+
+
+		return; 
+	}
+
 }
 
 void USkillComponent::UseSkill(int IndexSkill)

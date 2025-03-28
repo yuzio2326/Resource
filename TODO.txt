@@ -17,14 +17,15 @@ Skill 만들기[ㅇ]
 
 Status 만들기[ㅇ]
 
-DMG및 skill DMG 등 데미지 관련 및 경험치 상호작용 만들기[]
+DMG및 skill DMG 등 데미지 관련 및 경험치 상호작용 만들기[ㅁ]
 
 
 Movement 만들기[X]
-Monster AI [X]
+Monster AI [ㅁ]
 
-PartyDigimon AI 만들기[X]
-ㄴ> 아군 공격시 or 아군 dmg받을시 PartyDigimon 공격 대상 공격
+PartyDigimon AI 만들기[ㅁ]
+ㄴ> 아군 공격시 or 아군 dmg받을시 PartyDigimon 공격 대상 공격 []
+	ㄴ> Owner Player 만들고 대상이 공격시 or 데미지 받을시 같은 대상 타게팅 하는식으로 변수 하나 추가하면 될거 같음
 
 UI만들기[]
 

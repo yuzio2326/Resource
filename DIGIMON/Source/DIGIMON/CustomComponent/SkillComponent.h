@@ -23,9 +23,13 @@ public: // Skill
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill", meta = (RowType = "/Script/DIGIMON.SkillDataRow"))
 	TArray<FSkillDataRow> SkillDataArray;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill", meta = (RowType = "/Script/DIGIMON.SkillDataRow"))
+	TArray<FSkillDataRow> RangedSkillArray;
+
+
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnUsingSkill, bool, UsingSkill, bool, CanUseSkill);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnUsingSkill, bool, UsingSkill, bool, CanUseSkill, bool, IsRangeSkill);
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -68,10 +72,27 @@ protected:
 
 protected:
 	//Monster SkillComponent가 아닌 이걸로 설정
-	bool bIsMonster;
+	
+	//AI Use Skills 
+	bool bIsAI = false;
+
+	bool ISAllSkillCooltime = false;
+	bool ISRangedSkillCooltime = false;
+	bool ISMeleeSkillCooltime = false;
+	bool UsingSkill = false;
+
 
 	TArray<float> SkillCooldowns;
+	TArray<float> RangedSkillCooldowns;
 
 	UPROPERTY(BlueprintAssignable)
 	FOnUsingSkill OnUsingSkill;
+
+
+	bool bIsUsingSkill = false;
+
+
+
+
+
 };
