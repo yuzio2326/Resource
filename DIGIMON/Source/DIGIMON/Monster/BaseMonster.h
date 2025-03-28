@@ -7,6 +7,7 @@
 #include "../CustomComponent/SkillComponent.h"
 #include "../Data/PawnData.h"
 #include "../Misc/Utils.h"
+#include "../CustomComponent/AdvanceFloatingPawnMovement.h"
 //#include "Engine/"
 
 #include "CoreMinimal.h"
@@ -81,7 +82,10 @@ protected:
 	FDataTableRowHandle BaseMonsterDataTableRowHandle;
 
 	UPROPERTY(VisibleAnywhere)
+	UAdvanceFloatingPawnMovement* MovementComponent;
+	UPROPERTY(VisibleAnywhere)
 	UStatusComponent* StatusComponent;
+
 	UPROPERTY(VisibleAnywhere)
 	USkillComponent* SkillComponent;
 

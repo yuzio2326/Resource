@@ -25,9 +25,8 @@ ABaseMonster::ABaseMonster()
 	/*Add All Data */
 
 	//ADDMovementComponent Later
-	//MovementComponent = CreateDefaultSubobject<UAdvanceFloatingPawnMovement>(TEXT("MovementComponent"));
-	//check(MovementComponent);
-
+	MovementComponent = CreateDefaultSubobject<UAdvanceFloatingPawnMovement>(TEXT("MovementComponent"));
+	check(MovementComponent);
 	StatusComponent = CreateDefaultSubobject<UStatusComponent>(TEXT("StatusComponent"));
 	check(StatusComponent);
 	SkillComponent = CreateDefaultSubobject<USkillComponent>(TEXT("MonsterSkillComponent"));
