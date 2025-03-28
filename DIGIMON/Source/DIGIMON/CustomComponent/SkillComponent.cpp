@@ -35,12 +35,12 @@ void USkillComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 	SkeletalMeshComponent = GetOwner()->FindComponentByClass<USkeletalMeshComponent>();
 	AnimInstance = SkeletalMeshComponent->GetAnimInstance();
 
-	SkillCooldowns.SetNum(SkillTableRow.SkillArray.Num());
-	for (int32 i = 0; i < SkillTableRow.SkillArray.Num() - 1; i++)
+	SkillCooldowns.SetNum(SkillTableRow.SkillDataArray.Num());
+	for (int32 i = 0; i < SkillTableRow.SkillDataArray.Num() - 1; i++)
 	{
 		SkillCooldowns[i] = 0.0f;
 	}
-	if (SkillTableRow.SkillArray.Num() > 0)
+	if (SkillTableRow.SkillDataArray.Num() > 0)
 		OnUsingSkill.Broadcast(false, true);
 	else
 		OnUsingSkill.Broadcast(false, true);
@@ -75,6 +75,25 @@ void USkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+
+
+}
+
+void USkillComponent::CanUseSkill()
+{
+	//skill data의 cooltime을 비교 하면서 사용 가능한지 아닌지 여기서 확인하고 useSkill을 사용합니다.
+}
+
+void USkillComponent::UseSkill(int IndexSkill)
+{
+	//자신이 사용할 skill의 데이터를 가지고 와서 status에 세팅을 하고 해당 스킬이 끝나면 다시 돌려줍니다.
+
+	if (SkillTableRow.SkillDataArray.IsEmpty()) { return; }
+
+	FSkillDataRow SkillData = SkillTableRow.SkillDataArray[IndexSkill];
+
+
+
 
 
 }

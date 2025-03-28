@@ -107,7 +107,7 @@ void ABaseMonster::SetSkillData(const FDataTableRowHandle& InSkillDataTableRowHa
 	SkillComponent->SetData(InSkillDataTableRowHandle);
 
 
-	int32 CheckSkillNum = MonsterSkillData->SkillArray.Num();
+	int32 CheckSkillNum = MonsterSkillData->SkillDataArray.Num();
 
 }
 

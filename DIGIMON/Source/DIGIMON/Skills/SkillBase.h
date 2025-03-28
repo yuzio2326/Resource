@@ -19,16 +19,22 @@ public:
 	//Delete 
 	//UPROPERTY(EditAnywhere, Category = "Skill")
 	//FTransform Transform = FTransform::Identity;
+	//Projectile같은 melee만들고 거기서 데미지랑 이펙트 넣고 딜 ㄱㄱ
 	UPROPERTY(EditAnywhere, Category = "Skill")
-	float Damage;		//Projectile같은 melee만들고 거기서 데미지랑 이펙트 넣고 딜 ㄱㄱ
+	float Damage;		
+	//INT STR 
 	UPROPERTY(EditAnywhere, Category = "Skill")
-	bool IsUseStatusSTR;		//INT STR 
+	bool IsUseStatusSTR;		
+	//status 기반 추가뎀(계수)
 	UPROPERTY(EditAnywhere, Category = "Skill")
-	float BonusDamage;		//status 기반 추가뎀(계수)
+	float BonusDamage;		
+	//AP = true, AD = false
 	UPROPERTY(EditAnywhere, Category = "Skill")
-	bool SkillDamageType;		//AD=0, AP=1		
+	bool SkillDamageType;				
+	//CoolTime
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float SkillCoolTime;
+	//돌아가는놈 예정
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float CurrentSkillCoolTime;
 	UPROPERTY(EditAnywhere, Category = "Skill")

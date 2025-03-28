@@ -15,8 +15,13 @@ struct DIGIMON_API FSkillTableRow : public FTableRowBase
 public: // Skill
 	//FSkillDataRow = skillbase쪽에 있는 데이터 가지고 와서 설정 
 	// mp랑 dmg전부 그쪽에 있고 얘는 그냥 해당 몬스터가 가지고있는 스킬 Array임
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill", meta = (RowType = "/Script/DIGIMON.SkillDataRow"))
+	//TArray<FDataTableRowHandle> SkillArray;	
+
+	//얘가 더 ㄱㅊ긴 함... 위는 좀 2중 3중으로 돌려 쓰는 느낌? 
+	//data 다 옮기고 위에 없애기
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill", meta = (RowType = "/Script/DIGIMON.SkillDataRow"))
-	TArray<FDataTableRowHandle> SkillArray;	
+	TArray<FSkillDataRow> SkillDataArray;
 
 };
 
@@ -44,6 +49,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void CanUseSkill();
+	void UseSkill(int IndexSkill);
+
+
 protected:
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.SkillTableRow"))
 	FDataTableRowHandle DataTableRowHandle;
@@ -51,8 +60,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill Data")
 	FSkillTableRow SkillTableRow;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill Data")
-	TArray<FSkillDataRow> SkillDataRow;
 
 protected:
 	USkeletalMeshComponent* SkeletalMeshComponent;
