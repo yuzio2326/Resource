@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Kismet/KismetSystemLibrary.h"
+#include "AI/MonsterAIController.h"
 #include "BaseMonster.h"
 
 // Sets default values
@@ -32,7 +33,13 @@ ABaseMonster::ABaseMonster()
 	SkillComponent = CreateDefaultSubobject<USkillComponent>(TEXT("MonsterSkillComponent"));
 	check(SkillComponent);
 
-
+	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerceptionComponent"));
+	AISenseConfig_Sight = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("AISenseConfig_Sight"));
+	AISenseConfig_Sight->DetectionByAffiliation.bDetectNeutrals = true;
+	AISenseConfig_Sight->SightRadius = 500.f;
+	AISenseConfig_Sight->LoseSightRadius = 700.f;
+	AISenseConfig_Sight->PeripheralVisionAngleDegrees = 120.f;
+	AIPerceptionComponent->ConfigureSense(*AISenseConfig_Sight);
 
 }
 
@@ -174,10 +181,4 @@ void ABaseMonster::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
-void ABaseMonster::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
 

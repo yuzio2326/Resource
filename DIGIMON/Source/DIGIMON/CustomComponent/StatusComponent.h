@@ -28,6 +28,9 @@ public:
 	//TSubclassOf<UBaisicCharacterAnimInstance> AnimClass;
 
 };
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHPChanged, float, CurrentHP, float, MaxHP);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnMPChanged, float, CurrentMP, float, MaxMP);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDie);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DIGIMON_API UStatusComponent : public UActorComponent
@@ -104,7 +107,10 @@ protected:
 	float MainPatient;	//DEF, MP_GENERATION
 
 
-
-
+public:
+	UPROPERTY(BlueprintAssignable)
+	FOnHPChanged OnHPChanged;
+	FOnMPChanged OnMPChanged;
+	FOnDie OnDie;
 		
 };

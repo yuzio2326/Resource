@@ -85,14 +85,14 @@ protected:
 	TArray<float> SkillCooldowns;
 	TArray<float> RangedSkillCooldowns;
 
-	UPROPERTY(BlueprintAssignable)
-	FOnUsingSkill OnUsingSkill;
 
 
 	bool bIsUsingSkill = false;
 
 
 
+	UPROPERTY(BlueprintAssignable)
+	FOnUsingSkill OnUsingSkill;
 
 
 };

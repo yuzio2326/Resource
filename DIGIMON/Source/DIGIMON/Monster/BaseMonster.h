@@ -10,6 +10,9 @@
 #include "../CustomComponent/AdvanceFloatingPawnMovement.h"
 //#include "Engine/"
 
+#include "Perception/AIPerceptionComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "BaseMonster.generated.h"
@@ -60,8 +63,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
 
@@ -87,7 +88,32 @@ protected:
 	UStatusComponent* StatusComponent;
 
 	UPROPERTY(VisibleAnywhere)
+	UAIPerceptionComponent* AIPerceptionComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UAISenseConfig_Sight* AISenseConfig_Sight;
+	UPROPERTY(VisibleAnywhere)
+	UAnimInstance* AnimInstance;
+
+	UPROPERTY(VisibleAnywhere)
 	USkillComponent* SkillComponent;
 
+
+protected:
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/Digimon.BaseMonsterTableRow"))
+	FDataTableRowHandle MonsterDataTableRowHandle;
+
 	FSkillTableRow* MonsterSkillData;
+
+	UAnimMontage* CurrentDieMontage;
+
+
+public:
+	// false 면 Monster true 면 Player Party Monster
+	UPROPERTY(BlueprintReadOnly)
+	bool bOwningPlayer;	
+
+
+
+
 };
