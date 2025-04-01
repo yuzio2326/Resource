@@ -74,6 +74,7 @@ protected:
 	//Add UPROPERTY(VisibleAnywhere) For Visable In UE
 	UPROPERTY(BlueprintReadOnly)
 	int Level;
+	//Virus data vaccine 
 	UPROPERTY(BlueprintReadOnly)
 	int Type;
 	UPROPERTY(BlueprintReadOnly)
@@ -98,6 +99,10 @@ protected:
 	float INTDEF;
 	UPROPERTY(BlueprintReadOnly)
 	float Damage;	//사용한 스킬 및 공격 가지고 와서 damage세팅한뒤 해당하는 damage변수를 자꾸 바꾸기 이후 damage를 가지고 스킬 데미지 입히는 방향 ㄱㄱ
+
+	//Monster Or PartyMonster Or Player
+	UPROPERTY(BlueprintReadOnly)
+	int OwnerPawnType;
 
 
 
