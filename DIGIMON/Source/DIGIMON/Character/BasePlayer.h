@@ -63,7 +63,8 @@ protected:
 	UAnimMontage* CurrentDieMontage;
 
 protected:
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.PawnTableRow"))
+	//UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.PawnTableRow"))
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BasePawnData"))
 	FDataTableRowHandle DataTableRowHandle;
 
 	FBasePawnData* CharacterData;
