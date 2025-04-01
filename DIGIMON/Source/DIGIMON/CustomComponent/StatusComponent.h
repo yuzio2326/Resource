@@ -44,6 +44,16 @@ public:
 	void StatusSetting(int SetLevel, float SetEXP,float SetMaxHP, float SetMaxMP, float SetSTR, float SetSTR_DEF, float SetINT, float SetINT_DEF, int SetPawnType) 
 	{Level = SetLevel, EXP = SetEXP, MaxHP = SetMaxHP, HP = SetMaxHP, MaxMP = SetMaxMP, MP = SetMaxMP, STR = SetSTR, STRDEF = SetSTR_DEF, INT = SetINT, INTDEF = SetINT_DEF, Type = SetPawnType;}
 
+	bool CanMove() const { return !bAttack && !bDie; }
+	bool IsDie() const { return bDie; }
+	float GetHP() const { return HP; }
+	float GetMaxHP() const { return MaxHP; }
+
+	float AddEXP(float fGetEXP) { return EXP+= fGetEXP; }
+	float GetEXP() const { return EXP; }
+
+
+	int GetOwnerPawnType() const { return OwnerPawnType; }
 protected:
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
 
@@ -56,10 +66,11 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 
 public:
 	void LevelUp();
-	bool KillEnemy();
+	bool KillEnemy();	//OnDie 에서 전부 해결 할까?
 
 
 protected:
@@ -98,7 +109,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	float INTDEF;
 	UPROPERTY(BlueprintReadOnly)
-	float Damage;	//사용한 스킬 및 공격 가지고 와서 damage세팅한뒤 해당하는 damage변수를 자꾸 바꾸기 이후 damage를 가지고 스킬 데미지 입히는 방향 ㄱㄱ
+	float OwnerDamage;	//사용한 스킬 및 공격 가지고 와서 damage세팅한뒤 해당하는 damage변수를 자꾸 바꾸기 이후 damage를 가지고 스킬 데미지 입히는 방향 ㄱㄱ
 
 	//Monster Or PartyMonster Or Player
 	UPROPERTY(BlueprintReadOnly)
@@ -111,8 +122,13 @@ protected:
 	float MainHealth;	//HP, HP_Generation
 	float MainPatient;	//DEF, MP_GENERATION
 
+	bool bAttack = false;
+	bool bDie = false;
+
 
 public:
+	AController* LastInstigator = nullptr;
+
 	UPROPERTY(BlueprintAssignable)
 	FOnHPChanged OnHPChanged;
 	FOnMPChanged OnMPChanged;

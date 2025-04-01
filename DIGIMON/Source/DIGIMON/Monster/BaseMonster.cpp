@@ -174,6 +174,23 @@ void ABaseMonster::OnConstruction(const FTransform& Transform)
 	SetActorTransform(Transform);
 }
 
+float ABaseMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	if (StatusComponent->IsDie()) { return 0.f; }
+
+	// get Killer Status And Add EXP 
+	UStatusComponent* EventInstigatorStatusComponent = EventInstigator->GetOwner()->GetComponentByClass<UStatusComponent>();
+	float fEXP = StatusComponent->GetEXP();
+	EventInstigatorStatusComponent->AddEXP(fEXP);
+
+
+	return 0.0f;
+}
+
+void ABaseMonster::OnDie()
+{
+}
+
 // Called every frame
 void ABaseMonster::Tick(float DeltaTime)
 {

@@ -57,8 +57,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	virtual void OnConstruction(const FTransform& Transform);
+protected:
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 
+protected:
+	UFUNCTION()
+	virtual void OnDie();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

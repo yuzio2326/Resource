@@ -86,10 +86,11 @@ public: // AI (Enemy만 적용)
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	int PawnType = 0;	// Data =1 / Virus=2 / Vaccine=3
 
+	//Use DMG In Status
 	//UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	//float DMG = 0;
 
-
+	//Each of Skill have Own Damage and will Change Status
 	/*UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	TArray<float> SkillDMGArray;*/
 };
