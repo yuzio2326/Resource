@@ -95,7 +95,7 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 		StatusComponent->StatusSetting(MonsterData->Level, MonsterData->EXP, MonsterData->HP, MonsterData->MP, MonsterData->STR, MonsterData->STR_DEF, MonsterData->INT, MonsterData->INT_DEF, MonsterData->PawnType);
 	}
 
-	//AnimInstance = SkeletalMeshComponent->GetAnimInstance();
+	AnimInstance = SkeletalMeshComponent->GetAnimInstance();
 
 }
 
@@ -178,17 +178,52 @@ float ABaseMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 {
 	if (StatusComponent->IsDie()) { return 0.f; }
 
-	// get Killer Status And Add EXP 
-	UStatusComponent* EventInstigatorStatusComponent = EventInstigator->GetOwner()->GetComponentByClass<UStatusComponent>();
-	float fEXP = StatusComponent->GetEXP();
-	EventInstigatorStatusComponent->AddEXP(fEXP);
+	float DamageResult = StatusComponent->TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+	if (FMath::IsNearlyZero(DamageResult)) { return 0.0; }
 
+	if (Controller)
+	{
+		Controller->StopMovement();
+	}
+
+	if (StatusComponent->IsDie() && !MonsterData->DieMontage.IsEmpty())
+	{
+		if (Controller)
+		{
+			Controller->Destroy();
+		}
+		SetActorEnableCollision(false);
+
+		const int64 Index = FMath::RandRange(0, MonsterData->DieMontage.Num() - 1);
+		CurrentDieMontage = MonsterData->DieMontage[Index];
+
+		AnimInstance->Montage_Play(CurrentDieMontage);
+		UKismetSystemLibrary::K2_SetTimer(this, TEXT("OnDie"),
+			MonsterData->DieMontage[Index]->GetPlayLength() - 0.5f, false);
+	}
+	else if (!StatusComponent->IsDie() && !MonsterData->HitReactMontage.IsEmpty())
+	{
+		const int64 HitReactIndex = FMath::RandRange(0, MonsterData->HitReactMontage.Num() - 1);
+		AnimInstance->Montage_Play(MonsterData->HitReactMontage[HitReactIndex]);
+	}
 
 	return 0.0f;
 }
 
 void ABaseMonster::OnDie()
 {
+	AnimInstance->Montage_Pause(CurrentDieMontage);
+
+
+	//PaperBurn Parts
+	//const int32 MaterialNum = SkeletalMeshComponent->GetSkinnedAsset()->GetMaterials().Num();
+	//MaterialInstanceDynamics.Reserve(MaterialNum);
+	//for (int32 i = 0; i < MaterialNum; ++i)
+	//{
+	//	MaterialInstanceDynamics.Add(SkeletalMeshComponent->CreateDynamicMaterialInstance(i));
+	//}
+
+	//PaperBurnEffectTimelineComponent->Play();
 }
 
 // Called every frame
