@@ -18,11 +18,22 @@ ABasePlayerController::ABasePlayerController()
 
 void ABasePlayerController::BeginPlay()
 {
+	//Camera Setting
 	Super::BeginPlay();
 	SpringArm = GetPawn()->GetComponentByClass<USoftWheelSpringArmComponent>();
+	UCameraComponent* CameraComponent = GetPawn()->GetComponentByClass<UCameraComponent>();
+	
 	check(SpringArm);
-	SpringArm->SetMinMaxTargetArmLength(160.f, 600.f);
-	SpringArm->TargetArmLength = 450;
+	//Parter Digimon이 Fallow 한 이후 수치 조정
+	SpringArm->SetMinMaxTargetArmLength(400.f, 600.f);
+	SpringArm->TargetArmLength = 4500;
+
+
+
+	//BeginPlay가 아닌 Zoom 완성시 Zoom 에서 해당 코드를 실행하고 복구하도록 하세요
+	//CameraComponent->SetRelativeLocation(FVector(0.0f, 140.0f, 0.0f));
+	//Camera->
+	//SpringArm->TargetOffset = FVector(0, 120, 100);
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	Subsystem->AddMappingContext(IMC_BasePlayer, 0);

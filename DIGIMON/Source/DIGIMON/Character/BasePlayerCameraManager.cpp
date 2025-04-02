@@ -5,7 +5,8 @@
 
 ABasePlayerCameraManager::ABasePlayerCameraManager()
 {
-	//Value 고민
-	//ViewPitchMin = -50.0;
-	//ViewPitchMax = 40.0;
+	//pitch 제한	camera 상하 시야각 제한
+	ViewPitchMin = -50.0;
+	ViewPitchMax = 40.0;
+
 }

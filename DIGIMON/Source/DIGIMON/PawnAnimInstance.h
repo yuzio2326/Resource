@@ -42,7 +42,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	FRotator AimRotation;
 
-
-
+	//Playerable Character Var
+	UPROPERTY(BlueprintReadOnly)
+	bool ZoomTarget;
 	
 };
