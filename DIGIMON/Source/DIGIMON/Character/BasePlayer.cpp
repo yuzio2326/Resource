@@ -20,7 +20,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 		SpringArm->ProbeSize = 5.0;
 		SpringArm->bUsePawnControlRotation = true;
 		SpringArm->bInheritRoll = false;
-		SpringArm->SetMinMaxTargetArmLength(200.f, SpringArm->GetMaxTargetArmLength());
+		SpringArm->SetMinMaxTargetArmLength(400.f, SpringArm->GetMaxTargetArmLength());
 	}
 	Camera->SetupAttachment(SpringArm);
 	
@@ -36,7 +36,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 
 	StatusComponent = CreateDefaultSubobject<UStatusComponent>(TEXT("StatusComponent"));
 
-	// Minimap
+	// Minimap		minimap 대신 그냥 worldmap 하나만 할까 고민중...  
 	{
 		MinimapSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("MinimapSpriteComponent"));
 		MinimapSpriteComponent->SetupAttachment(RootComponent);
