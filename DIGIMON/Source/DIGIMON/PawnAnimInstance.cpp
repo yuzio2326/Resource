@@ -15,8 +15,8 @@ void UPawnAnimInstance::NativeInitializeAnimation()
 	else if (!Pawn) { return; }
 
 	// TODO:: ADD Movement 
-	//MovementComponent = Pawn->GetMovementComponent();
-	//check(MovementComponent);
+	MovementComponent = Pawn->GetMovementComponent();
+	check(MovementComponent);
 }
 
 void UPawnAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
