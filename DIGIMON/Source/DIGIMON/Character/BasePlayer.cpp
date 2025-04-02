@@ -20,7 +20,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 		SpringArm->ProbeSize = 5.0;
 		SpringArm->bUsePawnControlRotation = true;
 		SpringArm->bInheritRoll = false;
-		SpringArm->SetMinMaxTargetArmLength(400.f, SpringArm->GetMaxTargetArmLength());
+		SpringArm->SetMinMaxTargetArmLength(200.f, SpringArm->GetMaxTargetArmLength());
 	}
 	Camera->SetupAttachment(SpringArm);
 	
