@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float CurrentSkillCoolTime;
 	UPROPERTY(EditAnywhere, Category = "Skill")
+	bool IsRanged;
+
+	UPROPERTY(EditAnywhere, Category = "Skill")
 	TSubclassOf<ASkillBase> SkillBaseClass;
 
 	//SkillAnim

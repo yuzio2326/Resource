@@ -35,11 +35,55 @@ void USkillComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 	SkeletalMeshComponent = GetOwner()->FindComponentByClass<USkeletalMeshComponent>();
 	AnimInstance = SkeletalMeshComponent->GetAnimInstance();
 
-	SkillCooldowns.SetNum(SkillTableRow.SkillDataArray.Num());
-	for (int32 i = 0; i < SkillTableRow.SkillDataArray.Num() - 1; i++)
+	//SkillCooldowns.SetNum(SkillTableRow.SkillDataArray.Num());
+	
+	//원거리 근거리 스킬 저장 방식을 나눴음
+	int32 OwnSkillNum = SkillTableRow.SkillDataArray.Num();
+
+	int32 RangeSkillNum = SkillTableRow.RangedSkillArray.Num();
+
+	//skill 이 있으면
+	if (OwnSkillNum > 0)
 	{
-		SkillCooldowns[i] = 0.0f;
+#pragma region RangeSkill 작업시 주석 풀기용
+
+
+		//ranged skill과 melee skill 구분 및 분리...
+		//int32 Range = 0;
+		//int32 Melee = 0;
+
+		// Range Skill을 하면 중간에 자신의 쿨타임 가지고 오는 과정도 원래 SkillDataArray의 값도 따로 저장을 해야됌...
+		//그냥 원거리 스킬도 중근 거리에서 사용하게 하도록 코드를 짜고 나중에 시간이 남으면 원거리 기술들 따로 작업해야 할거 같음
+
+		
+		//skill 갯수 만큼 순회 하고
+		for (int32 i = 0; i < OwnSkillNum; i++)
+		{
+			//Range skill 작업시 해당 주석을 풀고 해당 코드로 작업을 하는게 나을거 같음
+			
+			if (SkillTableRow.SkillDataArray[i].IsRanged)
+			{
+				RangedSkillCooldowns[i] = 0.f;
+				
+			}
+			else 
+			{
+				//SkillCooldowns[Melee] = 0.f;
+				//Melee++;
+			}
+			
+		}
+#pragma endregion
+
+		// Own Skill 갯수 만큼 초기화
+		/*for (int32 i = 0; i < OwnSkillNum; i++)
+		{
+			SkillCooldowns[i] = 0.f;
+		}*/
+
+
 	}
+
 	if (SkillTableRow.SkillDataArray.Num() > 0)
 		OnUsingSkill.Broadcast(false, true, true);
 	else
@@ -81,8 +125,9 @@ void USkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	//Monster의 경우 순환하는 구조로 사용 가능한 스킬이 하나라도 있을 경우 해당 스킬을 사용하도록 한다.
 	if (bIsAI)
 	{
+		//원거리 스킬 저장용
 		int32 RangedSkillNum = SkillTableRow.RangedSkillArray.Num();
-
+		//근거리 스킬 저장용
 		int32 MeleeSkillNum = SkillTableRow.SkillDataArray.Num();
 
 		//MeleeSkill이 있으면
@@ -181,9 +226,27 @@ void USkillComponent::CanUseSkill()
 
 }
 
-void USkillComponent::UseSkill(int IndexSkill)
+void USkillComponent::AIUseSkill(int IndexSkill)
 {
 	//자신이 사용할 skill의 데이터를 가지고 와서 status에 세팅을 하고 해당 스킬이 끝나면 다시 돌려줍니다.
+
+	//Skill 사용중이 아니라면
+	if (!UsingSkill)
+	{
+		int32 SkillNum = SkillTableRow.SkillDataArray.Num();
+
+		//Skill 이 없다면 broadcast 시키고 return 하도록 한다
+		if (SkillNum <= 0)
+		{
+			//
+			//OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, true);
+			return;
+		}
+
+
+
+
+	}
 
 	if (SkillTableRow.SkillDataArray.IsEmpty()) { return; }
 
@@ -195,9 +258,9 @@ void USkillComponent::UseSkill(int IndexSkill)
 
 }
 
-void USkillComponent::UseRangedSkill()
-{
-	bool Canuseskill = true;
-
-}
+//void USkillComponent::UseRangedSkill()
+//{
+//	bool Canuseskill = true;
+//
+//}
 

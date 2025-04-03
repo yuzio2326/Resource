@@ -54,9 +54,10 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void CanUseSkill();
-	void UseSkill(int IndexSkill);
+	//AI 가 사용할 useSkill
+	void AIUseSkill(int IndexSkill);
 
-	void UseRangedSkill();
+	//void UseRangedSkill();
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.SkillTableRow"))
