@@ -56,6 +56,7 @@ public:
 	void CanUseSkill();
 	void UseSkill(int IndexSkill);
 
+	void UseRangedSkill();
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.SkillTableRow"))

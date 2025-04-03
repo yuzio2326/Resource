@@ -195,3 +195,9 @@ void USkillComponent::UseSkill(int IndexSkill)
 
 }
 
+void USkillComponent::UseRangedSkill()
+{
+	bool Canuseskill = true;
+
+}
+

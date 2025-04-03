@@ -29,6 +29,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
+
+	void CheckSpawnRadius();
+
 	UFUNCTION()
 	void OnDamaged(float CurrentHP, float MaxHP);
 
@@ -45,6 +48,7 @@ protected:
 	UFUNCTION()
 	void OnUseSkill(bool InUsingSkill, bool InCanUseSkill, bool InIsRangeSkill);
 
+	void OnRangedSkill();
 
 
 public:

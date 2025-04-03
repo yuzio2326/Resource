@@ -20,8 +20,16 @@ void AMonsterAIController::BeginPlay()
 
 	
 	//Spawn 위치 기준 일정 범위 이상 못나가게 하려고 할때 쓸 예정
-	//FVector FSpawnLocation =  GetOwner()->GetActorLocation();
-	//Blackboard->SetValueAsVector(TEXT("SpwanPosition"),FSpawnLocation);
+	APawn* OwningPawn = GetPawn();
+	FVector FSpawnLocation = OwningPawn->GetActorLocation();
+	Blackboard->SetValueAsVector(TEXT("SpwanPosition"), FSpawnLocation);
+
+	//if (GetOwner()->GetActorLocation().X > 0)
+	//{
+	//	int a = 0; 
+	//}
+
+	
 }
 
 void AMonsterAIController::OnPossess(APawn* InPawn)
@@ -43,6 +51,24 @@ void AMonsterAIController::Tick(float DeltaTime)
 	{
 		FindPlayerByPerception();
 	}
+
+	// Damaged일때는 안쓸지는 고민중
+	//spawn 위치로부터 일정 거리 벗어나면 돌아가기 위한 용도
+	CheckSpawnRadius();
+}
+
+void AMonsterAIController::CheckSpawnRadius()
+{
+	FVector FSpawnLocation = Blackboard->GetValueAsVector(TEXT("SpwanPosition"));
+	APawn* OwningPawn = GetPawn();
+	FVector OwningPawnLocation = OwningPawn->GetActorLocation();
+	//이동 반경
+	float Radius = 2000;
+
+	float Distance = FVector::Dist(FSpawnLocation, OwningPawnLocation);
+	if (Distance > Radius) { Blackboard->SetValueAsBool(TEXT("OutRangedSpawn"), true); }
+	else { Blackboard->SetValueAsBool(TEXT("OutRangedSpawn"), false); }
+
 }
 
 void AMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
@@ -84,6 +110,17 @@ void AMonsterAIController::FindPlayerByPerception()
 			Blackboard->ClearValue(TEXT("DetectPlayer"));
 		}
 	}
+}
+
+void AMonsterAIController::MoveRandomPlace()
+{
+	FVector FSpawnLocation = Blackboard->GetValueAsVector(TEXT("SpwanPosition"));
+
+	//random 반경 
+	float Radius = 2000;
+
+
+
 }
 
 
