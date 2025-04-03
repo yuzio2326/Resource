@@ -6,7 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 //#include "../Misc/Utils.h"
-
+#include "Aicontroller.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "PawnData.generated.h"
@@ -63,9 +63,9 @@ public: // Movement
 	UPROPERTY(EditAnywhere, Category = "Pawn|Movement")
 	float MovementMaxSpeed = 400.f;
 
-public: // AI (Enemy만 적용)
-	//UPROPERTY(EditAnywhere, Category = "Pawn|AI")
-	//TSubclassOf<AAIController> AIControllerClass;
+public: // AI (Monster 및 Party에 적용)
+	UPROPERTY(EditAnywhere, Category = "Pawn|AI")
+	TSubclassOf<AAIController> AIControllerClass;
 
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	int Level = 1;

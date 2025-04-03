@@ -54,6 +54,7 @@ public:
 
 
 	int GetOwnerPawnType() const { return OwnerPawnType; }
+	AController* GetLastInstigator() const { return LastInstigator; }
 protected:
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
 

@@ -52,7 +52,7 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	MonsterData = Data;
 
 	//AI 나중에 추가하기
-	//AIControllerClass = MonsterData->AIControllerClass;
+	AIControllerClass = MonsterData->AIControllerClass;
 
 
 
@@ -152,19 +152,15 @@ void ABaseMonster::PostInitializeComponents()
 	Super::PostInitializeComponents();
 	
 	//AIController 만들고 patrol 하고난 이후 주석 풀기
-	// 
-	//if (PatrolPathRef)
-	//{
-	//	if (AMonsterAIController* EnemyAIController = Cast<AMonsterAIController>(Controller))
-	//	{
-	//		EnemyAIController->SetPatrolPath(PatrolPathRef->GetPath());
-	//		if (MonsterData)
-	//		{
-	//			EnemyAIController->BossAgro(MonsterData->BossVision);
-
-	//		}
-	//	}
-	//}
+	if (AMonsterAIController* EnemyAIController = Cast<AMonsterAIController>(Controller))
+	{
+		//EnemyAIController->SetPatrolPath(PatrolPathRef->GetPath());
+		if (MonsterData)
+		{
+			EnemyAIController->BaseAgro(MonsterData->BossVision);
+		}
+	}
+	
 }
 
 // Called when the game starts or when spawned

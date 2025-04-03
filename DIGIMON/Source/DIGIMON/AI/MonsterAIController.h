@@ -3,8 +3,12 @@
 #pragma once
 
 
-#include "../CustomComponent/StatusComponent.h"
-#include "../CustomComponent/SkillComponent.h"
+#include "CustomComponent/StatusComponent.h"
+#include "CustomComponent/SkillComponent.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "Perception/AIPerceptionComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
 
 
 #include "CoreMinimal.h"
@@ -32,7 +36,6 @@ protected:
 	void ResetOnDamaged();
 
 	void FindPlayerByPerception();
-	virtual void SetFocus(AActor* NewFocus, EAIFocusPriority::Type InPriority = EAIFocusPriority::Gameplay);
 
 	UFUNCTION()
 	void OnAttack();
@@ -43,13 +46,15 @@ protected:
 
 
 public:
+	void BaseAgro(bool IsBoss) { bBaseAgro = IsBoss; }
+
 	void CheckStopAI();
 
 
 protected:
 	bool bDamaged = false;
 	bool bUsingSkill = false;
-	bool bBossAgro = false;
+	bool bBaseAgro = false;
 
 	UPROPERTY()
 	UStatusComponent* StatusComponentRef;

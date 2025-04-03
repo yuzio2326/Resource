@@ -31,6 +31,7 @@ public:
 	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/DIGIMON.PawnTableRow"))
 	//FDataTableRowHandle BasePawnData;
 
+	bool BossVision = false;//인식 범위 넓히기용
 };
 
 
