@@ -37,6 +37,8 @@ protected:
 
 	void FindPlayerByPerception();
 
+	void MoveRandomPlace();
+
 	UFUNCTION()
 	void OnAttack();
 

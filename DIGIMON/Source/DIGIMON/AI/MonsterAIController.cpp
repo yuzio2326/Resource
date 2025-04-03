@@ -13,14 +13,15 @@ void AMonsterAIController::BeginPlay()
 
 	if (!IsValid(BrainComponent))
 	{
-		UBehaviorTree* BehaviorTree = LoadObject<UBehaviorTree>(nullptr, TEXT("/Script/AIModule.BehaviorTree'/Game/Blueprint/AI/BT_BasicEnemy.BT_BasicEnemy'"));
+		UBehaviorTree* BehaviorTree = LoadObject<UBehaviorTree>(nullptr, TEXT("/Script/AIModule.BehaviorTree'/Game/Digimon/AI/BT_BaseMonster.BT_BaseMonster'"));
 		check(BehaviorTree);
 		RunBehaviorTree(BehaviorTree);
 	}
 
-	Blackboard->SetValueAsObject(TEXT("SplineComponent"), nullptr);
-
-
+	
+	//Spawn 위치 기준 일정 범위 이상 못나가게 하려고 할때 쓸 예정
+	//FVector FSpawnLocation =  GetOwner()->GetActorLocation();
+	//Blackboard->SetValueAsVector(TEXT("SpwanPosition"),FSpawnLocation);
 }
 
 void AMonsterAIController::OnPossess(APawn* InPawn)
@@ -35,6 +36,13 @@ void AMonsterAIController::OnPossess(APawn* InPawn)
 
 void AMonsterAIController::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
+
+	//Test용 실전에서는 damage만을 이용해서 player를 타게팅해서 쫓아오게 할거임
+	if (!bDamaged)
+	{
+		FindPlayerByPerception();
+	}
 }
 
 void AMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
@@ -43,7 +51,7 @@ void AMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 	AController* Instigator_ = StatusComponentRef->GetLastInstigator();
 	APawn* InstigatorPawn = Instigator_->GetPawn();
 	check(InstigatorPawn);
-	Blackboard->SetValueAsObject(TEXT("DetectedPlayer"), Cast<UObject>(InstigatorPawn));
+	Blackboard->SetValueAsObject(TEXT("DetectPlayer"), Cast<UObject>(InstigatorPawn));
 	//5초뒤 어그로 리셋
 	UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamaged"), 5.f, false);
 }
@@ -67,13 +75,13 @@ void AMonsterAIController::FindPlayerByPerception()
 			if (ACharacter* DetectedPlayer = Cast<ACharacter>(It))
 			{
 				bFound = true;
-				Blackboard->SetValueAsObject(TEXT("DetectedPlayer"), Cast<UObject>(DetectedPlayer));
+				Blackboard->SetValueAsObject(TEXT("DetectPlayer"), Cast<UObject>(DetectedPlayer));
 				break;
 			}
 		}
 		if (!bFound)
 		{
-			Blackboard->ClearValue(TEXT("DetectedPlayer"));
+			Blackboard->ClearValue(TEXT("DetectPlayer"));
 		}
 	}
 }
