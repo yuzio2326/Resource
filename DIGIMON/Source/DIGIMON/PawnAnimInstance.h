@@ -31,6 +31,9 @@ protected:
 	double Speed = 0.0;
 
 	UPROPERTY(BlueprintReadOnly)
+	double Direction = 0.0;
+
+	UPROPERTY(BlueprintReadOnly)
 	bool bShoudMove = false;
 
 	/*쓸지 안쓸지 고민중 + fall anim not exist */

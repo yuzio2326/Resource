@@ -84,8 +84,16 @@ protected:
 	FBaseMonsterTableRow* MonsterData;
 
 protected:
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BaseMonsterTableRow"))
-	FDataTableRowHandle BaseMonsterDataTableRowHandle;
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/Digimon.BaseMonsterTableRow"))
+	FDataTableRowHandle MonsterDataTableRowHandle;
+
+	FSkillTableRow* MonsterSkillData;
+
+	UAnimMontage* CurrentDieMontage;
+
+protected:
+	//UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BaseMonsterTableRow"))
+	//FDataTableRowHandle BaseMonsterDataTableRowHandle;
 
 	UPROPERTY(VisibleAnywhere)
 	UAdvanceFloatingPawnMovement* MovementComponent;
@@ -104,13 +112,6 @@ protected:
 	USkillComponent* SkillComponent;
 
 
-protected:
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/Digimon.BaseMonsterTableRow"))
-	FDataTableRowHandle MonsterDataTableRowHandle;
-
-	FSkillTableRow* MonsterSkillData;
-
-	UAnimMontage* CurrentDieMontage;
 
 
 public:

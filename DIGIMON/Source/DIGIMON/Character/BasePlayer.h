@@ -68,4 +68,7 @@ protected:
 	FDataTableRowHandle DataTableRowHandle;
 
 	FBasePawnData* CharacterData;
+
+
+	bool IsZoom = false;
 };

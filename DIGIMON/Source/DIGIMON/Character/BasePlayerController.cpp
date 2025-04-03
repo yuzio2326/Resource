@@ -25,9 +25,9 @@ void ABasePlayerController::BeginPlay()
 	
 	check(SpringArm);
 	//Parter Digimon이 Fallow 한 이후 수치 조정
-	SpringArm->SetMinMaxTargetArmLength(400.f, 600.f);
-	SpringArm->TargetArmLength = 4500;
-
+	SpringArm->SetMinMaxTargetArmLength(100.f, 600.f);
+	SpringArm->SetDesiredZoom(400.f);
+	SpringArm->TargetArmLength = 400;
 
 
 	//BeginPlay가 아닌 Zoom 완성시 Zoom 에서 해당 코드를 실행하고 복구하도록 하세요
@@ -64,6 +64,21 @@ void ABasePlayerController::SetupInputComponent()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("IA_Move is disabled"));
 	}
+	if (const UInputAction* InputAction = FUtils::GetInputActionFromName(IMC_BasePlayer, TEXT("IA_MouseRB")))
+	{
+		// Pressing 활성화시 해당 부분 주석을 풀어주세요
+		//EnhancedInputComponent->BindAction(InputAction, ETriggerEvent::Started, this, &ThisClass::OnZoomIn);
+		//EnhancedInputComponent->BindAction(InputAction, ETriggerEvent::Completed, this, &ThisClass::OnZoomOut);
+
+		// Pressed 활성화시 해당 부분 주석을 풀어주세요
+		EnhancedInputComponent->BindAction(InputAction, ETriggerEvent::Started, this, &ThisClass::OnZoomIn);
+
+
+	}
+	else
+	{
+		ensureMsgf(false, TEXT("IA_Move is disabled"));
+	}
 
 }
 
@@ -99,6 +114,8 @@ void ABasePlayerController::OnLook(const FInputActionValue& InputActionValue)
 
 	AddYawInput(ActionValue.X);
 	AddPitchInput(ActionValue.Y);
+
+
 }
 
 void ABasePlayerController::UseInventory(const FInputActionValue& InputActionValue)
@@ -106,5 +123,51 @@ void ABasePlayerController::UseInventory(const FInputActionValue& InputActionVal
 	// add Item InventoryComponent
 	//if()
 
+
+}
+
+
+
+void ABasePlayerController::OnZoomIn(const FInputActionValue& InputActionValue)
+{
+	UCameraComponent* CameraComponent = GetPawn()->GetComponentByClass<UCameraComponent>();
+
+	// Pressing 활성화시 해당 부분 주석을 풀어주세요
+	//SpringArm->SetDesiredZoom(160.f);
+	//CameraComponent->AddRelativeLocation(FVector(0, 100, 0));
+	//IsZoom = true;
+
+	//Changed Pressed
+	if (!IsZoom)
+	{
+		//Zoom 상태 돌입
+		SpringArm->SetDesiredZoom(160.f);
+
+		CameraComponent->AddRelativeLocation(FVector(0, 100, 0));
+		IsZoom = true;
+	}
+	else if (IsZoom)
+	{
+		SpringArm->SetDesiredZoom(400.f);
+		CameraComponent->AddRelativeLocation(FVector(0, -100, 0));
+		IsZoom = false;
+	}
+}
+
+// Pressing 활성화시 해당 부분 주석을 풀어주세요
+//void ABasePlayerController::OnZoomOut(const FInputActionValue& InputActionValue)
+//{
+//	//Camera Setting 2 Can Change 
+//	SpringArm->SetDesiredZoom(400.f);
+//	UCameraComponent* CameraComponent = GetPawn()->GetComponentByClass<UCameraComponent>();
+//	if (IsZoom)
+//	{
+//		CameraComponent->AddRelativeLocation(FVector(0, -100, 0));
+//		IsZoom = false;
+//	}
+//}
+
+void ABasePlayerController::OnATK(const FInputActionValue& InputActionValue)
+{
 
 }

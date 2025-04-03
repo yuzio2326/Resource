@@ -45,9 +45,9 @@ ABaseMonster::ABaseMonster()
 
 void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 {
-	BaseMonsterDataTableRowHandle = InDataTableRowHandle;
-	if (BaseMonsterDataTableRowHandle.IsNull()) { return; }
-	FBaseMonsterTableRow* Data = BaseMonsterDataTableRowHandle.GetRow<FBaseMonsterTableRow>(TEXT("Enemy"));
+	MonsterDataTableRowHandle = InDataTableRowHandle;
+	if (MonsterDataTableRowHandle.IsNull()) { return; }
+	FBaseMonsterTableRow* Data = MonsterDataTableRowHandle.GetRow<FBaseMonsterTableRow>(TEXT("Enemy"));
 	if (!Data) { ensure(false); return; }
 	MonsterData = Data;
 
@@ -57,6 +57,14 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 
 
 	//MovementComponent->MaxSpeed = MonsterData->MovementMaxSpeed;
+	if (!IsValid(CollisionComponent))
+	{
+		int b = 0;
+	}
+	if (CollisionComponent->GetClass() != MonsterData->CollisionClass)
+	{
+		int a = 0;
+	}
 
 	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != MonsterData->CollisionClass)
 	{
@@ -124,7 +132,7 @@ void ABaseMonster::PostDuplicate(EDuplicateMode::Type DuplicateMode)
 	{
 		FTransform Backup = GetActorTransform();
 		CollisionComponent->DestroyComponent();
-		SetData(BaseMonsterDataTableRowHandle);
+		SetData(MonsterDataTableRowHandle);
 		SetActorTransform(Backup);
 	}
 }
@@ -163,14 +171,14 @@ void ABaseMonster::PostInitializeComponents()
 void ABaseMonster::BeginPlay()
 {
 	Super::BeginPlay();
-	SetData(BaseMonsterDataTableRowHandle);
+	SetData(MonsterDataTableRowHandle);
 	SetSkillData(MonsterData->OwnSkillData);
 }
 
 void ABaseMonster::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	SetData(BaseMonsterDataTableRowHandle);
+	SetData(MonsterDataTableRowHandle);
 	SetActorTransform(Transform);
 }
 

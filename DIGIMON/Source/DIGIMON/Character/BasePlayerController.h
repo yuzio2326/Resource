@@ -33,12 +33,17 @@ protected:
 	void UseInventory(const FInputActionValue& InputActionValue);
 
 
+	void OnZoomIn(const FInputActionValue& InputActionValue);
+	// Pressing 활성화시 해당 부분 주석을 풀어주세요
+	//void OnZoomOut(const FInputActionValue& InputActionValue);
+	void OnATK(const FInputActionValue& InputActionValue);
+
 
 protected:
 	UInputMappingContext* IMC_BasePlayer = nullptr;
 	class USoftWheelSpringArmComponent* SpringArm = nullptr;
 
-
+	bool IsZoom = false;
 
 	UPROPERTY()
 	class UStatusComponent* StatusComponent;
