@@ -26,10 +26,14 @@ public: // Skill
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Skill", meta = (RowType = "/Script/DIGIMON.SkillDataRow"))
 	TArray<FSkillDataRow> RangedSkillArray;
 
+	// 기본 공격용
+	UPROPERTY(EditAnywhere, Category = "MonsterBasicAttack")
+	TArray<UAnimMontage*> AttackAnimation;
 
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnUsingSkill, bool, UsingSkill, bool, CanUseSkill, bool, IsRangeSkill);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnUsingSkill, bool, UsingSkill, bool, CanUseSkill, bool, CanUseRangeSkill);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttack, bool, Attack);
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -52,10 +56,15 @@ public:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	UFUNCTION(BlueprintCallable)
 	void UseSkill();
+	UFUNCTION(BlueprintCallable)
 	void UseRangeSkill();
-	//AI 가 사용할 useSkill
+	UFUNCTION(BlueprintCallable)
+	void Attack();
+
+
+	//AI 가 사용할 useSkill	Not Use
 	void AIUseSkill(int IndexSkill);
 
 	//void UseRangedSkill();
@@ -91,11 +100,15 @@ protected:
 	int32 ChosenSkillNum;
 
 	bool bIsUsingSkill = false;
+	bool bIsRange = false;
 
 
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnUsingSkill OnUsingSkill;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnAttack FOnAttack;
 
 
 };

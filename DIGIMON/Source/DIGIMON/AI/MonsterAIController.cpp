@@ -40,11 +40,14 @@ void AMonsterAIController::OnPossess(APawn* InPawn)
 
 	SkillComponentRef = InPawn->GetComponentByClass<USkillComponent>();
 	SkillComponentRef->OnUsingSkill.AddDynamic(this, &ThisClass::OnUseSkill);
+	SkillComponentRef = InPawn->GetComponentByClass<USkillComponent>();
+	SkillComponentRef->FOnAttack.AddDynamic(this, &ThisClass::OnAttack);
 }
 
 void AMonsterAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	CheckStopAI();
 
 	//Test용 실전에서는 damage만을 이용해서 player를 타게팅해서 쫓아오게 할거임
 	if (!bDamaged)
@@ -125,15 +128,16 @@ void AMonsterAIController::MoveRandomPlace()
 
 
 
-void AMonsterAIController::OnAttack()
+void AMonsterAIController::OnAttack(bool InIsAttacking)
 {
+	Blackboard->SetValueAsBool(TEXT("Attacking"), InIsAttacking);
 }
 
 void AMonsterAIController::OnUseSkill(bool InUsingSkill, bool InCanUseSkill, bool InIsRangeSkill)
 {
 	Blackboard->SetValueAsBool(TEXT("UsingSkill"), InUsingSkill);
 	Blackboard->SetValueAsBool(TEXT("CanUseSkill"), InCanUseSkill);
-	Blackboard->SetValueAsBool(TEXT("IsRangeSkill"), InIsRangeSkill);
+	Blackboard->SetValueAsBool(TEXT("CanUseRangeSkill"), InIsRangeSkill);
 }
 
 void AMonsterAIController::CheckStopAI()

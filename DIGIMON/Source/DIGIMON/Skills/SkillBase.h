@@ -51,8 +51,9 @@ public:
 	//UPROPERTY(EditAnywhere, Category = "Enemy|Animation")
 	//TArray<UAnimMontage*> HitReactMontage;
 
-
-
+	//투사체 형태의 스킬은 해당 요소를 사용하도록 합니다
+	//UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ProjectileTableRow"))
+	//FDataTableRowHandle ProjectileRowHandle; // 원거리 투사체
 
 };
 

@@ -43,7 +43,7 @@ protected:
 	void MoveRandomPlace();
 
 	UFUNCTION()
-	void OnAttack();
+	void OnAttack(bool InIsAttacking);
 
 	UFUNCTION()
 	void OnUseSkill(bool InUsingSkill, bool InCanUseSkill, bool InIsRangeSkill);

@@ -141,6 +141,8 @@ void USkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 		OnUsingSkill.Broadcast(UsingSkill, true, true);
 	else if (!ISMeleeSkillCooltime)
 		OnUsingSkill.Broadcast(UsingSkill, true, false);
+	else 
+		OnUsingSkill.Broadcast(UsingSkill, false, false);
 
 
 
@@ -154,7 +156,7 @@ void USkillComponent::UseSkill()
 	bool CanUseSkill = true;
 
 	//Skill 사용중이 아니면
-	if (!bIsUsingSkill) 
+	if (!UsingSkill)
 	{ 
 		int32 SkillNum = SkillTableRow.SkillDataArray.Num();
 		//skill 갯수 부족으로 false로 
@@ -194,7 +196,7 @@ void USkillComponent::UseSkill()
 		
 	}
 	//skill 사용중이면
-	else 
+	else
 	{
 		FSkillDataRow CurrentSkillMontage = SkillTableRow.SkillDataArray[ChosenSkillNum];
 		
@@ -205,6 +207,7 @@ void USkillComponent::UseSkill()
 			if (!AnimInstance->Montage_IsPlaying(nullptr))
 			{
 				//다른 스킬 사용 가능하게 풀어줌
+				UsingSkill = false;
 				CanUseSkill = true;
 				OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
 
@@ -233,11 +236,11 @@ void USkillComponent::UseSkill()
 void USkillComponent::UseRangeSkill()
 {
 	//skill data의 cooltime을 비교 하면서 사용 가능한지 아닌지 여기서 확인하고 useSkill을 사용합니다.
-	
+	//bIsRange = true;
 	bool CanUseSkill = true;
 
 	//Skill 사용중이 아니면
-	if (!bIsUsingSkill) 
+	if (!UsingSkill)
 	{ 
 		int32 SkillNum = SkillTableRow.RangedSkillArray.Num();
 		//skill 갯수 부족으로 false로 
@@ -253,7 +256,7 @@ void USkillComponent::UseRangeSkill()
 			//Random 뽑고
 			int64 Index = FMath::RandRange(0, SkillNum - 1);
 			//쿨타임이면 다시 뽑고
-			if (SkillCooldowns[Index] > 0) { continue; }
+			if (RangedSkillCooldowns[Index] > 0) { continue; }
 			//아니면 해당 스킬 선택
 			else
 			{
@@ -277,20 +280,20 @@ void USkillComponent::UseRangeSkill()
 		
 	}
 	//skill 사용중이면
-	else 
+	else
 	{
 		FSkillDataRow CurrentSkillMontage = SkillTableRow.RangedSkillArray[ChosenSkillNum];
 		
 		//skill 쿨타임이 적용된 상태면
-		if (SkillCooldowns[ChosenSkillNum] > 0)
+		if (RangedSkillCooldowns[ChosenSkillNum] > 0)
 		{
 			//몽타주 재생 완료후
 			if (!AnimInstance->Montage_IsPlaying(nullptr))
 			{
 				//다른 스킬 사용 가능하게 풀어줌
+				UsingSkill = false;
 				CanUseSkill = true;
-				OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
-
+				OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, true);
 			}
 		}
 		//skill 사용하려고 할때
@@ -302,13 +305,31 @@ void USkillComponent::UseRangeSkill()
 				AnimInstance->Montage_Play(CurrentSkillMontage.SkillAnimation[0]);
 				CanUseSkill = false;
 				//스킬 사용중이고 스킬 애니메이션 다 안돌았음
-				OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
+				OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, true);
 				//몽타주 애니메이션 재생하면 쿨타임 돌도록 하고
-				SkillCooldowns[ChosenSkillNum] = CurrentSkillMontage.SkillCoolTime;
+				RangedSkillCooldowns[ChosenSkillNum] = CurrentSkillMontage.SkillCoolTime;
 			}
 
 
 		}
+	}
+}
+
+void USkillComponent::Attack()
+{
+
+	int32 AttackAnimNum = SkillTableRow.AttackAnimation.Num();
+	
+	if (AttackAnimNum > 0)
+	{
+		// 아닌데.. Montage가 Play 중이라면 BT 내부에서 AI 진행을 멈추게 했는데
+		// Montage가 play되지는 않고 
+		// 모든 몽타주가 재생 중이지 않을 때  
+		if (!AnimInstance->Montage_IsPlaying(nullptr))
+		{
+			AnimInstance->Montage_Play(SkillTableRow.AttackAnimation[0]);
+		}
+	
 	}
 }
 
