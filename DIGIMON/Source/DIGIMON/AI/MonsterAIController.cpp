@@ -39,7 +39,7 @@ void AMonsterAIController::OnPossess(APawn* InPawn)
 	StatusComponentRef->OnHPChanged.AddDynamic(this, &ThisClass::OnDamaged);
 
 	SkillComponentRef = InPawn->GetComponentByClass<USkillComponent>();
-	//SkillComponentRef->OnUsingSkill.AddDynamic(this, &ThisClass::OnUseSkill);
+	SkillComponentRef->OnUsingSkill.AddDynamic(this, &ThisClass::OnUseSkill);
 }
 
 void AMonsterAIController::Tick(float DeltaTime)

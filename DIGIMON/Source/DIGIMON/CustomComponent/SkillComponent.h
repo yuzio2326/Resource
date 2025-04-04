@@ -53,7 +53,8 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void CanUseSkill();
+	void UseSkill();
+	void UseRangeSkill();
 	//AI 가 사용할 useSkill
 	void AIUseSkill(int IndexSkill);
 
@@ -75,8 +76,8 @@ protected:
 protected:
 	//Monster SkillComponent가 아닌 이걸로 설정
 	
-	//AI Use Skills 
-	bool bIsAI = false;
+	//AI SKillComponent 로 사용하고 PlayerSkillComponent를 만들거나 안쓰는게 나을거 같음
+	//bool bIsAI = false;
 
 	bool ISAllSkillCooltime = false;
 	bool ISRangedSkillCooltime = false;
@@ -87,12 +88,12 @@ protected:
 	TArray<float> SkillCooldowns;
 	TArray<float> RangedSkillCooldowns;
 
-
+	int32 ChosenSkillNum;
 
 	bool bIsUsingSkill = false;
 
 
-
+public:
 	UPROPERTY(BlueprintAssignable)
 	FOnUsingSkill OnUsingSkill;
 
