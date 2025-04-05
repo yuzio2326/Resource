@@ -29,6 +29,8 @@ void AMonsterAIController::BeginPlay()
 	//	int a = 0; 
 	//}
 
+
+
 	
 }
 
@@ -157,4 +159,11 @@ void AMonsterAIController::CheckStopAI()
 	else { StopAI = false; }
 
 	Blackboard->SetValueAsBool(TEXT("MontagePlaying"), StopAI);
+
+	if (!StopAI)
+	{
+		Blackboard->SetValueAsBool(TEXT("UsingSkill"), false);
+	}
+
+
 }

@@ -136,6 +136,13 @@ void USkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	}
 	else { ISRangedSkillCooltime = true; }
 
+	//몽타주 플레이 중이면 해당 스킬을 사용 하지 못하도록 합니다
+	if (AnimInstance->Montage_IsPlaying(nullptr))
+	{
+		UsingSkill = false;
+	}
+
+
 	//melee나 range둘중에 하나라도 쿨타임이 돌면
 	if (!ISRangedSkillCooltime)
 		OnUsingSkill.Broadcast(UsingSkill, true, true);
@@ -159,14 +166,14 @@ void USkillComponent::UseSkill()
 	if (!UsingSkill)
 	{ 
 		int32 SkillNum = SkillTableRow.SkillDataArray.Num();
-		//skill 갯수 부족으로 false로 
+		//skill 갯수 부족으로 false로 하고 
 		if (SkillNum <= 0)
 		{
 			CanUseSkill = false;
 			OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, true);
 			return;
 		}
-		//bIsAI로 monster가 해당 컴포넌트 보유 중이면 랜덤하게 뽑아서 사용하도록 합니다.
+		// monster가 해당 컴포넌트 보유 중이면 랜덤하게 뽑아서 사용하도록 합니다.
 		while (!ISMeleeSkillCooltime)
 		{
 			//Random 뽑고
@@ -181,15 +188,24 @@ void USkillComponent::UseSkill()
 			}
 
 		}
+
+		//선택한 스킬을 사용하도록 한다
+		if (SkillCooldowns[ChosenSkillNum] <= 0)
+		{
+			UsingSkill = true;
+			OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
+		}
+
+
 		//스킬 모두 쿨타임이면
 		if (ISMeleeSkillCooltime && ISRangedSkillCooltime)
 		{
-			UsingSkill = false;
+			//UsingSkill = false;
 			CanUseSkill = false;
 		}
 		else
 		{
-			UsingSkill = true;
+			//UsingSkill = true;
 			CanUseSkill = false;
 		}
 		OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
@@ -220,6 +236,7 @@ void USkillComponent::UseSkill()
 			if (!AnimInstance->Montage_IsPlaying(nullptr))
 			{
 				AnimInstance->Montage_Play(CurrentSkillMontage.SkillAnimation[0]);
+				UsingSkill = true;
 				CanUseSkill = false;
 				//스킬 사용중이고 스킬 애니메이션 다 안돌았음
 				OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
@@ -265,15 +282,23 @@ void USkillComponent::UseRangeSkill()
 			}
 
 		}
+
+		//선택한 스킬을 사용하도록 한다
+		if (RangedSkillCooldowns[ChosenSkillNum] <= 0)
+		{
+			UsingSkill = true;
+			OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
+		}
+
 		//스킬 모두 쿨타임이면
 		if (ISMeleeSkillCooltime && ISRangedSkillCooltime)
 		{
-			UsingSkill = false;
+			//UsingSkill = false;
 			CanUseSkill = false;
 		}
 		else
 		{
-			UsingSkill = true;
+			//UsingSkill = true;
 			CanUseSkill = false;
 		}
 		OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
@@ -302,6 +327,7 @@ void USkillComponent::UseRangeSkill()
 			//몽타주 재생중이 아니면 재생 시키도록 ㄱㄱ
 			if (!AnimInstance->Montage_IsPlaying(nullptr))
 			{
+				UsingSkill = true;
 				AnimInstance->Montage_Play(CurrentSkillMontage.SkillAnimation[0]);
 				CanUseSkill = false;
 				//스킬 사용중이고 스킬 애니메이션 다 안돌았음
