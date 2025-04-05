@@ -48,7 +48,6 @@ protected:
 	UFUNCTION()
 	void OnUseSkill(bool InUsingSkill, bool InCanUseSkill, bool InIsRangeSkill);
 
-	void OnRangedSkill();
 
 
 public:

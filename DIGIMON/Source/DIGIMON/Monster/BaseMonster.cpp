@@ -55,6 +55,7 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	AIControllerClass = MonsterData->AIControllerClass;
 
 
+
 	//Speed 조절
 	MovementComponent->MaxSpeed = MonsterData->MovementMaxSpeed;
 

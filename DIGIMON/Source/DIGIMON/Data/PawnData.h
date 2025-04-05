@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 //#include "../Misc/Utils.h"
+#include "AI/MonsterAIController.h"
 #include "Aicontroller.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
@@ -65,7 +66,7 @@ public: // Movement
 
 public: // AI (Monster 및 Party에 적용)
 	UPROPERTY(EditAnywhere, Category = "Pawn|AI")
-	TSubclassOf<AAIController> AIControllerClass;
+	TSubclassOf<AAIController> AIControllerClass = AMonsterAIController::StaticClass();
 
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	int Level = 1;
@@ -85,6 +86,14 @@ public: // AI (Monster 및 Party에 적용)
 	float INT_DEF = 0;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	int PawnType = 0;	// Data =1 / Virus=2 / Vaccine=3
+
+	//진화 할 대상
+	UPROPERTY(EditAnywhere, Category = "Pawn|EVO", meta = (RowType = "/Script/DIGIMON.BasePawnData"))
+	FDataTableRowHandle EvolutionTarget;
+
+	//해당 레벨 도달시 진화 하도록 설계 가능
+	UPROPERTY(EditAnywhere, Category = "Pawn|EVO")
+	int EVO_Level = 1;
 
 	//Use DMG In Status
 	//UPROPERTY(EditAnywhere, Category = "Pawn|Status")

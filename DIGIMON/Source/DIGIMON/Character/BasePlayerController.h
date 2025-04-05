@@ -43,6 +43,7 @@ protected:
 	UInputMappingContext* IMC_BasePlayer = nullptr;
 	class USoftWheelSpringArmComponent* SpringArm = nullptr;
 
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	bool IsZoom = false;
 
 	UPROPERTY()
