@@ -59,14 +59,7 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	//Speed 조절
 	MovementComponent->MaxSpeed = MonsterData->MovementMaxSpeed;
 
-	if (!IsValid(CollisionComponent))
-	{
-		int b = 0;
-	}
-	if (CollisionComponent->GetClass() != MonsterData->CollisionClass)
-	{
-		int a = 0;
-	}
+	
 
 	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != MonsterData->CollisionClass)
 	{
@@ -106,6 +99,15 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	}
 
 	AnimInstance = SkeletalMeshComponent->GetAnimInstance();
+
+	if (!IsValid(CollisionComponent))
+	{
+		int b = 0;
+	}
+	if (CollisionComponent->GetClass() != MonsterData->CollisionClass)
+	{
+		int a = 0;
+	}
 
 }
 
