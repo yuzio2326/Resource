@@ -36,8 +36,8 @@ ABaseMonster::ABaseMonster()
 	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerceptionComponent"));
 	AISenseConfig_Sight = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("AISenseConfig_Sight"));
 	AISenseConfig_Sight->DetectionByAffiliation.bDetectNeutrals = true;
-	AISenseConfig_Sight->SightRadius = 500.f;
-	AISenseConfig_Sight->LoseSightRadius = 700.f;
+	AISenseConfig_Sight->SightRadius = 800.f;
+	AISenseConfig_Sight->LoseSightRadius = 1000.f;
 	AISenseConfig_Sight->PeripheralVisionAngleDegrees = 120.f;
 	AIPerceptionComponent->ConfigureSense(*AISenseConfig_Sight);
 

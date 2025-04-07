@@ -26,8 +26,12 @@ public:
 	ABasePlayer(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	virtual void OnDie();
+	UFUNCTION(BlueprintCallable)
+	virtual void Attack();
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -59,8 +63,12 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UPaperSpriteComponent* MinimapSpriteComponent;
+
+	UPawnAnimInstance* AnimInstance;
+
 protected:
 	UAnimMontage* CurrentDieMontage;
+	UAnimMontage* CurrentAttackMontage;
 
 protected:
 	//UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.PawnTableRow"))

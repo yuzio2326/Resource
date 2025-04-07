@@ -36,6 +36,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 
 	StatusComponent = CreateDefaultSubobject<UStatusComponent>(TEXT("StatusComponent"));
 
+
 	// Minimap		minimap 대신 그냥 worldmap 하나만 할까 고민중...  
 	{
 		MinimapSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("MinimapSpriteComponent"));
@@ -64,8 +65,17 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 
 void ABasePlayer::OnDie()
 {
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	AnimInstance->Montage_Pause(CurrentDieMontage);
+}
+
+void ABasePlayer::Attack()
+{
+	//
+	if (AnimInstance->Montage_IsPlaying(nullptr))
+	{
+		//어차피 하나만 쓸거임 괜히 array로 만들었네..
+		AnimInstance->Montage_Play(CharacterData->AttackMontage[0]);
+	}
 }
 
 // Called when the game starts or when spawned
@@ -119,6 +129,9 @@ void ABasePlayer::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 		SkeletalMeshComponent->SetSkeletalMesh(CharacterData->SkeletalMesh);
 		SkeletalMeshComponent->SetRelativeTransform(CharacterData->MeshTransform);
 		SkeletalMeshComponent->SetAnimClass(CharacterData->AnimClass);
+
+		AnimInstance = Cast<UPawnAnimInstance>(SkeletalMeshComponent->GetAnimInstance());
+		check(AnimInstance);
 	}
 }
 
@@ -138,6 +151,12 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 float ABasePlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
+	if (StatusComponent->IsDie()) { return 0.0f; }
+
+
+
+
+
 	return 0.0f;
 }
 

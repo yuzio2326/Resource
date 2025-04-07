@@ -50,3 +50,7 @@ void AEffect::Tick(float DeltaTime)
 
 }
 
+FEffectTableRow::FEffectTableRow()
+	: EffectClass(AEffect::StaticClass())
+{
+}

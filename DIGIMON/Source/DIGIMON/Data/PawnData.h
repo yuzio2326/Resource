@@ -28,6 +28,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Pawn|Animation")
 	TSubclassOf<UPawnAnimInstance> AnimClass;
 
+
 public:
 	//Make Base Capsule
 	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")

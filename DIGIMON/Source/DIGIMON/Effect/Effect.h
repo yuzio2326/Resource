@@ -8,6 +8,32 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Effect.generated.h"
 
+
+USTRUCT()
+struct DIGIMON_API FEffectTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+	FEffectTableRow();
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Effect")
+	TSubclassOf<AEffect> EffectClass;
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Effect|Sound")
+	TObjectPtr<USoundBase> Sound;
+	UPROPERTY(EditAnywhere, Category = "Effect|Sound")
+	float VolumeMultiplier = 1.f;
+
+public:
+	UPROPERTY(EditAnywhere, Category = "Effect|Particle")
+	TObjectPtr<UParticleSystem> Particle;
+
+	UPROPERTY(EditAnywhere, Category = "Effect|Particle")
+	FTransform ParticleTransform = FTransform::Identity;
+};
+
+
 UCLASS()
 class DIGIMON_API AEffect : public APooledActor
 {
