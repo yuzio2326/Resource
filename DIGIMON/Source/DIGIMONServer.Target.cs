@@ -13,7 +13,7 @@ public class DIGIMONServerTarget : TargetRules
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_4;
 		ExtraModuleNames.Add("DIGIMON");
 
-        ExtraModuleNames.Remove("Graphics");
+        //ExtraModuleNames.Remove("Graphics");
 
     }
 }

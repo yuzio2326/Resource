@@ -1,8 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+#include "BaseMonster.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "AI/MonsterAIController.h"
-#include "BaseMonster.h"
 
 // Sets default values
 ABaseMonster::ABaseMonster()

@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+#include "Animation/ProjectileAnimNotify.h"
 #include "Skills/Projectile.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -8,7 +7,6 @@
 #include "Character/BasePlayer.h"
 #include "Monster/BaseMonster.h"
 
-#include "Animation/ProjectileAnimNotify.h"
 
 UProjectileAnimNotify::UProjectileAnimNotify()
 {

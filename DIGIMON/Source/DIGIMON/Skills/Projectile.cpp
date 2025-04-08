@@ -1,11 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+#include "Skills/Projectile.h"
 #include "Misc/Utils.h"
 #include "Subsystem/ActorPoolSubsystem.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
-#include "Skills/Projectile.h"
 
 // Sets default values
 AProjectile::AProjectile()
