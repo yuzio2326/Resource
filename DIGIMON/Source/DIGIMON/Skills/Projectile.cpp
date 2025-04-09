@@ -13,19 +13,21 @@ AProjectile::AProjectile()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
+	RootComponent = DefaultSceneRoot;
+
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
-	RootComponent = StaticMeshComponent;
+	StaticMeshComponent->SetupAttachment(DefaultSceneRoot);
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
-	ProjectileMovementComponent->InitialSpeed = 10000.0;
+	ProjectileMovementComponent->InitialSpeed = 1000.0;
 	ProjectileMovementComponent->MaxSpeed = 10000.0;
 	ProjectileMovementComponent->ProjectileGravityScale = 0.0;
 	InitialLifeSpan = 5.f;
 
 	StaticMeshComponent->SetCollisionProfileName(CollisionProfileName::Projectile);
 	StaticMeshComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnBeginOverlap);
-
-
+	
 
 }
 
@@ -51,18 +53,19 @@ void AProjectile::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+	FVector ForwardVec = GetActorForwardVector();
 
 	if (ProjectileData != nullptr)
 	{
 		
 		if (ProjectileData->bProjetileCharge)
 		{
-			int32 ChrageTime = ProjectileData->bChargeTime;
+			float ChrageTime = ProjectileData->bChargeTime;
 			UKismetSystemLibrary::K2_SetTimer(this, TEXT("ChargeProjectile"), ChrageTime, false);
 		}
 		else 
 		{
-			ProjectileMovementComponent->InitialSpeed = 10000.0;
+			ProjectileMovementComponent->InitialSpeed = 1000.0;
 		}
 		ProjectileMovementComponent->MaxSpeed = 10000.0;
 		ProjectileMovementComponent->ProjectileGravityScale = 0.0;
@@ -76,13 +79,7 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	FVector Location = GetActorLocation();
 	if (!IsValid(this)) { return; }
 
-	// BeginPlay 시점에 Overlapped 되면 들어 옴
-	if (!bFromSweep)
-	{
-		Destroy();
-		check(false);
-		return;
-	}
+
 
 	FTransform NewTransform;
 	NewTransform.SetLocation(SweepResult.ImpactPoint);
@@ -90,7 +87,13 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	NewTransform.SetRotation(Rotation.Quaternion());
 	GetWorld()->GetSubsystem<UActorPoolSubsystem>()->SpawnEffect(NewTransform, ProjectileData->HitEffectTableRowHandle);
 	Destroy();
-
+	// BeginPlay 시점에 Overlapped 되면 들어 옴
+	if (!bFromSweep)
+	{
+		Destroy();
+		//check(false);
+		return;
+	}
 	UGameplayStatics::ApplyDamage(OtherActor, 1.f, GetInstigator()->GetController(), this, nullptr);
 }
 

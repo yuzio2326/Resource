@@ -40,6 +40,31 @@ FRotator UProjectileAnimNotify::GetPlayerProjectileRotation(const FVector& InPro
 	return Rotator;
 }
 
+FRotator UProjectileAnimNotify::GetPawnProjectileRotation(const FVector& InProjectSpawnLocation, USkeletalMeshComponent* InSkeletalMeshComponent)
+{
+	const FVector CameraForwardVector = InSkeletalMeshComponent->GetForwardVector();
+	const FVector DestinationLocation = InSkeletalMeshComponent->GetComponentLocation() + CameraForwardVector * 5000.0;
+
+	TArray<AActor*> IgnoreActors; IgnoreActors.Add(InSkeletalMeshComponent->GetOwner());
+	FHitResult HitResult;
+
+	const ETraceTypeQuery TraceTypeQuery = UEngineTypes::ConvertToTraceType(ECollisionChannel::ECC_GameTraceChannel4);
+	const bool bHit = UKismetSystemLibrary::LineTraceSingle(InSkeletalMeshComponent->GetWorld(),
+		InSkeletalMeshComponent->GetComponentLocation(), DestinationLocation, TraceTypeQuery,
+		false, IgnoreActors, EDrawDebugTrace::None, HitResult, true);
+
+	FRotator Rotator;
+	if (bHit)
+	{
+		Rotator = UKismetMathLibrary::FindLookAtRotation(InProjectSpawnLocation, HitResult.ImpactPoint);
+	}
+	else
+	{
+		Rotator = UKismetMathLibrary::FindLookAtRotation(InProjectSpawnLocation, DestinationLocation);
+	}
+	return Rotator;
+}
+
 void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComp, Animation, EventReference);
@@ -55,7 +80,7 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 	check(OwnerSkeletalMeshComponent);
 
 	const FVector MuzzleLocation = OwnerSkeletalMeshComponent->GetSocketLocation(SocketName::Muzzle);
-	
+	const FRotator MuzzleRotation = OwnerSkeletalMeshComponent->GetSocketRotation(SocketName::Muzzle);
 #if WITH_EDITOR
 	USkeletalMeshSocket const* SkeletalMeshSocket = OwnerSkeletalMeshComponent->GetSocketByName(SocketName::Muzzle);
 	check(SkeletalMeshSocket);
@@ -63,7 +88,7 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 
 	FRotator ProjectileRotator = FRotator::ZeroRotator;
 	bool bIsPlayer = false;
-	//Camera 보유시 Player 아닐시 AI
+	//Camera 보유시 Player 아닐시 AI 로 spawn Location Rotation 조절
 	if (UCameraComponent* CameraComponent = OwningPawn->GetComponentByClass<UCameraComponent>())
 	{
 		bIsPlayer = true;
@@ -73,6 +98,10 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 	{
 		//Socket 의 tranform 배치함
 		bIsPlayer = false;
+		FVector ForwardDirection = MuzzleRotation.Vector();
+		FRotator ForwardRotation = ForwardDirection.Rotation();
+		ProjectileRotator = ForwardRotation;
+
 
 	}
 	
@@ -84,35 +113,33 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 		//기본 스킬에 평타 넣으면 되려나?
 		// 
 		//const FBasePawnData* PawnData= PlayerCharacter->getbasepaw
+
+		//구현 필요함
 	}
 	else 
 	{
+		//GetProjectile Data
+		// ABaseMonster 대신 BasePawn의 data니까 해당하는걸로 하도록 해야됌
 		ABaseMonster* MonsterPawn = Cast<ABaseMonster>(OwningPawn);
 		check(MonsterPawn);
-		const FSkillTableRow* SkillTableRow = MonsterPawn->GetMonsterSkillDataTableRow();
+		USkillComponent* MonsterSkillComponent = MonsterPawn->GetMonsterSkilRow();
+		check(MonsterSkillComponent);
+		FSkillDataRow CurrentSkilldata =MonsterSkillComponent->GetCurrentSkillData();
+		FProjectileTableRow* ProjectileTableRow = CurrentSkilldata.ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("SkillProjectile"));
+		check(ProjectileTableRow);
 
-		//skill data table 가지고 왔고 이제 여기서 프로젝타일 있는 곳까지 뽑아 와야돼..
+		UWorld* World = OwningPawn->GetWorld();
+		AProjectile* Projectile = World->SpawnActorDeferred<AProjectile>(ProjectileTableRow->ProjectileClass,
+			FTransform::Identity, OwningPawn, OwningPawn, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+		Projectile->SetData(CurrentSkilldata.ProjectileRowHandle);
 
+		FTransform NewTransform;
+		NewTransform.SetLocation(MuzzleLocation);
+		NewTransform.SetRotation(ProjectileRotator.Quaternion());
+		Projectile->FinishSpawning(NewTransform);
 
-
-
-		//const FBasePawnData
 	}
 
+	//UWorld* World = OwningPawn->GetWorld();
 
-	//AGun* GunActor = Cast<AGun>(WeaponActor);
-	//check(GunActor);
-	//const FGunTableRow* GunTableRow = GunActor->GetGunTableRow();
-	//const FProjectileTableRow* ProjectileTableRow = GunTableRow->ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("Projectile"));
-	//check(ProjectileTableRow);
-
-	UWorld* World = OwningPawn->GetWorld();
-	//AProjectile* Projectile = World->SpawnActorDeferred<AProjectile>(ProjectileTableRow->ProjectileClass,
-		//FTransform::Identity, OwningPawn, OwningPawn, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-	//Projectile->SetData(GunTableRow->ProjectileRowHandle);
-
-	//FTransform NewTransform;
-	//NewTransform.SetLocation(MuzzleLocation);
-	//NewTransform.SetRotation(ProjectileRotator.Quaternion());
-	//Projectile->FinishSpawning(NewTransform);
 }

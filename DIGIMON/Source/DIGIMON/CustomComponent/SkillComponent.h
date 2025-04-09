@@ -67,6 +67,9 @@ public:
 	//AI 가 사용할 useSkill	Not Use
 	void AIUseSkill(int IndexSkill);
 
+
+	const FSkillDataRow& GetCurrentSkillData() const { return CurrentSkillData; }
+
 	//void UseRangedSkill();
 
 protected:
@@ -110,5 +113,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnAttack FOnAttack;
 
+	UPROPERTY()
+	FSkillDataRow CurrentSkillData;
 
 };

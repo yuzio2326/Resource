@@ -69,7 +69,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	const FSkillTableRow* GetMonsterSkillDataTableRow() const { return MonsterSkillData; }
+	USkillComponent* GetMonsterSkilRow() const { return SkillComponent; }
 
 
 protected:
@@ -112,7 +112,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USkillComponent* SkillComponent;
 
-
+	//const FBasePawnData* PawnDataTableRow = nullptr;
 
 
 public:

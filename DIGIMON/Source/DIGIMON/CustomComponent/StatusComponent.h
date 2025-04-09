@@ -52,6 +52,7 @@ public:
 	float AddEXP(float fGetEXP) { return EXP+= fGetEXP; }
 	float GetEXP() const { return EXP; }
 
+	float AddHP(float Damage) { return HP += Damage; }
 
 	int GetOwnerPawnType() const { return OwnerPawnType; }
 	AController* GetLastInstigator() const { return LastInstigator; }

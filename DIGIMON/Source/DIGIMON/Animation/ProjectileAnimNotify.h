@@ -18,7 +18,8 @@ public:
 	UProjectileAnimNotify();
 
 	FRotator GetPlayerProjectileRotation(const FVector& InProjectSpawnLocation, class UCameraComponent* InCameraComponent);
-
+	FRotator GetPawnProjectileRotation(const FVector& InProjectSpawnLocation, class USkeletalMeshComponent* InSkeletalMeshComponent);
+	
 	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference) override;
 
 

@@ -21,11 +21,26 @@ AEffect::AEffect()
 
 void AEffect::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 {
+	DataTableRowHandle = InDataTableRowHandle;
+	if (DataTableRowHandle.IsNull()) { return; }
+	FEffectTableRow* Data = DataTableRowHandle.GetRow<FEffectTableRow>(TEXT("Effect"));
+	if (!Data) { ensure(false); return; }
 
+	EffectData = Data;
+
+	Sound = Data->Sound;
+	VolumeMultiplier = Data->VolumeMultiplier;
+
+	ParticleSystemComponent->SetRelativeTransform(Data->ParticleTransform);
+	ParticleSystemComponent->SetTemplate(Data->Particle);
+	SetLifeSpan(0);
+	SetLifeSpan(5.f);
 }
 
 void AEffect::Play()
 {
+	PlaySound();
+	PlayParticle();
 }
 
 // Called when the game starts or when spawned
@@ -37,10 +52,13 @@ void AEffect::BeginPlay()
 
 void AEffect::PlaySound()
 {
+	const FVector Location = GetActorLocation();
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), Sound, Location, VolumeMultiplier);
 }
 
 void AEffect::PlayParticle()
 {
+	ParticleSystemComponent->ActivateSystem(true);
 }
 
 // Called every frame

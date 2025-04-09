@@ -236,6 +236,7 @@ void USkillComponent::UseSkill()
 			if (!AnimInstance->Montage_IsPlaying(nullptr))
 			{
 				AnimInstance->Montage_Play(CurrentSkillMontage.SkillAnimation[0]);
+				CurrentSkillData = CurrentSkillMontage;
 				UsingSkill = true;
 				CanUseSkill = false;
 				//스킬 사용중이고 스킬 애니메이션 다 안돌았음
@@ -328,6 +329,7 @@ void USkillComponent::UseRangeSkill()
 			if (!AnimInstance->Montage_IsPlaying(nullptr))
 			{
 				UsingSkill = true;
+				CurrentSkillData = CurrentSkillMontage;
 				AnimInstance->Montage_Play(CurrentSkillMontage.SkillAnimation[0]);
 				CanUseSkill = false;
 				//스킬 사용중이고 스킬 애니메이션 다 안돌았음

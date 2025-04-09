@@ -74,5 +74,5 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.EffectTableRow"))
 	FDataTableRowHandle DataTableRowHandle;
 
-	//FEffectTableRow* EffectData;
+	FEffectTableRow* EffectData;
 };

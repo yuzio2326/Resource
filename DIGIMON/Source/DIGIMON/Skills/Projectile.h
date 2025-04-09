@@ -68,6 +68,8 @@ protected:
 	UStaticMeshComponent* StaticMeshComponent;
 	UPROPERTY()
 	UProjectileMovementComponent* ProjectileMovementComponent;
+	UPROPERTY()
+	TObjectPtr<USceneComponent> DefaultSceneRoot;
 
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/Digimon.ProjectileTableRow"))
 	FDataTableRowHandle DataTableRowHandle;

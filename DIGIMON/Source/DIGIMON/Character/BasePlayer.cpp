@@ -139,6 +139,11 @@ void ABasePlayer::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 void ABasePlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	float Hpcheck = StatusComponent->GetHP();
+	if (Hpcheck > 0)
+	{
+		int a = 0;
+	}
 
 }
 
@@ -153,8 +158,11 @@ float ABasePlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, ACo
 {
 	if (StatusComponent->IsDie()) { return 0.0f; }
 
-
-
+	
+	if (StatusComponent->GetHP() > 0)
+	{
+		StatusComponent->AddHP(Damage);
+	}
 
 
 	return 0.0f;
