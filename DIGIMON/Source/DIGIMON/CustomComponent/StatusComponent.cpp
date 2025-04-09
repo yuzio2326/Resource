@@ -80,7 +80,8 @@ void UStatusComponent::LevelUp()
 {
 	if (EXP >= MaxEXP)
 	{
-
+		EXP -= MaxEXP;
+		MaxEXP += (MaxEXP * 1.2f);
 	}
 	else { return; }
 
@@ -91,7 +92,7 @@ void UStatusComponent::LevelUp()
 
 bool UStatusComponent::KillEnemy()
 {
-
+	
 
 	return false;
 }

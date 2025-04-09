@@ -47,12 +47,16 @@ public:
 	bool CanMove() const { return !bAttack && !bDie; }
 	bool IsDie() const { return bDie; }
 	float GetHP() const { return HP; }
+	float GetMP() const { return MP; }
+	float GetMaxMP() const { return MaxMP; }
 	float GetMaxHP() const { return MaxHP; }
 
 	float AddEXP(float fGetEXP) { return EXP+= fGetEXP; }
 	float GetEXP() const { return EXP; }
 
 	float AddHP(float Damage) { return HP += Damage; }
+	float AddMP(float Damage) { return MP += Damage; }
+
 
 	int GetOwnerPawnType() const { return OwnerPawnType; }
 	AController* GetLastInstigator() const { return LastInstigator; }

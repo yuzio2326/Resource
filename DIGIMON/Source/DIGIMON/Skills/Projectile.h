@@ -35,6 +35,21 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Projectile")
 	float bChargeTime;
 
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+	float InitialSpeed = 0;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+	float MaxSpeed = 0;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+	float InitialLifeSpan = 5;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+	float ProjectileGravityScale = 0;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+	float DMG = 0;
+
 };
 
 UCLASS()

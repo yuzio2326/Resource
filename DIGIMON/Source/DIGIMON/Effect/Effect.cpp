@@ -5,6 +5,10 @@
 #include "Kismet/GameplayStatics.h"
 #include "Subsystem/ActorPoolSubsystem.h"
 
+FEffectTableRow::FEffectTableRow()
+	: EffectClass(AEffect::StaticClass())
+{
+}
 
 // Sets default values
 AEffect::AEffect()
@@ -68,7 +72,4 @@ void AEffect::Tick(float DeltaTime)
 
 }
 
-FEffectTableRow::FEffectTableRow()
-	: EffectClass(AEffect::StaticClass())
-{
-}
+

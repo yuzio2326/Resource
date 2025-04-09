@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Misc/Utils.h"
-#include "Subsystem/ActorPoolSubsystem.h"
-#include "Kismet/KismetMathLibrary.h"
-#include "Kismet/GameplayStatics.h"
-#include "Kismet/KismetSystemLibrary.h"
 #include "Skills/Projectile.h"
+#include "Misc/Utils.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
+#include "Subsystem/ActorPoolSubsystem.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -20,7 +20,9 @@ AProjectile::AProjectile()
 	StaticMeshComponent->SetupAttachment(DefaultSceneRoot);
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
-	ProjectileMovementComponent->InitialSpeed = 1000.0;
+
+
+	ProjectileMovementComponent->InitialSpeed = 100.0;
 	ProjectileMovementComponent->MaxSpeed = 10000.0;
 	ProjectileMovementComponent->ProjectileGravityScale = 0.0;
 	InitialLifeSpan = 5.f;
@@ -53,20 +55,17 @@ void AProjectile::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	FVector ForwardVec = GetActorForwardVector();
-
-	if (ProjectileData != nullptr)
+	//data setting 이후 시점이라서 여기에 data가 있을 경우 기존 값을 바꾸도록 한다
+	if (ProjectileData)
 	{
-		
-		if (ProjectileData->bProjetileCharge)
-		{
-			float ChrageTime = ProjectileData->bChargeTime;
-			UKismetSystemLibrary::K2_SetTimer(this, TEXT("ChargeProjectile"), ChrageTime, false);
-		}
-		else 
-		{
-			ProjectileMovementComponent->InitialSpeed = 1000.0;
-		}
+		ProjectileMovementComponent->InitialSpeed = ProjectileData->InitialSpeed;
+		ProjectileMovementComponent->MaxSpeed = ProjectileData->MaxSpeed;
+		ProjectileMovementComponent->ProjectileGravityScale = ProjectileData->ProjectileGravityScale;
+		InitialLifeSpan = ProjectileData->InitialSpeed;
+	}
+	else
+	{
+		ProjectileMovementComponent->InitialSpeed = 100.0;
 		ProjectileMovementComponent->MaxSpeed = 10000.0;
 		ProjectileMovementComponent->ProjectileGravityScale = 0.0;
 		InitialLifeSpan = 5.f;
@@ -76,17 +75,9 @@ void AProjectile::BeginPlay()
 
 void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	FVector Location = GetActorLocation();
+	FVector Location = GetOwner()->GetActorLocation();
 	if (!IsValid(this)) { return; }
 
-
-
-	FTransform NewTransform;
-	NewTransform.SetLocation(SweepResult.ImpactPoint);
-	FRotator Rotation = UKismetMathLibrary::Conv_VectorToRotator(SweepResult.ImpactNormal);
-	NewTransform.SetRotation(Rotation.Quaternion());
-	GetWorld()->GetSubsystem<UActorPoolSubsystem>()->SpawnEffect(NewTransform, ProjectileData->HitEffectTableRowHandle);
-	Destroy();
 	// BeginPlay 시점에 Overlapped 되면 들어 옴
 	if (!bFromSweep)
 	{
@@ -94,6 +85,14 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 		//check(false);
 		return;
 	}
+
+	FTransform NewTransform;
+	NewTransform.SetLocation(SweepResult.ImpactPoint);
+	FRotator Rotation = UKismetMathLibrary::Conv_VectorToRotator(SweepResult.ImpactNormal);
+	NewTransform.SetRotation(Rotation.Quaternion());
+	GetWorld()->GetSubsystem<UActorPoolSubsystem>()->SpawnEffect(NewTransform, ProjectileData->HitEffectTableRowHandle);
+	Destroy();
+
 	UGameplayStatics::ApplyDamage(OtherActor, 1.f, GetInstigator()->GetController(), this, nullptr);
 }
 
