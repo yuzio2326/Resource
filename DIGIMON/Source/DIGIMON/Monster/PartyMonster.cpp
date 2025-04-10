@@ -190,6 +190,18 @@ void APartyMonster::Tick(float DeltaTime)
 
 }
 
+void APartyMonster::SetOwnerPlayer(ABasePlayer* InOwnPlayerTarget)
+{
+	if (InOwnPlayerTarget)
+	{
+		IsOwnPlayer.Broadcast(true, InOwnPlayerTarget);
+	}
+	else 
+	{
+		IsOwnPlayer.Broadcast(false, nullptr);
+	}
+}
+
 void APartyMonster::OnDie()
 {
 	AnimInstance->Montage_Pause(CurrentDieMontage);

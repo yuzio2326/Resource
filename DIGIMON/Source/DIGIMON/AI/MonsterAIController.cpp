@@ -82,7 +82,7 @@ void AMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 	Blackboard->SetValueAsBool(TEXT("OnDamage"), true);
 
 	//5초뒤 어그로 리셋
-	UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamagedMontage"), 1.f, false);
+	UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamaged"), 5.f, false);
 }
 
 void AMonsterAIController::ResetOnDamaged()

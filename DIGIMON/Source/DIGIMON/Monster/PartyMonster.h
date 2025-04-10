@@ -5,10 +5,13 @@
 #include "Data/PawnData.h"
 #include "Misc/Utils.h"
 #include "CustomComponent/AdvanceFloatingPawnMovement.h"
+#include "Character/BasePlayer.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "PartyMonster.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOwningPlayer, bool, IsOwnPlayer, ABasePlayer*, PlayerTarget);
 
 UCLASS()
 class DIGIMON_API APartyMonster : public APawn
@@ -38,9 +41,11 @@ public:
 	USkillComponent* GetMonsterSkilRow() const { return SkillComponent; }
 	// Called to bind functionality to input
 	
-	bool OwningPlayer() { return IsOwnPlayer = SkillComponent->GetOwnerPlayer(); }
+	//안쓸지도?
+	//bool OwningPlayer() { return IsOwnPlayer = SkillComponent->GetOwnerPlayer(); }
 	ACharacter GetOwnerPlayer();
 
+	void SetOwnerPlayer(ABasePlayer* InOwnPlayerTarget);
 
 protected:
 	UFUNCTION()
@@ -83,6 +88,7 @@ protected:
 
 	UAnimMontage* CurrentDieMontage;
 
-	bool IsOwnPlayer;
+	UPROPERTY(BlueprintAssignable)
+	FOwningPlayer IsOwnPlayer;
 
 };

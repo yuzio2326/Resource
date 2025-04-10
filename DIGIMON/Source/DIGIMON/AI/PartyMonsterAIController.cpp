@@ -75,7 +75,7 @@ void APartyMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 	Blackboard->SetValueAsBool(TEXT("OnDamage"), true);
 
 	//5초뒤 어그로 리셋
-	UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamagedMontage"), 1.f, false);
+	//UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamagedMontage"), 1.f, false);
 }
 
 void APartyMonsterAIController::ResetOnDamaged()
@@ -101,10 +101,10 @@ void APartyMonsterAIController::FindPlayerByPerception()
 				break;
 			}
 		}
-		if (!bFound)
-		{
-			Blackboard->ClearValue(TEXT("DetectPlayer"));
-		}
+		//if (!bFound)
+		//{
+		//	Blackboard->ClearValue(TEXT("DetectPlayer"));
+		//}
 	}
 }
 

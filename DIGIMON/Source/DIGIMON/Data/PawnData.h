@@ -65,6 +65,9 @@ public: // Movement
 	UPROPERTY(EditAnywhere, Category = "Pawn|Movement")
 	float MovementMaxSpeed = 400.f;
 
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	bool OwnPartner = true;
+
 public: // AI (Monster 및 Party에 적용)
 	UPROPERTY(EditAnywhere, Category = "Pawn|AI")
 	TSubclassOf<AAIController> AIControllerClass = AMonsterAIController::StaticClass();

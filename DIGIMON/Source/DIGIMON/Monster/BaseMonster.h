@@ -23,6 +23,8 @@ struct DIGIMON_API FBaseMonsterTableRow : public FBasePawnData
 	GENERATED_BODY()
 
 public:
+	//Default Setting
+	FBaseMonsterTableRow() { OwnPartner = false; }
 	//DropItem
 	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/KDT3D.ItemPackTableRow"))
 	//FDataTableRowHandle DropItem;
@@ -30,6 +32,7 @@ public:
 	//특수 객체 만들기 힘들다는 단점이 있긴함...
 	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/DIGIMON.PawnTableRow"))
 	//FDataTableRowHandle BasePawnData;
+
 
 	bool BossVision = false;//인식 범위 넓히기용
 };

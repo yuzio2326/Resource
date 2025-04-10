@@ -102,9 +102,19 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 		bIsPlayer = false;
 		FVector ForwardDirection = MuzzleRotation.Vector();
 		FRotator ForwardRotation = ForwardDirection.Rotation();
-		ProjectileRotator = ForwardRotation.GetInverse();
+		ProjectileRotator = ForwardRotation;
+		AMonsterAIController* OwnMonsterAI = Cast<AMonsterAIController>(OwningPawn->GetController());
 
-		//PartyMonster 로 캐스팅해서 Owner check 이후 없으면 Monster로 있으면 PartyMonster로
+		//MonsterAI 로 캐스팅해서 Monster로 없으면 PartyMonster로
+		if (OwnMonsterAI)
+		{ 
+			bIsPartyMonster = false; 
+		}
+		else
+		{
+			bIsPartyMonster = true; 			
+		}
+		
 		//APartyMonster* PlayerCharacter = Cast<APartyMonster>(OwningPawn);
 		//USkillComponent* PartyMonsterPawn = Cast<USkillComponent>(OwningPawn);
 		//bIsPartyMonster = PlayerCharacter->OwningPlayer();
