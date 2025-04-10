@@ -38,6 +38,10 @@ public:
 	USkillComponent* GetMonsterSkilRow() const { return SkillComponent; }
 	// Called to bind functionality to input
 	
+	bool OwningPlayer() { return IsOwnPlayer = SkillComponent->GetOwnerPlayer(); }
+	ACharacter GetOwnerPlayer();
+
+
 protected:
 	UFUNCTION()
 	virtual void OnDie();
@@ -79,5 +83,6 @@ protected:
 
 	UAnimMontage* CurrentDieMontage;
 
+	bool IsOwnPlayer;
 
 };

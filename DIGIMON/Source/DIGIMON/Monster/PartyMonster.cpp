@@ -156,22 +156,24 @@ void APartyMonster::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
+	//Party M<onster 임으로 다 필요 없음
 	//AIController 만들고 patrol 하고난 이후 주석 풀기		AMonsterAIController 대신 다른걸로 바뀔수 있음
-	if (AMonsterAIController* EnemyAIController = Cast<AMonsterAIController>(Controller))
-	{
+	//if (AMonsterAIController* EnemyAIController = Cast<AMonsterAIController>(Controller))
+	//{
 		//EnemyAIController->SetPatrolPath(PatrolPathRef->GetPath());
 		//if (PawnData)
 		//{
 		//	EnemyAIController->BaseAgro(PawnData->BossVision);
 		//}
-	}
+	//}
 }
 
 // Called when the game starts or when spawned
 void APartyMonster::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SetData(BaseDataTableRowHandle);
+	SetSkillData(PawnData->OwnSkillData);
 }
 
 void APartyMonster::OnConstruction(const FTransform& Transform)

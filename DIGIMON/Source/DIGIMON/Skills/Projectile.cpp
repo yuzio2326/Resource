@@ -17,16 +17,28 @@ AProjectile::AProjectile()
 	RootComponent = DefaultSceneRoot;
 
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
+	//RootComponent = StaticMeshComponent;
 	StaticMeshComponent->SetupAttachment(DefaultSceneRoot);
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
 
+	if (ProjectileData)
+	{
+		ProjectileMovementComponent->InitialSpeed = ProjectileData->InitialSpeed;
+		ProjectileMovementComponent->MaxSpeed = ProjectileData->MaxSpeed;
+		ProjectileMovementComponent->ProjectileGravityScale = ProjectileData->ProjectileGravityScale;
+		InitialLifeSpan = ProjectileData->InitialSpeed;
+	}
+	else
+	{
+		ProjectileMovementComponent->InitialSpeed = 350.0;
+		ProjectileMovementComponent->MaxSpeed = 10000.0;
+		ProjectileMovementComponent->ProjectileGravityScale = 0.0;
+		InitialLifeSpan = 5.f;
 
-	ProjectileMovementComponent->InitialSpeed = 100.0;
-	ProjectileMovementComponent->MaxSpeed = 10000.0;
-	ProjectileMovementComponent->ProjectileGravityScale = 0.0;
-	InitialLifeSpan = 5.f;
+	}
 
+	ProjectileMovementComponent->UpdatedComponent = StaticMeshComponent;
 	StaticMeshComponent->SetCollisionProfileName(CollisionProfileName::Projectile);
 	StaticMeshComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnBeginOverlap);
 	
@@ -56,21 +68,7 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	//data setting 이후 시점이라서 여기에 data가 있을 경우 기존 값을 바꾸도록 한다
-	if (ProjectileData)
-	{
-		ProjectileMovementComponent->InitialSpeed = ProjectileData->InitialSpeed;
-		ProjectileMovementComponent->MaxSpeed = ProjectileData->MaxSpeed;
-		ProjectileMovementComponent->ProjectileGravityScale = ProjectileData->ProjectileGravityScale;
-		InitialLifeSpan = ProjectileData->InitialSpeed;
-	}
-	else
-	{
-		ProjectileMovementComponent->InitialSpeed = 100.0;
-		ProjectileMovementComponent->MaxSpeed = 10000.0;
-		ProjectileMovementComponent->ProjectileGravityScale = 0.0;
-		InitialLifeSpan = 5.f;
 
-	}
 }
 
 void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

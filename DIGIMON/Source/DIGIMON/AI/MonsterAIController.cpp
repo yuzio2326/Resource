@@ -24,14 +24,9 @@ void AMonsterAIController::BeginPlay()
 	FVector FSpawnLocation = OwningPawn->GetActorLocation();
 	Blackboard->SetValueAsVector(TEXT("SpwanPosition"), FSpawnLocation);
 
+	// 새로 만들었으니까 PartyMonster 쪽에 Owner를 세팅해야 할거 같음...
 	IsOwnPlayer = SkillComponentRef->GetOwnerPlayer();;
-	//if (GetOwner()->GetActorLocation().X > 0)
-	//{
-	//	int a = 0; 
-	//}
-
-
-
+	
 	
 }
 

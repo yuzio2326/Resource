@@ -7,6 +7,7 @@
 #include "Misc/Utils.h"
 #include "Character/BasePlayer.h"
 #include "Monster/BaseMonster.h"
+#include "Monster/PartyMonster.h"
 
 #include "Animation/ProjectileAnimNotify.h"
 
@@ -88,6 +89,7 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 
 	FRotator ProjectileRotator = FRotator::ZeroRotator;
 	bool bIsPlayer = false;
+	bool bIsPartyMonster = false;
 	//Camera 보유시 Player 아닐시 AI 로 spawn Location Rotation 조절
 	if (UCameraComponent* CameraComponent = OwningPawn->GetComponentByClass<UCameraComponent>())
 	{
@@ -100,9 +102,12 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 		bIsPlayer = false;
 		FVector ForwardDirection = MuzzleRotation.Vector();
 		FRotator ForwardRotation = ForwardDirection.Rotation();
-		ProjectileRotator = ForwardRotation;
+		ProjectileRotator = ForwardRotation.GetInverse();
 
-
+		//PartyMonster 로 캐스팅해서 Owner check 이후 없으면 Monster로 있으면 PartyMonster로
+		//APartyMonster* PlayerCharacter = Cast<APartyMonster>(OwningPawn);
+		//USkillComponent* PartyMonsterPawn = Cast<USkillComponent>(OwningPawn);
+		//bIsPartyMonster = PlayerCharacter->OwningPlayer();
 	}
 	
 	//Player일 경우
@@ -118,15 +123,31 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 	}
 	else 
 	{
-		//GetProjectile Data
-		// ABaseMonster 대신 BasePawn의 data니까 해당하는걸로 하도록 해야됌
-		ABaseMonster* MonsterPawn = Cast<ABaseMonster>(OwningPawn);
-		check(MonsterPawn);
-		USkillComponent* MonsterSkillComponent = MonsterPawn->GetMonsterSkilRow();
-		check(MonsterSkillComponent);
-		FSkillDataRow CurrentSkilldata =MonsterSkillComponent->GetCurrentSkillData();
-		FProjectileTableRow* ProjectileTableRow = CurrentSkilldata.ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("SkillProjectile"));
-		check(ProjectileTableRow);
+		USkillComponent* MonsterSkillComponent;
+		FSkillDataRow CurrentSkilldata;
+		FProjectileTableRow* ProjectileTableRow;
+		//Party Monster
+		if (bIsPartyMonster)
+		{
+			APartyMonster* PartyMonsterPawn = Cast<APartyMonster>(OwningPawn);
+			check(PartyMonsterPawn);
+			MonsterSkillComponent = PartyMonsterPawn->GetMonsterSkilRow();
+			check(MonsterSkillComponent);
+			CurrentSkilldata = MonsterSkillComponent->GetCurrentSkillData();
+			ProjectileTableRow = CurrentSkilldata.ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("SkillProjectile"));
+			check(ProjectileTableRow);
+		}
+		//base monster
+		else 
+		{
+			ABaseMonster* MonsterPawn = Cast<ABaseMonster>(OwningPawn);
+			check(MonsterPawn);
+			MonsterSkillComponent = MonsterPawn->GetMonsterSkilRow();
+			check(MonsterSkillComponent);
+			CurrentSkilldata = MonsterSkillComponent->GetCurrentSkillData();
+			ProjectileTableRow = CurrentSkilldata.ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("SkillProjectile"));
+			check(ProjectileTableRow);
+		}
 
 		UWorld* World = OwningPawn->GetWorld();
 		AProjectile* Projectile = World->SpawnActorDeferred<AProjectile>(ProjectileTableRow->ProjectileClass,
@@ -139,6 +160,8 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 		Projectile->FinishSpawning(NewTransform);
 
 	}
+	
+
 
 	//UWorld* World = OwningPawn->GetWorld();
 
