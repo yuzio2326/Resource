@@ -3,3 +3,7 @@
 
 #include "Monster/BasePartyMonster.h"
 
+ABasePartyMonster::ABasePartyMonster()
+{
+	
+}

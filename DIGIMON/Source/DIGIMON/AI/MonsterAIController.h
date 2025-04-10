@@ -55,11 +55,13 @@ public:
 
 	void CheckStopAI();
 
-
+	
 protected:
 	bool bDamaged = false;
 	bool bUsingSkill = false;
 	bool bBaseAgro = false;
+
+	bool IsOwnPlayer = false;
 
 	UPROPERTY()
 	UStatusComponent* StatusComponentRef;
@@ -67,5 +69,8 @@ protected:
 	UPROPERTY()
 	USkillComponent* SkillComponentRef;
 
+	//Skillcomponent에서 Ownplayer 를 하는지 처리를 하도록 합시다.(status 는 Player Monster PartyMonster 3명 다 사용하니까)
+
 
 };
+       

@@ -24,6 +24,7 @@ void AMonsterAIController::BeginPlay()
 	FVector FSpawnLocation = OwningPawn->GetActorLocation();
 	Blackboard->SetValueAsVector(TEXT("SpwanPosition"), FSpawnLocation);
 
+	IsOwnPlayer = SkillComponentRef->GetOwnerPlayer();;
 	//if (GetOwner()->GetActorLocation().X > 0)
 	//{
 	//	int a = 0; 
@@ -82,9 +83,11 @@ void AMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 	AController* Instigator_ = StatusComponentRef->GetLastInstigator();
 	APawn* InstigatorPawn = Instigator_->GetPawn();
 	check(InstigatorPawn);
-	Blackboard->SetValueAsObject(TEXT("DetectPlayer"), Cast<UObject>(InstigatorPawn));
+	Blackboard->SetValueAsObject(TEXT("DetectTarget"), Cast<UObject>(InstigatorPawn));
+	Blackboard->SetValueAsBool(TEXT("OnDamage"), true);
+
 	//5초뒤 어그로 리셋
-	UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamaged"), 5.f, false);
+	UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamagedMontage"), 1.f, false);
 }
 
 void AMonsterAIController::ResetOnDamaged()
@@ -159,11 +162,15 @@ void AMonsterAIController::CheckStopAI()
 	else { StopAI = false; }
 
 	Blackboard->SetValueAsBool(TEXT("MontagePlaying"), StopAI);
+	
 
 	if (!StopAI)
 	{
 		Blackboard->SetValueAsBool(TEXT("UsingSkill"), false);
+		Blackboard->SetValueAsBool(TEXT("OnDamage"), false);
 	}
 
 
 }
+
+

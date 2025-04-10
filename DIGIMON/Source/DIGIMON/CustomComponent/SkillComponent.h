@@ -70,7 +70,7 @@ public:
 
 	const FSkillDataRow& GetCurrentSkillData() const { return CurrentSkillData; }
 
-	//void UseRangedSkill();
+	const bool GetOwnerPlayer() const { return IsOwnPlayer; }
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.SkillTableRow"))
@@ -104,8 +104,8 @@ protected:
 
 	bool bIsUsingSkill = false;
 	bool bIsRange = false;
-
-
+	//Player 보유중이면
+	bool IsOwnPlayer;
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnUsingSkill OnUsingSkill;
@@ -115,5 +115,8 @@ public:
 
 	UPROPERTY()
 	FSkillDataRow CurrentSkillData;
+
+
+
 
 };

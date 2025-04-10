@@ -3,20 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Monster/BaseMonster.h"
-#include "BasePartyMonster.generated.h"
+#include "AIController.h"
+#include "PartyMonsterAIController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class DIGIMON_API ABasePartyMonster : public ABaseMonster
+class DIGIMON_API APartyMonsterAIController : public AAIController
 {
 	GENERATED_BODY()
 	
-public:
-	ABasePartyMonster();
-	
-
-
 };
