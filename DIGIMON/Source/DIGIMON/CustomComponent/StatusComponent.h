@@ -60,6 +60,9 @@ public:
 
 	int GetOwnerPawnType() const { return OwnerPawnType; }
 	AController* GetLastInstigator() const { return LastInstigator; }
+
+	void Attack(bool InAttacking) { bAttack = InAttacking; }
+	bool GetAttack() const { return bAttack; }
 protected:
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
 

@@ -30,13 +30,14 @@ protected:
 	void OnMove(const FInputActionValue& InputActionValue);
 	void OnLook(const FInputActionValue& InputActionValue);
 
-	void UseInventory(const FInputActionValue& InputActionValue);
-
+	void OpenInventory(const FInputActionValue& InputActionValue);
+	void ShowCursor();
 
 	void OnZoomIn(const FInputActionValue& InputActionValue);
 	// Pressing 활성화시 해당 부분 주석을 풀어주세요
 	//void OnZoomOut(const FInputActionValue& InputActionValue);
 	void OnATK(const FInputActionValue& InputActionValue);
+	void OffATK(const FInputActionValue& InputActionValue);
 
 
 protected:
@@ -45,8 +46,16 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	bool IsZoom = false;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	bool IsAttack = false;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	bool IsOpenInventory = false;
 
 	UPROPERTY()
 	class UStatusComponent* StatusComponent;
+	UPROPERTY()
+	class USkillComponent* SkillComponent;
+	UPROPERTY()
+	class UInventoryComponent* InventoryComponent;
 
 };

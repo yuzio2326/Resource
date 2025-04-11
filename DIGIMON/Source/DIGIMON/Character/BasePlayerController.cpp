@@ -73,11 +73,30 @@ void ABasePlayerController::SetupInputComponent()
 		// Pressed 활성화시 해당 부분 주석을 풀어주세요
 		EnhancedInputComponent->BindAction(InputAction, ETriggerEvent::Started, this, &ThisClass::OnZoomIn);
 
-
 	}
 	else
 	{
 		ensureMsgf(false, TEXT("IA_Move is disabled"));
+	}
+	//Attack
+	if (const UInputAction* InputAction = FUtils::GetInputActionFromName(IMC_BasePlayer, TEXT("IA_MouseLB")))
+	{
+		//pressing 형태
+		EnhancedInputComponent->BindAction(InputAction, ETriggerEvent::Started, this, &ThisClass::OnATK);
+		EnhancedInputComponent->BindAction(InputAction, ETriggerEvent::Completed, this, &ThisClass::OffATK);
+	}
+	else
+	{
+		ensureMsgf(false, TEXT("IA_MouseLB is disabled"));
+	}
+	//Inventory
+	if (const UInputAction* InputAction = FUtils::GetInputActionFromName(IMC_BasePlayer, TEXT("IA_Inventory")))
+	{
+		EnhancedInputComponent->BindAction(InputAction, ETriggerEvent::Started, this, &ThisClass::OpenInventory);
+	}
+	else
+	{
+		ensureMsgf(false, TEXT("IA_Inventory is disabled"));
 	}
 
 }
@@ -118,11 +137,29 @@ void ABasePlayerController::OnLook(const FInputActionValue& InputActionValue)
 
 }
 
-void ABasePlayerController::UseInventory(const FInputActionValue& InputActionValue)
+void ABasePlayerController::OpenInventory(const FInputActionValue& InputActionValue)
 {
 	// add Item InventoryComponent
-	//if()
+	//true 면 false // false 면 true로 자기 부정 만들고
+	IsOpenInventory = !IsOpenInventory;
+	InventoryComponent->OpenInventory(IsOpenInventory);
 
+}
+
+void ABasePlayerController::ShowCursor()
+{
+	//
+	if (bShowMouseCursor)
+	{
+		bShowMouseCursor = false;
+		SetInputMode(FInputModeGameOnly());
+	}
+	else
+	{
+		//input 값을 ui에만 줄수 있게 하기
+		bShowMouseCursor = true;
+		SetInputMode(FInputModeGameAndUI());
+	}
 
 }
 
@@ -169,5 +206,12 @@ void ABasePlayerController::OnZoomIn(const FInputActionValue& InputActionValue)
 
 void ABasePlayerController::OnATK(const FInputActionValue& InputActionValue)
 {
+	//Monster의 경우 skillcomponent의 attack을 BT_Task로 실행중..
+	//Player도 같은 곳에서 사용하도록 한다
+	StatusComponent->Attack(true);
+}
 
+void ABasePlayerController::OffATK(const FInputActionValue& InputActionValue)
+{
+	StatusComponent->Attack(false);
 }

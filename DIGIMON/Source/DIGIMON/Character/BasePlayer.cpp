@@ -70,11 +70,12 @@ void ABasePlayer::OnDie()
 
 void ABasePlayer::Attack()
 {
-	//
-	if (AnimInstance->Montage_IsPlaying(nullptr))
+	//몽타주 플레이중이 아니면
+	if (!AnimInstance->Montage_IsPlaying(nullptr))
 	{
 		//어차피 하나만 쓸거임 괜히 array로 만들었네..
 		AnimInstance->Montage_Play(CharacterData->AttackMontage[0]);
+		//PlayAnimMontage(CharacterData->AttackMontage[0], 1.0f, FName("UpperBody"));
 	}
 }
 
@@ -143,6 +144,11 @@ void ABasePlayer::Tick(float DeltaTime)
 	if (Hpcheck > 0)
 	{
 		int a = 0;
+	}
+
+	if (StatusComponent->GetAttack())
+	{
+		Attack();
 	}
 
 }

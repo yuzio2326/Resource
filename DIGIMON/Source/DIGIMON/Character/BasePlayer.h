@@ -12,6 +12,7 @@
 #include "PaperSpriteComponent.h"
 #include "PawnAnimInstance.h"
 #include "CustomComponent/StatusComponent.h"
+#include "CustomComponent/InventoryComponent.h"
 #include "Misc/Utils.h"
 #include "Data/PawnData.h"
 #include "BasePlayer.generated.h"
