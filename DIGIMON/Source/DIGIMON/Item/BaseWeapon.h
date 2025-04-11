@@ -6,6 +6,22 @@
 #include "GameFramework/Actor.h"
 #include "BaseWeapon.generated.h"
 
+class ABaseWeapon;
+USTRUCT()
+struct DIGIMON_API FWeaponTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+	FWeaponTableRow();
+public:
+	TSubclassOf<ABaseWeapon> WeaponClass;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	USkeletalMesh* SkeletalMesh = nullptr;
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	FTransform Transform = FTransform::Identity;
+
+};
+
 UCLASS()
 class DIGIMON_API ABaseWeapon : public AActor
 {

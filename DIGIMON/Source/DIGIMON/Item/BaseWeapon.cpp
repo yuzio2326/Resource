@@ -25,3 +25,6 @@ void ABaseWeapon::Tick(float DeltaTime)
 
 }
 
+FWeaponTableRow::FWeaponTableRow()
+{
+}
