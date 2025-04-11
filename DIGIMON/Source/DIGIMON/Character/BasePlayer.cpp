@@ -2,6 +2,7 @@
 
 #include "CustomComponent/NoFallCharacterMovementComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "PaperSprite.h"
 #include "Character/BasePlayer.h"
 
@@ -151,6 +152,32 @@ void ABasePlayer::Tick(float DeltaTime)
 		Attack();
 	}
 
+}
+
+void ABasePlayer::UpdateDesiredAimRotation(const float DeltaTime)
+{
+	{
+		APawn* OwningPawn = Cast<APawn>(GetOwner());
+		const FRotator OwnerRotation = GetOwner()->GetActorRotation();
+		FRotator OwnerInvRotation = OwnerRotation.GetInverse();
+		OwnerInvRotation.Roll = 0.;
+		FRotator ControlRotation = OwningPawn->GetControlRotation();
+		ControlRotation.Roll = 0.;
+		FRotator NewRotation = UKismetMathLibrary::ComposeRotators(OwnerInvRotation, ControlRotation);
+
+		DesiredAimRotation.Pitch = NewRotation.Pitch;
+		DesiredAimRotation.Yaw = UKismetMathLibrary::ClampAngle(NewRotation.Yaw, -100.0, 100.0);
+		DesiredAimRotation.Roll = NewRotation.Roll;
+	}
+	{
+		const float NewDeltaTime = FMath::Clamp(DeltaTime, 0.f, 0.03f);
+		const FRotator& AimRotation = AnimInstance->GetAimRotation();
+		const float Alpha = NewDeltaTime * 10.f;
+		const FRotator LerpShortestPathRotation = UKismetMathLibrary::RLerp(AimRotation, DesiredAimRotation, Alpha, true);
+		const FRotator LerpRotation = UKismetMathLibrary::RLerp(AimRotation, DesiredAimRotation, Alpha, false);
+		FRotator NewRotation = FRotator(LerpShortestPathRotation.Pitch, LerpRotation.Yaw, LerpShortestPathRotation.Roll);
+		AnimInstance->SetAimRotation(NewRotation);
+	}
 }
 
 // Called to bind functionality to input

@@ -29,10 +29,13 @@ void UPawnAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	bShoudMove = !FMath::IsNearlyZero(Speed);
 
+	APawn* Pawn = TryGetPawnOwner();
+	FRotator Rotation = Pawn->GetActorRotation();
+	Direction = CalculateDirection(MovementComponent->Velocity, Rotation);
 	//Updating Rotation
-	Direction = AimRotation.Yaw;
-	if (Direction > 180.0) { Direction -= 360.0; }
-	else if (Direction < -180.0) { Direction += 360.0; }
+	//Direction = AimRotation.Yaw;
+	//if (Direction > 180.0) { Direction -= 360.0; }
+	//else if (Direction < -180.0) { Direction += 360.0; }
 
 
 	//쓸지 안쓸지 고민중 + fall anim not exist

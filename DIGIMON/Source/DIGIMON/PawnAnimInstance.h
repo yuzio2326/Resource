@@ -23,6 +23,7 @@ public:
 
 
 
+
 protected:
 	UPROPERTY()
 	class UPawnMovementComponent* MovementComponent;

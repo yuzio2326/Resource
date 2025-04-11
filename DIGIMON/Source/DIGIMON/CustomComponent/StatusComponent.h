@@ -44,7 +44,7 @@ public:
 	void StatusSetting(int SetLevel, float SetEXP,float SetMaxHP, float SetMaxMP, float SetSTR, float SetSTR_DEF, float SetINT, float SetINT_DEF, int SetPawnType) 
 	{Level = SetLevel, EXP = SetEXP, MaxHP = SetMaxHP, HP = SetMaxHP, MaxMP = SetMaxMP, MP = SetMaxMP, STR = SetSTR, STRDEF = SetSTR_DEF, INT = SetINT, INTDEF = SetINT_DEF, Type = SetPawnType;}
 
-	bool CanMove() const { return !bAttack && !bDie; }
+	bool CanMove() const { return !bDie; }
 	bool IsDie() const { return bDie; }
 	float GetHP() const { return HP; }
 	float GetMP() const { return MP; }
@@ -133,7 +133,7 @@ protected:
 
 	bool bAttack = false;
 	bool bDie = false;
-
+	bool bZoom = false;
 
 public:
 	AController* LastInstigator = nullptr;

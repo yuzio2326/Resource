@@ -44,18 +44,20 @@ protected:
 	UInputMappingContext* IMC_BasePlayer = nullptr;
 	class USoftWheelSpringArmComponent* SpringArm = nullptr;
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	bool IsZoom = false;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	bool IsAttack = false;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	bool IsOpenInventory = false;
-
 	UPROPERTY()
 	class UStatusComponent* StatusComponent;
 	UPROPERTY()
 	class USkillComponent* SkillComponent;
 	UPROPERTY()
 	class UInventoryComponent* InventoryComponent;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	bool IsAttack = false;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	bool IsOpenInventory = false;
+
+public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	bool IsZoom = false;
 
 };

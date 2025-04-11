@@ -45,6 +45,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void UpdateDesiredAimRotation(const float DeltaTime);
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 protected:
@@ -67,9 +69,9 @@ protected:
 
 	UPawnAnimInstance* AnimInstance;
 
-protected:
 	UAnimMontage* CurrentDieMontage;
-	UAnimMontage* CurrentAttackMontage;
+	
+	FRotator DesiredAimRotation;
 
 protected:
 	//UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.PawnTableRow"))

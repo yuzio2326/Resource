@@ -62,7 +62,7 @@ void ABasePlayerController::SetupInputComponent()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("IA_Move is disabled"));
+		UE_LOG(LogTemp, Warning, TEXT("IA_LookAround is disabled"));
 	}
 	if (const UInputAction* InputAction = FUtils::GetInputActionFromName(IMC_BasePlayer, TEXT("IA_MouseRB")))
 	{
@@ -76,7 +76,7 @@ void ABasePlayerController::SetupInputComponent()
 	}
 	else
 	{
-		ensureMsgf(false, TEXT("IA_Move is disabled"));
+		ensureMsgf(false, TEXT("IA_MouseRB is disabled"));
 	}
 	//Attack
 	if (const UInputAction* InputAction = FUtils::GetInputActionFromName(IMC_BasePlayer, TEXT("IA_MouseLB")))
@@ -173,7 +173,7 @@ void ABasePlayerController::OnZoomIn(const FInputActionValue& InputActionValue)
 	//SpringArm->SetDesiredZoom(160.f);
 	//CameraComponent->AddRelativeLocation(FVector(0, 100, 0));
 	//IsZoom = true;
-
+	APawn* ControlledPawn = GetPawn();
 	//Changed Pressed
 	if (!IsZoom)
 	{
@@ -189,6 +189,8 @@ void ABasePlayerController::OnZoomIn(const FInputActionValue& InputActionValue)
 		CameraComponent->AddRelativeLocation(FVector(0, -100, 0));
 		IsZoom = false;
 	}
+	ControlledPawn->bUseControllerRotationYaw = IsZoom;
+
 }
 
 // Pressing 활성화시 해당 부분 주석을 풀어주세요
