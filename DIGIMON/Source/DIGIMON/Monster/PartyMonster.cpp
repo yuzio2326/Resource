@@ -187,6 +187,7 @@ void APartyMonster::OnConstruction(const FTransform& Transform)
 void APartyMonster::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	float checkEXP = StatusComponent->GetEXP();
 
 }
 

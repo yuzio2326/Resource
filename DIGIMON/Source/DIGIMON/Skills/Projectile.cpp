@@ -22,21 +22,12 @@ AProjectile::AProjectile()
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
 
-	if (ProjectileData)
-	{
-		ProjectileMovementComponent->InitialSpeed = ProjectileData->InitialSpeed;
-		ProjectileMovementComponent->MaxSpeed = ProjectileData->MaxSpeed;
-		ProjectileMovementComponent->ProjectileGravityScale = ProjectileData->ProjectileGravityScale;
-		InitialLifeSpan = ProjectileData->InitialSpeed;
-	}
-	else
-	{
-		ProjectileMovementComponent->InitialSpeed = 350.0;
-		ProjectileMovementComponent->MaxSpeed = 10000.0;
-		ProjectileMovementComponent->ProjectileGravityScale = 0.0;
-		InitialLifeSpan = 5.f;
+	//default speed setting
+	ProjectileMovementComponent->InitialSpeed = 100.0;
+	ProjectileMovementComponent->MaxSpeed = 10000.0;
+	ProjectileMovementComponent->ProjectileGravityScale = 0.0;
+	InitialLifeSpan = 5.f;
 
-	}
 
 	ProjectileMovementComponent->UpdatedComponent = StaticMeshComponent;
 	StaticMeshComponent->SetCollisionProfileName(CollisionProfileName::Projectile);
@@ -53,6 +44,21 @@ void AProjectile::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	if (!Data) { ensure(false); return; }
 
 	ProjectileData = Data;
+
+	//Speed data init 
+	if (!ProjectileData->bProjetileCharge)
+	{
+		ProjectileMovementComponent->InitialSpeed = ProjectileData->InitialSpeed;
+	}
+	else
+	{
+		ProjectileMovementComponent->InitialSpeed = 0;
+		ChargeTime = ProjectileData->ChargeTime;
+	}
+
+	ProjectileMovementComponent->MaxSpeed = ProjectileData->MaxSpeed;
+	ProjectileMovementComponent->ProjectileGravityScale = ProjectileData->ProjectileGravityScale;
+	InitialLifeSpan = ProjectileData->InitialLifeSpan;
 
 	StaticMeshComponent->MoveIgnoreActors.Empty();
 	StaticMeshComponent->MoveIgnoreActors.Add(GetOwner());
@@ -98,13 +104,20 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (ChargeTime > 0)
+	{
+		ChargeTime -= DeltaTime;
+	}
+	else 
+	{
+		ChargeProjectile();
+	}
 }
 
 void AProjectile::ChargeProjectile()
 {
 	FVector ForwardVec =  GetActorForwardVector();
-	ProjectileMovementComponent->Velocity = ForwardVec * ProjectileData->bChargeTime * 1000;
+	ProjectileMovementComponent->Velocity = ForwardVec * ProjectileData->InitialSpeed;
 
 }
 

@@ -49,6 +49,10 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+	UInventoryComponent* GetInventoryComponent() { return InventoryComponent; }
+
 protected:
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
@@ -63,6 +67,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UStatusComponent* StatusComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(VisibleAnywhere)
 	UPaperSpriteComponent* MinimapSpriteComponent;

@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "CustomComponent/InventoryComponent.h"
+#include "Monster/PartyMonster.h"
 #include "Data/PawnData.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -13,10 +15,13 @@ struct DIGIMON_API FOwnDigimonTableRow : public FTableRowBase
 	GENERATED_BODY()
 public:
 	//SaveGame Class로 저장하고 불러올수 있도록 한다
+	FOwnDigimonTableRow();
 
-	UPROPERTY(EditAnywhere, Category = "Projectile|Effect", meta = (RowType = "/Script/Digimon.BasePawnData"))
-	FDataTableRowHandle HitEffectTableRowHandle;
+	UPROPERTY(EditAnywhere, Category = "OwnMonster", meta = (RowType = "/Script/Digimon.BasePawnData"))
+	FDataTableRowHandle OwningMonster;
 
+	UPROPERTY(EditAnywhere, Category = "OwnMonster")
+	TSubclassOf<APartyMonster> PartyMonsterClass;
 
 };
 
@@ -40,6 +45,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/Digimon.BasePawnData"))
-	FDataTableRowHandle DataTableRowHandle;
+	FDataTableRowHandle BasePawnDataTable;
+	
+	// 이 몬스터의 소유권자 Pawn
+	APawn* OwningPawn = nullptr;
+
+
 
 };

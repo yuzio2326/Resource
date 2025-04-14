@@ -19,6 +19,8 @@ namespace SocketName
 {
 	static inline FName Weapon = TEXT("Weapon");
 	static inline FName Muzzle = TEXT("Muzzle"); // 총구
+	static inline FName SpawnParty = TEXT("SpawnParty"); //Player Party Spawn Position
+
 }
 
 namespace MF_PostEffect

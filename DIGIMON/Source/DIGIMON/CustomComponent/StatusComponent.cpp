@@ -27,7 +27,7 @@ void UStatusComponent::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 void UStatusComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	MaxEXP = (Level * 20) + (Level * (5 * Level));
 	// ...
 	
 }
@@ -66,10 +66,14 @@ float UStatusComponent::TakeDamage(float Damage, FDamageEvent const& DamageEvent
 	if (HP == 0.f)
 	{
 		bDie = true;
-		
-		UStatusComponent* EventInstigatorStatusComponent = LastInstigator->GetOwner()->GetComponentByClass<UStatusComponent>();
-		// if Monster Die give Exp
-		if (OwnerPawnType == 1) { EventInstigatorStatusComponent->AddEXP(EXP); }
+		//LastInstigator->GetPawn();
+		APawn* LastInstigatorPawn = LastInstigator->GetPawn();
+
+		UStatusComponent* EventInstigatorStatusComponent = LastInstigatorPawn->GetComponentByClass<UStatusComponent>();
+		check(EventInstigatorStatusComponent);
+		// if Monster Die give Exp  Target Type 이 monster 가 아닐 경우 exp 주도록 설계
+		if (OwnerPawnType != 1) { EventInstigatorStatusComponent->AddEXP(EXP); }
+
 		OnDie.Broadcast();
 	}
 
@@ -80,8 +84,9 @@ void UStatusComponent::LevelUp()
 {
 	if (EXP >= MaxEXP)
 	{
+		++Level;
 		EXP -= MaxEXP;
-		MaxEXP += (MaxEXP * 1.2f);
+		MaxEXP = (Level * 20) + (Level * (5 * Level));
 	}
 	else { return; }
 

@@ -223,6 +223,8 @@ void ABaseMonster::OnDie()
 	AnimInstance->Montage_Pause(CurrentDieMontage);
 
 
+	//Spawn Effect 하고 alpha를 천천히 없애기 ㄱㄱ
+
 	//PaperBurn Parts
 	//const int32 MaterialNum = SkeletalMeshComponent->GetSkinnedAsset()->GetMaterials().Num();
 	//MaterialInstanceDynamics.Reserve(MaterialNum);

@@ -33,7 +33,7 @@ public:
 
 	//Charge 시간에 비례해서 스피드값 증가 bChargeTime*speed 
 	UPROPERTY(EditAnywhere, Category = "Projectile")
-	float bChargeTime;
+	float ChargeTime;
 
 	UPROPERTY(EditAnywhere, Category = "Projectile")
 	float InitialSpeed = 0;
@@ -94,5 +94,6 @@ protected:
 
 	bool IsCharge;
 	float fChargeSpeed;
+	float ChargeTime;
 
 };
