@@ -72,7 +72,12 @@ float UStatusComponent::TakeDamage(float Damage, FDamageEvent const& DamageEvent
 		UStatusComponent* EventInstigatorStatusComponent = LastInstigatorPawn->GetComponentByClass<UStatusComponent>();
 		check(EventInstigatorStatusComponent);
 		// if Monster Die give Exp  Target Type 이 monster 가 아닐 경우 exp 주도록 설계
-		if (OwnerPawnType != 1) { EventInstigatorStatusComponent->AddEXP(EXP); }
+		if (OwnerPawnType != 1) 
+		{ 
+			//check
+			int a = OwnerPawnType;
+			EventInstigatorStatusComponent->AddEXP(EXP); 
+		}
 
 		OnDie.Broadcast();
 	}

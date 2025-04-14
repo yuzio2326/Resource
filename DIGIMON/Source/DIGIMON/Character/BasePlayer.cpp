@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CustomComponent/NoFallCharacterMovementComponent.h"
+#include "Character/BasePlayerController.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "PaperSprite.h"
@@ -76,7 +77,10 @@ void ABasePlayer::OnDie()
 void ABasePlayer::Attack()
 {
 	//몽타주 플레이중이 아니면
-	if (!AnimInstance->Montage_IsPlaying(nullptr))
+	ABasePlayerController* OwnPlayerController = Cast<ABasePlayerController>(GetController());
+	check(OwnPlayerController);
+
+	if (!AnimInstance->Montage_IsPlaying(nullptr)&& OwnPlayerController->IsZoom)
 	{
 		//어차피 하나만 쓸거임 괜히 array로 만들었네..
 		AnimInstance->Montage_Play(CharacterData->AttackMontage[0]);

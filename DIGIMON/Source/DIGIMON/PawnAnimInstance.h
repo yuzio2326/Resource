@@ -48,6 +48,6 @@ protected:
 
 	//Playerable Character Var
 	UPROPERTY(BlueprintReadOnly)
-	bool ZoomTarget;
+	bool ZoomAnim;
 	
 };

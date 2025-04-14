@@ -1,6 +1,7 @@
 #include "PawnAnimInstance.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Character/BasePlayerController.h"
 
 void UPawnAnimInstance::NativeInitializeAnimation()
 {
@@ -32,6 +33,15 @@ void UPawnAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	APawn* Pawn = TryGetPawnOwner();
 	FRotator Rotation = Pawn->GetActorRotation();
 	Direction = CalculateDirection(MovementComponent->Velocity, Rotation);
+
+	//Pawn->GetController();
+	ABasePlayerController* OwnPlayerController = Cast<ABasePlayerController>(Pawn->GetController());
+	if (OwnPlayerController)
+	{
+		ZoomAnim = OwnPlayerController->IsZoom;
+	}
+	// 
+	// 
 	//Updating Rotation
 	//Direction = AimRotation.Yaw;
 	//if (Direction > 180.0) { Direction -= 360.0; }
