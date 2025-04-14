@@ -244,4 +244,8 @@ float APartyMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, A
 	return 0.0f;
 }
 
-
+FPartyMonsterTableRow::FPartyMonsterTableRow()
+	: PartyMonsterClass(APartyMonster::StaticClass())
+{
+	OwnerType = 2;
+}

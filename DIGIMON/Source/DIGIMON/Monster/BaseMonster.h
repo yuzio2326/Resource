@@ -24,7 +24,7 @@ struct DIGIMON_API FBaseMonsterTableRow : public FBasePawnData
 
 public:
 	//Default Setting
-	FBaseMonsterTableRow() { OwnPartner = false; }
+	FBaseMonsterTableRow() { OwnerType = 1; }
 	//DropItem
 	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/KDT3D.ItemPackTableRow"))
 	//FDataTableRowHandle DropItem;

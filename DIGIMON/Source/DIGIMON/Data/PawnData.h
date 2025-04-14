@@ -65,8 +65,7 @@ public: // Movement
 	UPROPERTY(EditAnywhere, Category = "Pawn|Movement")
 	float MovementMaxSpeed = 400.f;
 
-	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
-	bool OwnPartner = true;
+
 
 public: // AI (Monster 및 Party에 적용)
 	UPROPERTY(EditAnywhere, Category = "Pawn|AI")
@@ -88,8 +87,12 @@ public: // AI (Monster 및 Party에 적용)
 	float INT = 0;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	float INT_DEF = 0;
+	// Data =1 / Virus=2 / Vaccine=3
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
-	int PawnType = 0;	// Data =1 / Virus=2 / Vaccine=3
+	int PawnType = 0;	
+	// 1=Monster Or 2=PartyMonster Or 3=Player
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	int OwnerType = 0;	
 
 	//진화 할 대상
 	UPROPERTY(EditAnywhere, Category = "Pawn|EVO", meta = (RowType = "/Script/DIGIMON.BasePawnData"))

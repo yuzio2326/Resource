@@ -11,6 +11,22 @@
 #include "GameFramework/Pawn.h"
 #include "PartyMonster.generated.h"
 
+USTRUCT()
+struct DIGIMON_API FPartyMonsterTableRow : public FBasePawnData
+{
+	GENERATED_BODY()
+	FPartyMonsterTableRow();
+public:
+	UPROPERTY(EditAnywhere, Category = "PartyMonster")
+	TSubclassOf<APartyMonster> PartyMonsterClass;
+	
+
+};
+
+
+
+
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOwningPlayer, bool, IsOwnPlayer, ABasePlayer*, PlayerTarget);
 
 UCLASS()
