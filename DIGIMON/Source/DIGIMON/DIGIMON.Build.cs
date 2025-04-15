@@ -12,7 +12,7 @@ public class DIGIMON : ModuleRules
             new string[]
             {
                 "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
-                "UMG", "MoviePlayer", "AIModule", "Paper2D"
+                "UMG", "MoviePlayer", "AIModule", "Paper2D", "RenderCore", "RHI", "Network"
             });
 
         PrivateDependencyModuleNames.AddRange(new string[] { });

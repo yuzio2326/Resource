@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\user\\desktop\\unrealenginefiles\\resource\\digimon\\plugins\\network\\source\\network\\private\\network.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\user\\desktop\\unrealenginefiles\\resource\\digimon\\intermediate\\build\\win64\\x64\\digimoneditor\\debuggame\\unrealed\\sharedpch.unrealed.project.nonoptimized.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\user\\desktop\\unrealenginefiles\\resource\\digimon\\plugins\\network\\intermediate\\build\\win64\\x64\\unrealeditor\\debuggame\\network\\definitions.network.h",
+            "c:\\users\\user\\desktop\\unrealenginefiles\\resource\\digimon\\plugins\\network\\source\\network\\public\\network.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
