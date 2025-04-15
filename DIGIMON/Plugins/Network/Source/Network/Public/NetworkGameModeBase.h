@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class NETWORK_API ANetworkGameModeBase : public AGameModeBase
+class NETWORK_API ANetworkGameModeBase : public AGameModeBase, public FNetworkNotify
 {
 	GENERATED_BODY()
 

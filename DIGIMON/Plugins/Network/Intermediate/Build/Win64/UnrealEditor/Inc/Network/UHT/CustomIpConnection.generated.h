@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define NETWORK_CustomIpConnection_generated_h
 
-#define FID_Digimon2_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUCustomIpConnection(); \
 	friend struct Z_Construct_UClass_UCustomIpConnection_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(UCustomIpConnection)
 
 
-#define FID_Digimon2_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_ENHANCED_CONSTRUCTORS \
+#define FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UCustomIpConnection(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -37,12 +37,12 @@ public: \
 	NO_API virtual ~UCustomIpConnection();
 
 
-#define FID_Digimon2_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_12_PROLOG
-#define FID_Digimon2_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_GENERATED_BODY \
+#define FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_12_PROLOG
+#define FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Digimon2_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_INCLASS_NO_PURE_DECLS \
-	FID_Digimon2_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_ENHANCED_CONSTRUCTORS \
+	FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_INCLASS_NO_PURE_DECLS \
+	FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -50,7 +50,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> NETWORK_API UClass* StaticClass<class UCustomIpConnection>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Digimon2_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h
+#define CURRENT_FILE_ID FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

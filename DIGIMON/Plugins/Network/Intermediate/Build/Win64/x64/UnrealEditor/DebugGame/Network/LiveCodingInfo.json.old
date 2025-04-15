@@ -1,5 +1,15 @@
 {
 	"RemapUnityFiles": 
 	{
+		"Module.Network.cpp.obj": [
+			"CustomIpConnection.gen.cpp.obj",
+			"Network.init.gen.cpp.obj",
+			"NetworkGameModeBase.gen.cpp.obj",
+			"PersonalNetDriver.gen.cpp.obj",
+			"CustomIpConnection.cpp.obj",
+			"Network.cpp.obj",
+			"NetworkGameModeBase.cpp.obj",
+			"PersonalNetDriver.cpp.obj"
+		]
 	}
 }
