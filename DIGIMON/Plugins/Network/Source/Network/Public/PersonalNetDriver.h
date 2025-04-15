@@ -29,4 +29,17 @@ protected:
      */
     virtual FUniqueSocket CreateSocketForProtocol(const FName& ProtocolType);
 
+    /**
+     * 주어진 바인드 주소 정보를 사용하여 소켓을 생성, 초기화 및 바인드합니다.
+     *
+     * @param BindAddr              새 소켓을 바인드할 주소이며, 주소 프로토콜을 사용하여 CreateSocketForProtocol을 통해 소켓을 생성합니다.
+     * @param Port                  주어진 바인드 주소와 함께 사용할 포트 번호입니다.
+     * @param bReuseAddressAndPort  true로 설정하면, 주소가 사용 중이더라도 소켓을 바인드할 수 있게 설정합니다.
+     * @param DesiredRecvSize       소켓의 수신 버퍼의 최대 크기입니다.
+     * @param DesiredSendSize       소켓의 전송 버퍼의 최대 크기입니다.
+     * @param Error                 오류가 발생할 경우 오류 메시지로 채워질 참조 문자열입니다.
+     *
+     * @return 소켓이 적절한 옵션으로 생성 및 바인드될 수 있으면 새 소켓에 대한 포인터를 반환하고, 그렇지 않으면 null을 반환합니다.
+     */
+    virtual FUniqueSocket CreateAndBindSocket(TSharedRef<FInternetAddr> BindAddr, int32 Port, bool bReuseAddressAndPort, int32 DesiredRecvSize, int32 DesiredSendSize, FString& Error) override;
 };

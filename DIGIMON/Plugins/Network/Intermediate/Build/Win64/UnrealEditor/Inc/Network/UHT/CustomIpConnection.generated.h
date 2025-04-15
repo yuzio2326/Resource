@@ -24,8 +24,6 @@ public: \
 
 
 #define FID_Users_user_Desktop_UnrealEngineFiles_Resource_DIGIMON_Plugins_Network_Source_Network_Public_CustomIpConnection_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UCustomIpConnection(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UCustomIpConnection(UCustomIpConnection&&); \
@@ -33,7 +31,7 @@ private: \
 public: \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UCustomIpConnection); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UCustomIpConnection); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UCustomIpConnection) \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UCustomIpConnection) \
 	NO_API virtual ~UCustomIpConnection();
 
 

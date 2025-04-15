@@ -9,7 +9,8 @@
             "c:\\users\\user\\desktop\\unrealenginefiles\\resource\\digimon\\plugins\\network\\source\\network\\public\\customipconnection.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\plugins\\online\\onlinesubsystemutils\\source\\onlinesubsystemutils\\classes\\ipconnection.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\plugins\\online\\onlinesubsystemutils\\intermediate\\build\\win64\\unrealeditor\\inc\\onlinesubsystemutils\\uht\\ipconnection.generated.h",
-            "c:\\users\\user\\desktop\\unrealenginefiles\\resource\\digimon\\plugins\\network\\intermediate\\build\\win64\\unrealeditor\\inc\\network\\uht\\customipconnection.generated.h"
+            "c:\\users\\user\\desktop\\unrealenginefiles\\resource\\digimon\\plugins\\network\\intermediate\\build\\win64\\unrealeditor\\inc\\network\\uht\\customipconnection.generated.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\sockets\\public\\sockets.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

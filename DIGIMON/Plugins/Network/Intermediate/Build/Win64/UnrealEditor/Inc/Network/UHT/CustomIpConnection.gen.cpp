@@ -74,7 +74,6 @@ template<> NETWORK_API UClass* StaticClass<UCustomIpConnection>()
 {
 	return UCustomIpConnection::StaticClass();
 }
-UCustomIpConnection::UCustomIpConnection(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR(UCustomIpConnection);
 UCustomIpConnection::~UCustomIpConnection() {}
 // End Class UCustomIpConnection

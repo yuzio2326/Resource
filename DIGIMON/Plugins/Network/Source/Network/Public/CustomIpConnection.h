@@ -13,5 +13,7 @@ UCLASS()
 class NETWORK_API UCustomIpConnection : public UIpConnection
 {
 	GENERATED_BODY()
-	
+public:
+	UCustomIpConnection();
+	virtual void LowLevelSend(void* Data, int32 CountBits, FOutPacketTraits& Traits) override;
 };
