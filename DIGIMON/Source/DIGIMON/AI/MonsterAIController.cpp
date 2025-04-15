@@ -74,8 +74,10 @@ void AMonsterAIController::CheckSpawnRadius()
 
 void AMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 {
+	if (MaxHP == CurrentHP) { return; }
 	bDamaged = true;
 	AController* Instigator_ = StatusComponentRef->GetLastInstigator();
+	check(Instigator_);
 	APawn* InstigatorPawn = Instigator_->GetPawn();
 	check(InstigatorPawn);
 	Blackboard->SetValueAsObject(TEXT("DetectTarget"), Cast<UObject>(InstigatorPawn));

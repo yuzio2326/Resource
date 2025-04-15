@@ -70,7 +70,9 @@ public: // Movement
 public: // AI (Monster 및 Party에 적용)
 	UPROPERTY(EditAnywhere, Category = "Pawn|AI")
 	TSubclassOf<AAIController> AIControllerClass = AMonsterAIController::StaticClass();
-
+	// 1유년기 2 성장기 3성숙기 4완전체 5 궁극체
+	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
+	int EvolutionType;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")
 	int Level = 1;
 	UPROPERTY(EditAnywhere, Category = "Pawn|Status")

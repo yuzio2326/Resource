@@ -14,6 +14,14 @@ UStatusComponent::UStatusComponent()
 	// ...
 }
 
+void UStatusComponent::AddHP(float Damage)
+{
+	{ 
+		HP += Damage; 
+		OnHPChanged.Broadcast(HP, MaxHP);
+	}
+}
+
 void UStatusComponent::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 {
 	DataTableRowHandle = InDataTableRowHandle;
@@ -28,6 +36,8 @@ void UStatusComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	MaxEXP = (Level * 20) + (Level * (5 * Level));
+	OnHPChanged.Broadcast(HP, MaxHP);
+	OnMPChanged.Broadcast(MP, MaxMP);
 	// ...
 	
 }
@@ -92,6 +102,19 @@ void UStatusComponent::LevelUp()
 		++Level;
 		EXP -= MaxEXP;
 		MaxEXP = (Level * 20) + (Level * (5 * Level));
+
+		//levelup status 추가 하는 과정 추가하고 밑에 broadcast 사용
+		MaxHP += (EvolutionType * 10)+10;
+		HP = MaxHP;
+		STR += EvolutionType * 3 * Type;
+		INT += EvolutionType * 3 * (4 - Type);
+		STRDEF += EvolutionType * 3 * Type;
+		INTDEF += EvolutionType * 3 * (4 - Type);
+
+		OnHPChanged.Broadcast(HP, MaxHP);
+		OnLevelChanged.Broadcast(Level);
+		OnStatusChanged.Broadcast(STR, INT, STRDEF, INTDEF);
+
 	}
 	else { return; }
 

@@ -67,6 +67,7 @@ void APartyMonsterAIController::CheckSpawnRadius()
 
 void APartyMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 {
+	if (MaxHP == CurrentHP) { return; }
 	bDamaged = true;
 	AController* Instigator_ = StatusComponentRef->GetLastInstigator();
 	APawn* InstigatorPawn = Instigator_->GetPawn();

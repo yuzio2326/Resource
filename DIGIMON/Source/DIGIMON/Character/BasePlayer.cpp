@@ -55,9 +55,9 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 			MinimapSpriteComponent->SetRelativeTransform(Transform);
 		}
 		{
-			static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("/Script/Paper2D.PaperSprite'/Game/Digimon/UI/Icon/Icon_Player_Sprite.Icon_Player_Sprite'"));
-			ensure(Asset.Object);
-			MinimapSpriteComponent->SetSprite(Asset.Object);
+			//static ConstructorHelpers::FObjectFinder<UPaperSprite> Asset(TEXT("/Script/Paper2D.PaperSprite'/Game/Digimon/UI/Icon/Icon_Player_Sprite.Icon_Player_Sprite'"));
+			//ensure(Asset.Object);
+			//MinimapSpriteComponent->SetSprite(Asset.Object);
 		}
 		//{
 		//	static ConstructorHelpers::FObjectFinder<UMaterial> Asset(TEXT("/Script/Engine.Material'/Game/Digimon/UI/MyDefaultSpriteMaterial.MyDefaultSpriteMaterial'"));
@@ -142,6 +142,12 @@ void ABasePlayer::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 
 		AnimInstance = Cast<UPawnAnimInstance>(SkeletalMeshComponent->GetAnimInstance());
 		check(AnimInstance);
+	}
+	{
+		if (CharacterData->Level != 0 && CharacterData->HP != 0 && CharacterData->PawnType != 0 && StatusComponent)
+		{
+			StatusComponent->StatusSetting(CharacterData->Level, CharacterData->EXP, CharacterData->HP, CharacterData->MP, CharacterData->STR, CharacterData->STR_DEF, CharacterData->INT, CharacterData->INT_DEF, CharacterData->PawnType);
+		}
 	}
 }
 

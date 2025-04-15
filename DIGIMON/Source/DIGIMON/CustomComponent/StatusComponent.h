@@ -30,6 +30,10 @@ public:
 };
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHPChanged, float, CurrentHP, float, MaxHP);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnMPChanged, float, CurrentMP, float, MaxMP);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEXPChanged, float, CurrentEXP, float, MaxEXP);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLevelChanged, int, Level);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnStatusChanged, float, Strength, float, Intelligence, float, ADDefence, float, APDefence);
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDie);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -54,8 +58,8 @@ public:
 	float AddEXP(float fGetEXP) { return EXP+= fGetEXP; }
 	float GetEXP() const { return EXP; }
 
-	float AddHP(float Damage) { return HP += Damage; }
-	float AddMP(float Damage) { return MP += Damage; }
+	void AddHP(float Damage);
+	void AddMP(float Damage) { MP += Damage; }
 
 
 	int GetOwnerPawnType() const { return OwnerPawnType; }
@@ -94,7 +98,10 @@ protected:
 	//Add UPROPERTY(VisibleAnywhere) For Visable In UE
 	UPROPERTY(BlueprintReadOnly)
 	int Level;
-	//Virus data vaccine 
+	// 1유년기 2 성장기 3성숙기 4완전체 5 궁극체
+	UPROPERTY(BlueprintReadOnly)
+	int EvolutionType;
+	// 1 Virus 2 data 3 vaccine 
 	UPROPERTY(BlueprintReadOnly)
 	int Type;
 	UPROPERTY(BlueprintReadOnly)
@@ -141,6 +148,9 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnHPChanged OnHPChanged;
 	FOnMPChanged OnMPChanged;
+	FOnEXPChanged OnEXPChanged;
+	FOnLevelChanged OnLevelChanged;
+	FOnStatusChanged OnStatusChanged;
 	FOnDie OnDie;
 		
 };
