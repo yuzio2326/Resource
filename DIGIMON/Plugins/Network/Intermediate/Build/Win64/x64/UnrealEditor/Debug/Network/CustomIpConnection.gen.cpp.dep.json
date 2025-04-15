@@ -1,0 +1,17 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\digimon2\\digimon\\plugins\\network\\intermediate\\build\\win64\\unrealeditor\\inc\\network\\uht\\customipconnection.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\digimon2\\digimon\\intermediate\\build\\win64\\x64\\digimoneditor\\debug\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "d:\\digimon2\\digimon\\plugins\\network\\intermediate\\build\\win64\\x64\\unrealeditor\\debug\\network\\definitions.network.h",
+            "d:\\digimon2\\digimon\\plugins\\network\\source\\network\\public\\customipconnection.h",
+            "d:\\assortrock\\ue5.4.3\\engine\\plugins\\online\\onlinesubsystemutils\\source\\onlinesubsystemutils\\classes\\ipconnection.h",
+            "d:\\assortrock\\ue5.4.3\\engine\\plugins\\online\\onlinesubsystemutils\\intermediate\\build\\win64\\unrealeditor\\inc\\onlinesubsystemutils\\uht\\ipconnection.generated.h",
+            "d:\\digimon2\\digimon\\plugins\\network\\intermediate\\build\\win64\\unrealeditor\\inc\\network\\uht\\customipconnection.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

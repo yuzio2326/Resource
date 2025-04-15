@@ -282,6 +282,7 @@
 /I "Editor\SceneDepthPickerMode\Public"
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\AnimationEditMode\UHT"
 /I "Editor\AnimationEditMode\Public"
+/I "C:\Users\user\Desktop\UnrealEngineFiles\Resource\DIGIMON\Plugins\Network\Intermediate\Build\Win64\UnrealEditor\Inc\Network\UHT"
 /I "C:\Users\user\Desktop\UnrealEngineFiles\Resource\DIGIMON\Plugins\Network\Source"
 /I "C:\Users\user\Desktop\UnrealEngineFiles\Resource\DIGIMON\Plugins\Network\Source\Network\Public"
 /I "..\Plugins\Online\OnlineSubsystemUtils\Intermediate\Build\Win64\UnrealEditor\Inc\OnlineSubsystemUtils\UHT"

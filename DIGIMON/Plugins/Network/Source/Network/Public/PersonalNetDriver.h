@@ -17,5 +17,5 @@ class NETWORK_API UPersonalNetDriver : public UIpNetDriver
 	
 public:
 	/* Initializes the net connection class to use for new connections */
-	virtual bool InitConnectionClass(void);
+	virtual bool InitConnectionClass() override;
 };
