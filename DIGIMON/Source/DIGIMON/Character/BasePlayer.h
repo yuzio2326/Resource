@@ -14,9 +14,23 @@
 #include "PawnAnimInstance.h"
 #include "CustomComponent/StatusComponent.h"
 #include "CustomComponent/InventoryComponent.h"
+#include "CustomComponent/SkillComponent.h"
 #include "Misc/Utils.h"
 #include "Data/PawnData.h"
 #include "BasePlayer.generated.h"
+
+USTRUCT()
+struct DIGIMON_API FBasePlayerData : public FBasePawnData 
+{
+	GENERATED_BODY()
+public:
+	// 기본 무기
+	UPROPERTY(EditAnywhere, Category = "SkillProjectile", meta = (RowType = "/Script/DIGIMON.WeaponTableRow"))
+	FDataTableRowHandle WeaponRowHandle; 
+	//아이템에서 계속 바꿀 예정
+
+
+};
 
 UCLASS()
 class DIGIMON_API ABasePlayer : public ACharacter
@@ -74,6 +88,9 @@ protected:
 	UStatusComponent* StatusComponent;
 
 	UPROPERTY(VisibleAnywhere)
+	USkillComponent* SkillComponent;
+
+	UPROPERTY(VisibleAnywhere)
 	UInventoryComponent* InventoryComponent;
 
 	UPROPERTY(VisibleAnywhere)
@@ -84,6 +101,8 @@ protected:
 	UAnimMontage* CurrentDieMontage;
 	
 	FRotator DesiredAimRotation;
+
+	FSkillTableRow* RowSkill;
 
 protected:
 	//UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.PawnTableRow"))

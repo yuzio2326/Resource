@@ -35,7 +35,7 @@ public: // Skill
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnUsingSkill, bool, UsingSkill, bool, CanUseSkill, bool, CanUseRangeSkill);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttack, bool, Attack);
 
-
+	
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DIGIMON_API USkillComponent : public UActorComponent
 {

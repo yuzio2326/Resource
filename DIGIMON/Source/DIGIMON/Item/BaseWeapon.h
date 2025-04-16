@@ -18,10 +18,17 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	USkeletalMesh* SkeletalMesh = nullptr;
+	//Use Int Or STR
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	bool WeaponTypeAP;
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	float WeaponDamage;
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	FTransform Transform = FTransform::Identity;
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ProjectileTableRow"))
 	FDataTableRowHandle ProjectileRowHandle;
+
+
 };
 
 UCLASS()

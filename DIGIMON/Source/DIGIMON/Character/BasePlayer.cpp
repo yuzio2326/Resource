@@ -41,7 +41,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 	SpringArm->SetRelativeTransform(SpringArmTransform);
 
 	StatusComponent = CreateDefaultSubobject<UStatusComponent>(TEXT("StatusComponent"));
-
+	
 
 	// Minimap		minimap 대신 그냥 worldmap 하나만 할까 고민중...  
 	{

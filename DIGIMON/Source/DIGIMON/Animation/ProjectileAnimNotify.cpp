@@ -123,12 +123,18 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 	//Player일 경우
 	if (bIsPlayer)
 	{
+		//USkillComponent* PlayerSkillComponent;
+		FSkillDataRow CurrentSkilldata;
+		//FProjectileTableRow* ProjectileTableRow;
 		ABasePlayer* PlayerCharacter = Cast<ABasePlayer>(OwningPawn);
 		check(PlayerCharacter);
+		float Damage = PlayerCharacter->GetStatusComponent()->GetSTR();
+		//ProjectileTableRow =
 		//기본 스킬에 평타 넣으면 되려나?
 		// 
 		//const FBasePawnData* PawnData= PlayerCharacter->getbasepaw
-
+		/*const FProjectileTableRow* ProjectileTableRow = GunTableRow->ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("Projectile"));
+		check(ProjectileTableRow);*/
 		//구현 필요함
 	}
 	else 
