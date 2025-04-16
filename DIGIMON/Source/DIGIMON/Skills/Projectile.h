@@ -95,5 +95,6 @@ protected:
 	bool IsCharge;
 	float fChargeSpeed;
 	float ChargeTime;
-
+	float BaseDamage;
+	float OwnerDamage;
 };

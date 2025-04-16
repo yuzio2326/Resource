@@ -9,7 +9,7 @@
 #include "../Misc/Utils.h"
 #include "../CustomComponent/AdvanceFloatingPawnMovement.h"
 //#include "Engine/"
-
+#include "Components/TimelineComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
 
@@ -63,7 +63,10 @@ protected:
 	virtual void OnConstruction(const FTransform& Transform);
 protected:
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
-
+	UFUNCTION()
+	virtual void OnPaperBurnEffect(float InDissolve);
+	UFUNCTION()
+	virtual void OnPaperBurnEffectEnd();
 
 protected:
 	UFUNCTION()
@@ -115,6 +118,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USkillComponent* SkillComponent;
 
+	UPROPERTY(VisibleAnywhere)
+	UTimelineComponent* PaperBurnEffectTimelineComponent;
+	TArray<UMaterialInstanceDynamic*> MaterialInstanceDynamics;
 	//const FBasePawnData* PawnDataTableRow = nullptr;
 
 

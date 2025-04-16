@@ -60,6 +60,10 @@ void AProjectile::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	ProjectileMovementComponent->ProjectileGravityScale = ProjectileData->ProjectileGravityScale;
 	InitialLifeSpan = ProjectileData->InitialLifeSpan;
 
+	BaseDamage = ProjectileData->DMG;
+	GetInstigator()->GetController();
+
+
 	StaticMeshComponent->MoveIgnoreActors.Empty();
 	StaticMeshComponent->MoveIgnoreActors.Add(GetOwner());
 
@@ -97,7 +101,7 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	GetWorld()->GetSubsystem<UActorPoolSubsystem>()->SpawnEffect(NewTransform, ProjectileData->HitEffectTableRowHandle);
 	Destroy();
 
-	UGameplayStatics::ApplyDamage(OtherActor, 1.f, GetInstigator()->GetController(), this, nullptr);
+	UGameplayStatics::ApplyDamage(OtherActor, BaseDamage, GetInstigator()->GetController(), this, nullptr);
 }
 
 // Called every frame

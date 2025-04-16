@@ -13,13 +13,15 @@ struct DIGIMON_API FWeaponTableRow : public FTableRowBase
 	GENERATED_BODY()
 	FWeaponTableRow();
 public:
+	UPROPERTY(EditAnywhere, Category = "Weapon")
 	TSubclassOf<ABaseWeapon> WeaponClass;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	USkeletalMesh* SkeletalMesh = nullptr;
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	FTransform Transform = FTransform::Identity;
-
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ProjectileTableRow"))
+	FDataTableRowHandle ProjectileRowHandle;
 };
 
 UCLASS()

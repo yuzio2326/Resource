@@ -10,6 +10,7 @@
 #include "Components/CapsuleComponent.h"
 #include "CustomComponent/SoftWheelSpringArmComponent.h"
 #include "PaperSpriteComponent.h"
+#include "CustomComponent/WeaponChildActorComponent.h"
 #include "PawnAnimInstance.h"
 #include "CustomComponent/StatusComponent.h"
 #include "CustomComponent/InventoryComponent.h"
@@ -52,6 +53,7 @@ public:
 
 
 	UInventoryComponent* GetInventoryComponent() { return InventoryComponent; }
+	UStatusComponent* GetStatusComponent() { return StatusComponent; }
 
 protected:
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
@@ -64,6 +66,9 @@ protected:
 	/** Please add a variable description */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TObjectPtr<UCameraComponent> Camera;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UWeaponChildActorComponent> Weapon;
 
 	UPROPERTY(VisibleAnywhere)
 	UStatusComponent* StatusComponent;

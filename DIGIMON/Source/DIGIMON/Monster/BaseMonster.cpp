@@ -40,7 +40,19 @@ ABaseMonster::ABaseMonster()
 	AISenseConfig_Sight->LoseSightRadius = 1000.f;
 	AISenseConfig_Sight->PeripheralVisionAngleDegrees = 120.f;
 	AIPerceptionComponent->ConfigureSense(*AISenseConfig_Sight);
+	{
+		static ConstructorHelpers::FObjectFinder<UCurveFloat> CurveAsset(TEXT("/Script/Engine.CurveFloat'/Game/Digimon/FX/FX_BaseMonster/CV_PaperBurn.CV_PaperBurn'"));
+		check(CurveAsset.Object);
+		PaperBurnEffectTimelineComponent = CreateDefaultSubobject<UTimelineComponent>(TEXT("PaperBurnEffectTimelineComponent"));
 
+		FOnTimelineFloat Delegate;
+		Delegate.BindDynamic(this, &ThisClass::OnPaperBurnEffect);
+		PaperBurnEffectTimelineComponent->AddInterpFloat(CurveAsset.Object, Delegate);
+
+		FOnTimelineEvent EndDelegate;
+		EndDelegate.BindDynamic(this, &ThisClass::OnPaperBurnEffectEnd);
+		PaperBurnEffectTimelineComponent->SetTimelineFinishedFunc(EndDelegate);
+	}
 }
 
 void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
@@ -218,6 +230,20 @@ float ABaseMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 	return 0.0f;
 }
 
+void ABaseMonster::OnPaperBurnEffect(float InDissolve)
+{
+	const int32 MaterialNum = MaterialInstanceDynamics.Num();
+	for (int32 i = 0; i < MaterialNum; ++i)
+	{
+		MaterialInstanceDynamics[i]->SetScalarParameterValue(MF_PostEffect::PaperBurnDissolve, InDissolve);
+	}
+}
+
+void ABaseMonster::OnPaperBurnEffectEnd()
+{
+	Destroy();
+}
+
 void ABaseMonster::OnDie()
 {
 	AnimInstance->Montage_Pause(CurrentDieMontage);
@@ -226,14 +252,14 @@ void ABaseMonster::OnDie()
 	//Spawn Effect 하고 alpha를 천천히 없애기 ㄱㄱ
 
 	//PaperBurn Parts
-	//const int32 MaterialNum = SkeletalMeshComponent->GetSkinnedAsset()->GetMaterials().Num();
-	//MaterialInstanceDynamics.Reserve(MaterialNum);
-	//for (int32 i = 0; i < MaterialNum; ++i)
-	//{
-	//	MaterialInstanceDynamics.Add(SkeletalMeshComponent->CreateDynamicMaterialInstance(i));
-	//}
+	const int32 MaterialNum = SkeletalMeshComponent->GetSkinnedAsset()->GetMaterials().Num();
+	MaterialInstanceDynamics.Reserve(MaterialNum);
+	for (int32 i = 0; i < MaterialNum; ++i)
+	{
+		MaterialInstanceDynamics.Add(SkeletalMeshComponent->CreateDynamicMaterialInstance(i));
+	}
 
-	//PaperBurnEffectTimelineComponent->Play();
+	PaperBurnEffectTimelineComponent->Play();
 }
 
 // Called every frame

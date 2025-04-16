@@ -174,6 +174,7 @@ void APartyMonster::BeginPlay()
 	Super::BeginPlay();
 	SetData(BaseDataTableRowHandle);
 	SetSkillData(PawnData->OwnSkillData);
+	//SetOwnerPlayer();
 }
 
 void APartyMonster::OnConstruction(const FTransform& Transform)

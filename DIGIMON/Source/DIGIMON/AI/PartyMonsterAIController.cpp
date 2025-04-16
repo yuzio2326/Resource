@@ -47,6 +47,12 @@ void APartyMonsterAIController::Tick(float DeltaTime)
 		FindPlayerByPerception();
 	}
 
+	if (OwnerPlayer)
+	{
+		PlayerOnDamaged();
+
+	}
+
 	// Damaged일때는 안쓸지는 고민중
 	//spawn 위치로부터 일정 거리 벗어나면 돌아가기 위한 용도
 	CheckSpawnRadius();
@@ -79,6 +85,15 @@ void APartyMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 	//UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamagedMontage"), 1.f, false);
 }
 
+void APartyMonsterAIController::PlayerOnDamaged()
+{
+	AController* PlayerInstigator = OwnerPlayerStatusComponentRef->GetLastInstigator();
+	if (PlayerInstigator)
+	{
+		Blackboard->SetValueAsObject(TEXT("DetectTarget"), Cast<UObject>(PlayerInstigator));
+	}
+}
+
 void APartyMonsterAIController::ResetOnDamaged()
 {
 	bDamaged = false;
@@ -99,6 +114,8 @@ void APartyMonsterAIController::FindPlayerByPerception()
 			{
 				bFound = true;
 				Blackboard->SetValueAsObject(TEXT("DetectPlayer"), Cast<UObject>(DetectedPlayer));
+				OwnerPlayer = Cast<ABasePlayer>(DetectedPlayer);
+				OwnerPlayerStatusComponentRef = OwnerPlayer->GetStatusComponent();
 				break;
 			}
 		}

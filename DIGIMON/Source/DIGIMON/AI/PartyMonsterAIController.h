@@ -8,7 +8,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
-
+#include "Character/BasePlayer.h"
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "PartyMonsterAIController.generated.h"
@@ -32,6 +32,8 @@ protected:
 
 	UFUNCTION()
 	void OnDamaged(float CurrentHP, float MaxHP);
+	UFUNCTION()
+	void PlayerOnDamaged();
 
 	UFUNCTION()
 	void ResetOnDamaged();
@@ -63,7 +65,13 @@ protected:
 
 	UPROPERTY()
 	UStatusComponent* StatusComponentRef;
+	UPROPERTY()
+	UStatusComponent* OwnerPlayerStatusComponentRef;
 
 	UPROPERTY()
 	USkillComponent* SkillComponentRef;
+	UPROPERTY()
+	ABasePlayer* OwnerPlayer;
+
+
 };

@@ -16,7 +16,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 	GetCapsuleComponent()->SetCollisionProfileName(CollisionProfileName::Player);
 	SpringArm = CreateDefaultSubobject<USoftWheelSpringArmComponent>(TEXT("SpringArm"));
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	
+	Weapon = CreateDefaultSubobject<UWeaponChildActorComponent>(TEXT("Weapon"));
 	//TODO::
 	//spawn static 총 mesh spawn 시키고 muzzle 위치 설정하기
 	//레벨업 관련 ui 만들기 skillcomponent에서 원거리 공격 하는걸로 하도록 설정해가지고 자기 stat 추가뎀 만들기     	
@@ -29,7 +29,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 		SpringArm->SetMinMaxTargetArmLength(200.f, SpringArm->GetMaxTargetArmLength());
 	}
 	Camera->SetupAttachment(SpringArm);
-	
+	Weapon->SetupAttachment(GetMesh(), SocketName::Weapon);
 
 	bUseControllerRotationYaw = false;
 
@@ -208,7 +208,9 @@ float ABasePlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, ACo
 	
 	if (StatusComponent->GetHP() > 0)
 	{
-		StatusComponent->AddHP(Damage);
+
+		//StatusComponent->AddHP(Damage);
+		StatusComponent->TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 	}
 
 
