@@ -39,6 +39,9 @@ class DIGIMON_API ABaseWeapon : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABaseWeapon();
+	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
+protected:
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -47,5 +50,19 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+protected:
+	UPROPERTY(VisibleAnywhere)
+	USceneComponent* DefaultSceneRoot;
+
+	UPROPERTY(VisibleAnywhere)
+	USkeletalMeshComponent* SkeletalMeshComponent;
+
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.WeaponTableRow"))
+	FDataTableRowHandle DataTableRowHandle;
+	const FWeaponTableRow* WeaponTableRow = nullptr;
+
+protected:
+	APawn* OwningPawn = nullptr;
 
 };

@@ -17,12 +17,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float UseMP;		//CanChange
 	//Delete 
-	//UPROPERTY(EditAnywhere, Category = "Skill")
-	//FTransform Transform = FTransform::Identity;
-	//Projectile같은 melee만들고 거기서 데미지랑 이펙트 넣고 딜 ㄱㄱ
+
+	
+	//기본 Damage입니다
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	float Damage;		
-	//INT STR 
+	//flase = INT / true = STR 
 	UPROPERTY(EditAnywhere, Category = "Skill")
 	bool IsUseStatusSTR;		
 	//status 기반 추가뎀(계수)
