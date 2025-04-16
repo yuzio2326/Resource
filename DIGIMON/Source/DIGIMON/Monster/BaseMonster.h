@@ -76,6 +76,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	USkillComponent* GetMonsterSkilRow() const { return SkillComponent; }
+	UStatusComponent* GetMonsterStatus() const { return StatusComponent; }
 
 
 protected:

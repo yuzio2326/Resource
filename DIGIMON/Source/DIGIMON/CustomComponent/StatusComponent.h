@@ -55,6 +55,7 @@ public:
 	float GetMaxMP() const { return MaxMP; }
 	float GetMaxHP() const { return MaxHP; }
 	float GetSTR() const { return STR; }
+	float GetINT() const { return INT; }
 	float AddEXP(float fGetEXP) { return EXP+= fGetEXP; }
 	float GetEXP() const { return EXP; }
 

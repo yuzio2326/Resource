@@ -152,6 +152,21 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 			CurrentSkilldata = MonsterSkillComponent->GetCurrentSkillData();
 			ProjectileTableRow = CurrentSkilldata.ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("SkillProjectile"));
 			check(ProjectileTableRow);
+
+			UStatusComponent* MonsterStatus = PartyMonsterPawn->GetMonsterStatus();
+			if (CurrentSkilldata.IsUseStatusSTR)
+			{
+				float MonsterStat = MonsterStatus->GetSTR();
+				OwnerDamage = CurrentSkilldata.BonusDamage * MonsterStat;
+				BaseDamage = CurrentSkilldata.Damage;
+			}
+			else
+			{
+				float MonsterStat = MonsterStatus->GetINT();
+				OwnerDamage = CurrentSkilldata.BonusDamage * MonsterStat;
+				BaseDamage = CurrentSkilldata.Damage;
+			}
+			
 		}
 		//base monster
 		else 
@@ -163,12 +178,27 @@ void UProjectileAnimNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 			CurrentSkilldata = MonsterSkillComponent->GetCurrentSkillData();
 			ProjectileTableRow = CurrentSkilldata.ProjectileRowHandle.GetRow<FProjectileTableRow>(TEXT("SkillProjectile"));
 			check(ProjectileTableRow);
+
+			UStatusComponent* MonsterStatus = MonsterPawn->GetMonsterStatus();
+			if (CurrentSkilldata.IsUseStatusSTR)
+			{
+				float MonsterStat = MonsterStatus->GetSTR();
+				OwnerDamage = CurrentSkilldata.BonusDamage * MonsterStat;
+				BaseDamage = CurrentSkilldata.Damage;
+			}
+			else 
+			{
+				float MonsterStat = MonsterStatus->GetINT();
+				OwnerDamage = CurrentSkilldata.BonusDamage * MonsterStat;
+				BaseDamage = CurrentSkilldata.Damage;
+			}
 		}
 
 		UWorld* World = OwningPawn->GetWorld();
 		AProjectile* Projectile = World->SpawnActorDeferred<AProjectile>(ProjectileTableRow->ProjectileClass,
 			FTransform::Identity, OwningPawn, OwningPawn, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 		Projectile->SetData(CurrentSkilldata.ProjectileRowHandle);
+		Projectile->SetStatDamage(BaseDamage, OwnerDamage);
 
 		FTransform NewTransform;
 		NewTransform.SetLocation(MuzzleLocation);

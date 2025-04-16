@@ -60,6 +60,7 @@ void AProjectile::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	ProjectileMovementComponent->ProjectileGravityScale = ProjectileData->ProjectileGravityScale;
 	InitialLifeSpan = ProjectileData->InitialLifeSpan;
 
+	//default Damage 입니다
 	BaseDamage = ProjectileData->DMG;
 	GetInstigator()->GetController();
 
@@ -71,6 +72,14 @@ void AProjectile::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	StaticMeshComponent->SetRelativeTransform(Data->Transform);
 
 
+}
+
+void AProjectile::SetStatDamage(float BaseSkillDamage, float StatDamage)
+{
+	{ 
+		BaseDamage = BaseSkillDamage;
+		OwnerDamage = StatDamage; 
+	}
 }
 
 // Called when the game starts or when spawned
@@ -101,7 +110,9 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	GetWorld()->GetSubsystem<UActorPoolSubsystem>()->SpawnEffect(NewTransform, ProjectileData->HitEffectTableRowHandle);
 	Destroy();
 
-	UGameplayStatics::ApplyDamage(OtherActor, BaseDamage, GetInstigator()->GetController(), this, nullptr);
+	float Damage = BaseDamage + OwnerDamage;
+
+	UGameplayStatics::ApplyDamage(OtherActor, Damage, GetInstigator()->GetController(), this, nullptr);
 }
 
 // Called every frame

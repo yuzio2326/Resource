@@ -61,7 +61,7 @@ public:
 	// Sets default values for this actor's properties
 	AProjectile();
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
-
+	void SetStatDamage(float BaseSkillDamage, float StatDamage);
 	//Damage 관련은 SkillBase에서 처리할 예정이니 StatusComponent가져올 필요가 없음
 
 protected:
@@ -96,5 +96,5 @@ protected:
 	float fChargeSpeed;
 	float ChargeTime;
 	float BaseDamage;
-	float OwnerDamage;
+	float OwnerDamage = 0;
 };

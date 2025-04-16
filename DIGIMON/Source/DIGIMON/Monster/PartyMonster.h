@@ -55,6 +55,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	USkillComponent* GetMonsterSkilRow() const { return SkillComponent; }
+	UStatusComponent* GetMonsterStatus() const { return StatusComponent; }
 	// Called to bind functionality to input
 	
 	//안쓸지도?
