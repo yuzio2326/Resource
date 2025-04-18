@@ -38,5 +38,8 @@ DIGIMON/Binaries/
 DIGIMON/Intermediate/
 DIGIMON/Saved/
 
+DIGIMON/DerivedDataCache
+DIGIMON/Plugins/Network/Binaries/
+DIGIMON/Plugins/Network/Intermediate/
 
 
