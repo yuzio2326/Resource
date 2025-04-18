@@ -30,7 +30,8 @@ void ABaseWeapon::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	SkeletalMeshComponent->SetRelativeTransform(Data->Transform);
 	
 	USkeletalMeshComponent* MeshComponent = GetOwner()->GetComponentByClass<USkeletalMeshComponent>();
-	check(MeshComponent);
+
+	/*check(MeshComponent);
 	{
 		OwningPawn = Cast<APawn>(GetOwner());
 		check(OwningPawn);
@@ -38,13 +39,12 @@ void ABaseWeapon::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 		check(OwningPawnBodyMesh);
 		BasicAnimInstance = Cast<UBaisicCharacterAnimInstance>(MeshComponent->GetAnimInstance());
 		check(BasicAnimInstance);
-
 		OwnerStatusComponent = OwningPawn->GetComponentByClass<UStatusComponent>();
 		check(OwnerStatusComponent);
 		{
 			BasicAnimInstance->OnMontageEnded.AddDynamic(this, &ThisClass::OnMontageEnd);
 		}
-	}
+	}*/
 }
 
 // Called when the game starts or when spawned
