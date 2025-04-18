@@ -37,6 +37,7 @@ DIGIMON/.vs/
 DIGIMON/Binaries/
 DIGIMON/Intermediate/
 DIGIMON/Saved/
+DIGIMON/Temp/
 
 DIGIMON/DerivedDataCache
 DIGIMON/Plugins/Network/Binaries/
