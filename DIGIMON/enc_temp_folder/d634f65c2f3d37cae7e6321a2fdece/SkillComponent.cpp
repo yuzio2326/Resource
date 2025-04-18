@@ -43,7 +43,7 @@ void USkillComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 	int32 OwnSkillNum = SkillTableRow.SkillDataArray.Num();
 	int32 RangeSkillNum = SkillTableRow.RangedSkillArray.Num();
 
-	// 원거리 근거리 스킬 쿨타임 세팅
+	// 원거리 근거리 스킬 쿨타임 적용
 	SkillCooldowns.SetNum(OwnSkillNum);
 	for (int32 i = 0; i < OwnSkillNum; i++)
 	{
