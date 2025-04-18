@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/Channel.h"
 #include "PacketType.h"
-#include "MyChannel.generated.h"
+#include "PersonalChannel.generated.h"
 
 
 /**
