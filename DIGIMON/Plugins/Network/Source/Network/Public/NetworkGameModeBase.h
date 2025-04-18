@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(config = Network)
 class NETWORK_API ANetworkGameModeBase : public AGameModeBase, public FNetworkNotify
 {
 	GENERATED_BODY()
@@ -21,4 +21,11 @@ public:
 protected:
     UPROPERTY(Transient)
     UPersonalNetDriver* NetDriver = nullptr;
+
+
+    UPROPERTY(Config)
+    FString Host;
+
+    UPROPERTY(Config)
+    int32 Port;
 };

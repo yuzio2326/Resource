@@ -30,6 +30,7 @@ bool UPersonalNetDriver::InitConnect(FNetworkNotify* InNotify, const FURL& Conne
     }
     else
     {
+        //서버 접속
         return false;
     }
 }
