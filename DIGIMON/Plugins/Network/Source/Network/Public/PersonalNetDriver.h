@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(config = Network)
 class NETWORK_API UPersonalNetDriver : public UIpNetDriver
 {
 	GENERATED_BODY()
