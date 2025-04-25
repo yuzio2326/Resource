@@ -197,6 +197,7 @@ void APartyMonster::SetOwnerPlayer(ABasePlayer* InOwnPlayerTarget)
 	if (InOwnPlayerTarget)
 	{
 		IsOwnPlayer.Broadcast(true, InOwnPlayerTarget);
+		OwnPlayer = InOwnPlayerTarget;
 	}
 	else 
 	{

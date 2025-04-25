@@ -60,7 +60,7 @@ public:
 	
 	//안쓸지도?
 	//bool OwningPlayer() { return IsOwnPlayer = SkillComponent->GetOwnerPlayer(); }
-	ACharacter GetOwnerPlayer();
+	ABasePlayer* GetOwnerPlayer() { return OwnPlayer; }
 
 	void SetOwnerPlayer(ABasePlayer* InOwnPlayerTarget);
 
@@ -107,5 +107,8 @@ protected:
 
 	UPROPERTY(BlueprintAssignable)
 	FOwningPlayer IsOwnPlayer;
+
+
+	ABasePlayer* OwnPlayer;
 
 };

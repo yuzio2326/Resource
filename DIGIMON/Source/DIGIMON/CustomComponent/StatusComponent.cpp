@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+#include "Character/BasePlayer.h"
+#include "Monster/PartyMonster.h"
+#include "Monster/BaseMonster.h"
 #include "StatusComponent.h"
 
 
@@ -12,6 +15,15 @@ UStatusComponent::UStatusComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+}
+
+void UStatusComponent::AddEXP(float fGetEXP)
+{
+	//플레이어가 경험치를 받을 경우 파티 몬스터에게도 모두 경험치가 들어가도록 여기서 만들어야 합니다!!!!
+	//TODO:: item 및 PartyMonster Status 의 EXP 획득 기능을 추가로 해야 합니다
+
+	EXP += fGetEXP;
+	OnEXPChanged.Broadcast(EXP, MaxEXP);
 }
 
 void UStatusComponent::AddHP(float Damage)
@@ -38,6 +50,7 @@ void UStatusComponent::BeginPlay()
 	MaxEXP = (Level * 20) + (Level * (5 * Level));
 	OnHPChanged.Broadcast(HP, MaxHP);
 	OnMPChanged.Broadcast(MP, MaxMP);
+	OnEXPChanged.Broadcast(EXP, MaxEXP);
 	// ...
 	
 }
@@ -79,8 +92,24 @@ float UStatusComponent::TakeDamage(float Damage, FDamageEvent const& DamageEvent
 		//LastInstigator->GetPawn();
 		APawn* LastInstigatorPawn = LastInstigator->GetPawn();
 
+		//APawn* OwningPawn = Cast<APawn>(MeshComp->GetOwner());
+		ABasePlayer* OwningPlayer = Cast<ABasePlayer>(LastInstigatorPawn);
+
+		//cast 불가능한 PartyMonster나 Monster의 경우
+		if (!OwningPlayer)
+		{
+			APartyMonster* PartyMonster = Cast<APartyMonster>(LastInstigatorPawn);
+			if (PartyMonster) { LastInstigatorPawn = PartyMonster->GetOwnerPlayer(); }
+			//Monster가 플레이어나 파티 몬스터를 죽인것임으로 경험치 줄 이유가 없음
+			//else { return NewDamage; }
+		}
+
+
+
+		//위에서 LastInstigatorPawn을 player로 확정하게 바꿨으니 이후 플레이어는 얻은 경험치를 보유한 파티 몬스터에게 주도록 해야함 
 		UStatusComponent* EventInstigatorStatusComponent = LastInstigatorPawn->GetComponentByClass<UStatusComponent>();
 		check(EventInstigatorStatusComponent);
+		//Monster가 플레이어나 파티 몬스터를 죽인것임으로 경험치 줄 이유가 없음
 		// if Monster Die give Exp  Target Type 이 monster 가 아닐 경우 exp 주도록 설계
 		if (OwnerPawnType != 1) 
 		{ 

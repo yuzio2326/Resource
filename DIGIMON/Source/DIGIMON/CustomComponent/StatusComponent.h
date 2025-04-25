@@ -56,8 +56,8 @@ public:
 	float GetMaxHP() const { return MaxHP; }
 	float GetSTR() const { return STR; }
 	float GetINT() const { return INT; }
-	float AddEXP(float fGetEXP) { return EXP+= fGetEXP; }
 	float GetEXP() const { return EXP; }
+	void AddEXP(float fGetEXP);
 
 	void AddHP(float Damage);
 	void AddMP(float Damage) { MP += Damage; }
@@ -148,9 +148,13 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnHPChanged OnHPChanged;
+	UPROPERTY(BlueprintAssignable)
 	FOnMPChanged OnMPChanged;
+	UPROPERTY(BlueprintAssignable)
 	FOnEXPChanged OnEXPChanged;
+	UPROPERTY(BlueprintAssignable)
 	FOnLevelChanged OnLevelChanged;
+	UPROPERTY(BlueprintAssignable)
 	FOnStatusChanged OnStatusChanged;
 	FOnDie OnDie;
 		
