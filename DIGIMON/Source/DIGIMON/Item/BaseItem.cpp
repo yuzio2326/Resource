@@ -11,6 +11,14 @@ ABaseItem::ABaseItem()
 
 }
 
+void ABaseItem::SetWeaponMesh(UStaticMesh* NewMesh)
+{
+	//if (NewMesh && WeaponMesh)
+	//{
+	//	WeaponMesh->SetStaticMesh(NewMesh);
+	//}
+}
+
 // Called when the game starts or when spawned
 void ABaseItem::BeginPlay()
 {
