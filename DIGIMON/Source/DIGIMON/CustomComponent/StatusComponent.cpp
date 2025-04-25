@@ -52,7 +52,9 @@ void UStatusComponent::BeginPlay()
 	MaxEXP = (Level * 20) + (Level * (5 * Level));
 	OnHPChanged.Broadcast(HP, MaxHP);
 	OnMPChanged.Broadcast(MP, MaxMP);
-	OnEXPChanged.Broadcast(EXP, MaxEXP);
+	float m_fMaxExp = MaxEXP;
+	OnEXPChanged.Broadcast(EXP, m_fMaxExp);
+
 	// ...
 	
 }
@@ -141,7 +143,10 @@ void UStatusComponent::LevelUp()
 		STRDEF += EvolutionType * 3 * Type;
 		INTDEF += EvolutionType * 3 * (4 - Type);
 
+
 		OnHPChanged.Broadcast(HP, MaxHP);
+		float m_fMaxExp = MaxEXP;
+		OnEXPChanged.Broadcast(EXP, m_fMaxExp);
 		OnLevelChanged.Broadcast(Level);
 		OnStatusChanged.Broadcast(STR, INT, STRDEF, INTDEF);
 
