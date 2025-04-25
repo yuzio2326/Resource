@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+#include "BaseMonster.h"
 
 #include "Kismet/KismetSystemLibrary.h"
 #include "AI/MonsterAIController.h"
-#include "BaseMonster.h"
 
 // Sets default values
 ABaseMonster::ABaseMonster()
@@ -63,7 +63,7 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	if (!Data) { ensure(false); return; }
 	MonsterData = Data;
 
-	//AI 나중에 추가하기
+	//AI 나중에 추가하기 // 완료
 	AIControllerClass = MonsterData->AIControllerClass;
 
 

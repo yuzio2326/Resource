@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+#include "CustomComponent/SpawnMonsterChildComponent.h"
 
 #include "Monster/PartyMonster.h"
-#include "CustomComponent/SpawnMonsterChildComponent.h"
 
 USpawnMonsterChildComponent::USpawnMonsterChildComponent()
 {

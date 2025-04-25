@@ -1,4 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+#include "Animation/ProjectileAnimNotify.h"
 
 #include "Skills/Projectile.h"
 #include "Camera/CameraComponent.h"
@@ -9,7 +10,6 @@
 #include "Monster/BaseMonster.h"
 #include "Monster/PartyMonster.h"
 
-#include "Animation/ProjectileAnimNotify.h"
 
 UProjectileAnimNotify::UProjectileAnimNotify()
 {

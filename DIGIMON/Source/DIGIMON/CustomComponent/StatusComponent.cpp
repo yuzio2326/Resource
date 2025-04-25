@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "StatusComponent.h"
 
 #include "Character/BasePlayer.h"
 #include "Monster/PartyMonster.h"
 #include "Monster/BaseMonster.h"
-#include "StatusComponent.h"
 
 
 // Sets default values for this component's properties
@@ -30,6 +30,7 @@ void UStatusComponent::AddHP(float Damage)
 {
 	{ 
 		HP += Damage; 
+		if (HP > MaxHP) { HP = MaxHP; }
 		OnHPChanged.Broadcast(HP, MaxHP);
 	}
 }
@@ -39,7 +40,8 @@ void UStatusComponent::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	DataTableRowHandle = InDataTableRowHandle;
 	//FPawnTableRow* CharacterData = DataTableRowHandle.GetRow<FPawnTableRow>(TEXT("Character"));
 	HP = MaxHP;
-
+	MP = MaxMP;
+	MaxEXP = (Level * 20) + (Level * (5 * Level));
 }
 
 
@@ -81,7 +83,6 @@ float UStatusComponent::TakeDamage(float Damage, FDamageEvent const& DamageEvent
 	HP -= NewDamage;
 	HP = FMath::Clamp(HP, 0.f, HP);
 	
-	float MaxStun = MaxHP * 0.33f;
 	
 	LastInstigator = EventInstigator;
 	OnHPChanged.Broadcast(HP, MaxHP);

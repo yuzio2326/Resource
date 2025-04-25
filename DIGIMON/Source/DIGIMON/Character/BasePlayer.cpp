@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+#include "Character/BasePlayer.h"
 #include "CustomComponent/NoFallCharacterMovementComponent.h"
 #include "Character/BasePlayerController.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "PaperSprite.h"
-#include "Character/BasePlayer.h"
+
 
 // Sets default values
 ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
