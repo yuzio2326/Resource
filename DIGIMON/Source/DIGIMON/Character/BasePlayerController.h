@@ -53,10 +53,10 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	bool IsAttack = false;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	bool IsOpenInventory = false;
 
 public:
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	bool IsOpenInventory = false;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	bool IsZoom = false;
 

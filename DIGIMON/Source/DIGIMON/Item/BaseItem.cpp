@@ -12,14 +12,15 @@ ABaseItem::ABaseItem()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	Collider = CreateDefaultSubobject<UShapeComponent>(TEXT("Collider"));
+	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
+	RootComponent = DefaultSceneRoot;
+	//Collider = CreateDefaultSubobject<UShapeComponent>(TEXT("Collider"));
 	//Collider->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
 	//RootComponent = Collider;
 
-	//StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
-	//StaticMeshComponent->SetupAttachment(RootComponent);
-	//StaticMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
+	StaticMeshComponent->SetupAttachment(RootComponent);
+	StaticMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 
 	//PrimaryActorTick.bCanEverTick = true;
@@ -36,6 +37,22 @@ void ABaseItem::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	//일단 static mesh만 
 	StaticMeshComponent->SetStaticMesh(Data->StaticMesh);
 	StaticMeshComponent->SetRelativeScale3D(Data->Scale);
+
+	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != Data->CollisionClass)
+	{
+		EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
+		CollisionComponent = NewObject<UShapeComponent>(this, Data->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
+		CollisionComponent->RegisterComponent();
+		CollisionComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
+		CollisionComponent->SetCanEverAffectNavigation(false);
+		SetRootComponent(CollisionComponent);
+		DefaultSceneRoot->SetRelativeTransform(FTransform::Identity);
+		DefaultSceneRoot->AttachToComponent(CollisionComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
+		//Forcheck visable true
+		CollisionComponent->SetVisibility(true);
+	}
+
 
 	//Overlap 될 범위 설정 하기
 	if (USphereComponent* SphereComponent = Cast<USphereComponent>(Collider))

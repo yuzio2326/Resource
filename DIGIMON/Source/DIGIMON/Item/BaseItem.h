@@ -2,6 +2,9 @@
 
 #pragma once
 
+#include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BaseItem.generated.h"
@@ -38,6 +41,19 @@ public:
 	USkeletalMesh* SkeletalMesh = nullptr;
 	UPROPERTY(EditAnywhere, Category = "Item")
 	FVector Scale = FVector(2.0, 2.0, 2.0);
+
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	TSubclassOf<UShapeComponent> CollisionClass = UCapsuleComponent::StaticClass();
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionSphereRadius = 32.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	FVector CollisionBoxExtent = FVector(32.0, 32.0, 32.0);
+
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleRadius = 50.f;
+	UPROPERTY(EditAnywhere, Category = "Pawn|Collision")
+	float CollisionCapsuleHalfHeight = 100.f;
+
 	//Using Sound
 	UPROPERTY(EditAnywhere, Category = "Item")
 	TObjectPtr<USoundBase> Sound;
@@ -84,7 +100,11 @@ public:
 	UShapeComponent* Collider;
 
 	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USceneComponent> DefaultSceneRoot;
+	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMeshComponent;
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
 	FDataTableRowHandle DataTableRowHandle;
+	UPROPERTY()
+	TObjectPtr<UShapeComponent> CollisionComponent;
 };

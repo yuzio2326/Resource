@@ -140,9 +140,26 @@ void ABasePlayerController::OnLook(const FInputActionValue& InputActionValue)
 void ABasePlayerController::OpenInventory(const FInputActionValue& InputActionValue)
 {
 	// add Item InventoryComponent
+	 
+
+	APawn* ControlledPawn = GetPawn();
+	if (!IsOpenInventory)
+	{
+		//Zoom 상태 돌입
+		
+		
+		IsOpenInventory = true;
+	}
+	else if (IsOpenInventory)
+	{
+		
+		IsOpenInventory = false;
+	}
+
+
 	//true 면 false // false 면 true로 자기 부정 만들고
-	IsOpenInventory = !IsOpenInventory;
-	InventoryComponent->OpenInventory(IsOpenInventory);
+	//IsOpenInventory = !IsOpenInventory;
+	//InventoryComponent->OpenInventory(IsOpenInventory);
 
 }
 
