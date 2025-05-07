@@ -10,7 +10,7 @@ player로 한다면 총이나 다른 무기를 가지고 몬스터에게 공격�
 
 필수
 
-monster code [ㅁ]
+monster code [ㅇ]
 
 Skill 만들기[ㅇ]
 ㄴ> damage 설정은 만드는중[@]	//Base Damage + Status Bonus Damage
@@ -20,14 +20,17 @@ Status 만들기[ㅇ]
 DMG및 skill DMG 등 데미지 관련 및 경험치 상호작용 만들기[ㅁ]
 
 
-Movement 만들기[X]
-Monster AI [ㅁ]
+Movement 만들기[ㅇ]
+Monster AI [ㅇ]
 
-PartyDigimon AI 만들기[ㅁ]
-ㄴ> 아군 공격시 or 아군 dmg받을시 PartyDigimon 공격 대상 공격 []
+PartyDigimon AI 만들기[ㅇ]
+ㄴ> 아군 공격시 or 아군 dmg받을시 PartyDigimon 공격 대상 공격 [ㅇ]
 	ㄴ> Owner Player 만들고 대상이 공격시 or 데미지 받을시 같은 대상 타게팅 하는식으로 변수 하나 추가하면 될거 같음
 
 UI만들기[]
+
+인벤토리 참고용
+https://www.youtube.com/watch?v=b2atcZWYi3E
 
 드랍테이블 및 아이템[]
 ㄴ> 디지몬 Data(포획), 알, 특수 진화 재료, 장비, 소비

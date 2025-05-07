@@ -19,6 +19,17 @@ void ABaseUsableItem::BeginPlay()
 	
 }
 
+void ABaseUsableItem::SetData()
+{
+
+}
+
+void ABaseUsableItem::UseItem()
+{
+	
+
+}
+
 // Called every frame
 void ABaseUsableItem::Tick(float DeltaTime)
 {

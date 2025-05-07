@@ -24,17 +24,18 @@ public:
 	USkeletalMesh* SkeletalMesh = nullptr;
 	UPROPERTY(EditAnywhere, Category = "Item")
 	FVector Scale = FVector(2.0, 2.0, 2.0);
+	//max size =255
 	UPROPERTY(EditAnywhere, Category = "Item | Usage")
-	int ItemStack=0;
+	uint8 ItemStack = 0;
 	// 1=Heal 2=DMGUP 3=DmgRegist
 	UPROPERTY(EditAnywhere, Category = "Item | Usage")
-	int UsageType=0;
+	uint8 UsageType=0;
 	//BasePower
 	UPROPERTY(EditAnywhere, Category = "Item | Usage")
-	int UsagePower=0;
+	uint8 UsagePower=0;
 	//PercentPower
 	UPROPERTY(EditAnywhere, Category = "Item | Usage")
-	int UsagePowerPercent=0;
+	uint8 UsagePowerPercent=0;
 	
 	
 
@@ -63,9 +64,18 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	void SetData();
+	void UseItem();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+
+
+
+protected:
+	FUsableItem UsableItemData;
+
 
 };

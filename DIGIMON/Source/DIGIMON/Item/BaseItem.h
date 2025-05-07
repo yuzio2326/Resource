@@ -17,23 +17,32 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Item")
 	TSubclassOf<ABaseItem> ItemClass;
 
-	// 0 weapon 1 usable 2 digimon 3 Other(기타템)
+	// 0 weapon(Equip) 1 usable 2 digimon 3 Other(기타템)
 	UPROPERTY(EditAnywhere, Category = "Item")
 	int itemtype = 0;
-
+	//Stack 가능한 타입인지 bool 로 ㄱㄱ
+	UPROPERTY(EditAnywhere, Category = "Item")
+	bool Stackable = false;
 	//count item number
 	UPROPERTY(EditAnywhere, Category = "Item")
-	int itemNum = 0;
-
+	uint8 itemStack = 0;
+	//inventory 에서 보여줄 texture 2d
+	UPROPERTY(EditAnywhere, Category = "Item")
+	UTexture2D* Tumnail;
 	// SkeletalMesh 또는 StaticMesh를 선택하면 둘 중 유요한 하나를 사용해서 Mesh로 띄워준다
 	UPROPERTY(EditAnywhere, Category = "Item")
 	UStaticMesh* StaticMesh = nullptr;
+	// Skeletal 은 사라질수도 있음
 	// SkeletalMesh 또는 StaticMesh를 선택하면 둘 중 유요한 하나를 사용해서 Mesh로 띄워준다
 	UPROPERTY(EditAnywhere, Category = "Item")
 	USkeletalMesh* SkeletalMesh = nullptr;
 	UPROPERTY(EditAnywhere, Category = "Item")
 	FVector Scale = FVector(2.0, 2.0, 2.0);
-
+	//Using Sound
+	UPROPERTY(EditAnywhere, Category = "Item")
+	TObjectPtr<USoundBase> Sound;
+	UPROPERTY(EditAnywhere, Category = "Item|Sound")
+	float VolumeMultiplier = 1.f;
 
 
 };
@@ -48,15 +57,19 @@ class DIGIMON_API ABaseItem : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABaseItem();
+	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
+	virtual void UseItem(APawn* Pawn);
 
 	//setting preview
 	void SetWeaponMesh(UStaticMesh* NewMesh);
 
 
 protected:
+	void OnConstruction(const FTransform& Transform);
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	UFUNCTION()
+	virtual void OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -67,6 +80,11 @@ public:
 
 	UPROPERTY()
     UStaticMeshComponent* ItemMesh;
+	UPROPERTY(VisibleAnywhere)
+	UShapeComponent* Collider;
 
-
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* StaticMeshComponent;
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
+	FDataTableRowHandle DataTableRowHandle;
 };
