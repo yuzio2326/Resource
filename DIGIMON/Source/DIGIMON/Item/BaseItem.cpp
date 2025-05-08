@@ -36,35 +36,37 @@ void ABaseItem::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 
 	//일단 static mesh만 
 	StaticMeshComponent->SetStaticMesh(Data->StaticMesh);
-	StaticMeshComponent->SetRelativeScale3D(Data->Scale);
+	StaticMeshComponent->SetRelativeTransform(Data->Transform);
+	StaticMeshComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
 
-	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != Data->CollisionClass)
-	{
-		EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
-		CollisionComponent = NewObject<UShapeComponent>(this, Data->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
-		CollisionComponent->RegisterComponent();
-		CollisionComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
-		CollisionComponent->SetCanEverAffectNavigation(false);
-		SetRootComponent(CollisionComponent);
-		DefaultSceneRoot->SetRelativeTransform(FTransform::Identity);
-		DefaultSceneRoot->AttachToComponent(CollisionComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
-		//Forcheck visable true
-		CollisionComponent->SetVisibility(true);
-	}
+	//if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != Data->CollisionClass)
+	//{
+	//	EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
+	//	CollisionComponent = NewObject<UShapeComponent>(this, Data->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
+	//	CollisionComponent->RegisterComponent();
+	//	CollisionComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
+	//	CollisionComponent->SetCanEverAffectNavigation(false);
+	//	SetRootComponent(CollisionComponent);
+	//	DefaultSceneRoot->SetRelativeTransform(FTransform::Identity);
+	//	DefaultSceneRoot->AttachToComponent(CollisionComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
+	//	//Forcheck visable true
+	//	CollisionComponent->SetVisibility(true);
+	//}
 
 
 	//Overlap 될 범위 설정 하기
-	if (USphereComponent* SphereComponent = Cast<USphereComponent>(Collider))
-	{
-		const float ScaledRadius = FMath::Max3(Data->Scale.X, Data->Scale.Y, Data->Scale.Z);
+	//if (USphereComponent* SphereComponent = Cast<USphereComponent>(Collider))
+	//{
+	//	const float ScaledRadius = FMath::Max3(Data->Scale.X, Data->Scale.Y, Data->Scale.Z);
 
-		if (Data->StaticMesh)
-		{
-			FBoxSphereBounds BoxSphereBounds = Data->StaticMesh->GetBounds();
-			SphereComponent->SetSphereRadius(ScaledRadius * BoxSphereBounds.SphereRadius);
-		}
-	}
+	//	if (Data->StaticMesh)
+	//	{
+	//		FBoxSphereBounds BoxSphereBounds = Data->StaticMesh->GetBounds();
+	//		SphereComponent->SetSphereRadius(ScaledRadius * BoxSphereBounds.SphereRadius);
+	//	}
+	//}
 }
 
 void ABaseItem::UseItem(APawn* Pawn)

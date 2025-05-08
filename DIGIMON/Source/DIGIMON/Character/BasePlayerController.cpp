@@ -145,15 +145,13 @@ void ABasePlayerController::OpenInventory(const FInputActionValue& InputActionVa
 	APawn* ControlledPawn = GetPawn();
 	if (!IsOpenInventory)
 	{
-		//Zoom 상태 돌입
-		
-		
 		IsOpenInventory = true;
+		bShowMouseCursor = true;
 	}
 	else if (IsOpenInventory)
 	{
-		
 		IsOpenInventory = false;
+		bShowMouseCursor = false;
 	}
 
 
@@ -191,20 +189,26 @@ void ABasePlayerController::OnZoomIn(const FInputActionValue& InputActionValue)
 	//CameraComponent->AddRelativeLocation(FVector(0, 100, 0));
 	//IsZoom = true;
 	APawn* ControlledPawn = GetPawn();
-	//Changed Pressed
-	if (!IsZoom)
-	{
-		//Zoom 상태 돌입
-		SpringArm->SetDesiredZoom(160.f);
 
-		CameraComponent->AddRelativeLocation(FVector(0, 100, 0));
-		IsZoom = true;
-	}
-	else if (IsZoom)
+	//아이템 열었을때 줌 못하도록 하기
+	if (!IsOpenInventory)
 	{
-		SpringArm->SetDesiredZoom(400.f);
-		CameraComponent->AddRelativeLocation(FVector(0, -100, 0));
-		IsZoom = false;
+		//Changed Pressed
+		if (!IsZoom)
+		{
+			//Zoom 상태 돌입
+			SpringArm->SetDesiredZoom(160.f);
+
+			CameraComponent->AddRelativeLocation(FVector(0, 100, 0));
+			IsZoom = true;
+		}
+		else if (IsZoom)
+		{
+			SpringArm->SetDesiredZoom(400.f);
+			CameraComponent->AddRelativeLocation(FVector(0, -100, 0));
+			IsZoom = false;
+		}
+
 	}
 	ControlledPawn->bUseControllerRotationYaw = IsZoom;
 
