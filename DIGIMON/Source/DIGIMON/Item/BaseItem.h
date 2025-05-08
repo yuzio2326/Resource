@@ -20,11 +20,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Item")
 	TSubclassOf<ABaseItem> ItemClass;
 
-	// 0 weapon(Equip) 1 usable 2 digimon 3 Other(기타템)
+	/*
+		Usable=0, Other, EquipWeapon, EquipArmor, EquipHelm, EquipCapsule, EquipCrest, Partner
+	*/ 
 	UPROPERTY(EditAnywhere, Category = "Item")
-	int itemtype = 0;
+	uint8 Itemtype = 0;
 	UPROPERTY(EditAnywhere, Category = "Item")
-	int itemID = 0;
+	uint8 itemID = 0;
 	//Stack 가능한 타입인지 bool 로 ㄱㄱ
 	UPROPERTY(EditAnywhere, Category = "Item")
 	bool Stackable = false;

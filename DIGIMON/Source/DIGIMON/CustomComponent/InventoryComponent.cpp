@@ -23,6 +23,11 @@ void UInventoryComponent::BeginPlay()
 	
 }
 
+void UInventoryComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
+{
+
+}
+
 void UInventoryComponent::OpenInventory(bool OpeningInventory)
 {
 	OnInventory.Broadcast(OpeningInventory);
