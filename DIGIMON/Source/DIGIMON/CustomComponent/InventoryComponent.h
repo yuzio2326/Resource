@@ -7,12 +7,35 @@
 #include "InventoryComponent.generated.h"
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOpenInventory, bool, IsOpenInventory);
+USTRUCT()	//Item관리용
+struct DIGIMON_API FDropTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item", meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
+	TArray<FDataTableRowHandle> ItemDataArray;
+
+};
+
+
+// 안써도될지도?
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOpenInventory, bool, IsOpenInventory);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DIGIMON_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
+public:
+	struct PlayerInventoryItem
+	{
+		//item id
+		uint8 OwnedItemID;
+
+		//Owned item stack
+		uint8 OwnedItemStack;
+
+
+	};
 
 public:	
 	// Sets default values for this component's properties
@@ -24,7 +47,7 @@ protected:
 
 	void SetData(FDataTableRowHandle InDataTableRowHandle);
 
-	//Player 는 아이템을 사용하도록 합니다, 보유한 아이템은 모두 아이템Id 갯수를 저장을 해놓고 불러올때 id를 찾아서 맞는 아이템 불러오고
+	//Player는 아이템을 사용하도록 합니다, 보유한 아이템은 모두 아이템Id 갯수를 저장을 해놓고 불러올때 id를 찾아서 맞는 아이템 불러오고
 	//해당하는 갯수 만큼 가지고 오도록 한다 
 	//UseItem을 할때는 해당하는 아이템의 type을 가지고 와서 알맞은 형태로 사용 / equip 류는 자기한테 맞는 equip창의 아이템과 교환
 	//usable은 해당하는 창을 불러와서 사용 대상 눌러서 사용 UI 의 Temp_UseItemTarget을 참고하도록 
@@ -46,10 +69,21 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool IsOpenInventory = false;
 
-	UPROPERTY(BlueprintAssignable)
-	FOpenInventory	OnInventory;
+	//UPROPERTY(BlueprintAssignable)
+	//FOpenInventory	OnInventory;
 
+public:
 	//가지고 오가는 아이템들
-	UPROPERTY(BlueprintAssignable)
-	FItemTableRow ItemTableRow;
+	
+	//player가 가지고 있는 아이템
+	//UPROPERTY()
+	//TArray<PlayerInventoryItem> PlayerOwnedItems;
+
+	// 아이템 정보는 여기// 이후 아이템은 struct로 저장하는게 좋음 
+	UPROPERTY()
+	FItemTableRow ItemTable;
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
+	FDataTableRowHandle DataTableRowHandle;
+	
+
 };

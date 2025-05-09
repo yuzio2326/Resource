@@ -35,6 +35,26 @@ void UStatusComponent::AddHP(float Damage)
 	}
 }
 
+void UStatusComponent::AddMP(float SpendMP)
+{
+	//사용하는 종류의 mp일 경우
+	if (SpendMP < 0)
+	{
+		float mCheckMP = SpendMP + MP;
+		if (mCheckMP<0)
+		{
+			//Can not use
+		}
+	}
+
+	{
+		MP += SpendMP;
+		if (MP > MaxMP) { MP = MaxMP; }
+		OnMPChanged.Broadcast(MP, MaxMP);
+	}
+
+}
+
 void UStatusComponent::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 {
 	DataTableRowHandle = InDataTableRowHandle;

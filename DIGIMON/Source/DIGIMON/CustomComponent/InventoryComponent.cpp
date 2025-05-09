@@ -19,18 +19,27 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+
 	// ...
 	
 }
 
 void UInventoryComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 {
+	//For문 돌려서 가지고 있는 모든 아이템 순회할 예정
+	DataTableRowHandle = InDataTableRowHandle;
+	if (DataTableRowHandle.IsNull()) { return; }
+	FItemTableRow* Data = DataTableRowHandle.GetRow<FItemTableRow>(TEXT("ItemTableRow"));
+	if (!Data) { ensure(false); return; }
+
+
+
 
 }
 
 void UInventoryComponent::OpenInventory(bool OpeningInventory)
 {
-	OnInventory.Broadcast(OpeningInventory);
+	//OnInventory.Broadcast(OpeningInventory);
 }
 
 

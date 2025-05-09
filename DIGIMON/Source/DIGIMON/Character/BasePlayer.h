@@ -55,6 +55,7 @@ protected:
 	virtual bool CanJumpInternal_Implementation() const override;
 protected:
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
+	virtual void SetInventoryData(const FDataTableRowHandle& InDataTableRowHandle);
 
 public:	
 	// Called every frame

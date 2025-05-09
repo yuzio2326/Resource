@@ -60,7 +60,7 @@ public:
 	void AddEXP(float fGetEXP);
 
 	void AddHP(float Damage);
-	void AddMP(float Damage) { MP += Damage; }
+	void AddMP(float SpendMP);
 
 
 	int GetOwnerPawnType() const { return OwnerPawnType; }

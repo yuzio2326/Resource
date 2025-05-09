@@ -102,6 +102,7 @@ void ABasePlayer::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	SetData(DataTableRowHandle);
+	SetInventoryData(DataTableRowHandle);
 }
 
 bool ABasePlayer::CanJumpInternal_Implementation() const
@@ -149,6 +150,16 @@ void ABasePlayer::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 			StatusComponent->StatusSetting(CharacterData->Level, CharacterData->EXP, CharacterData->HP, CharacterData->MP, CharacterData->STR, CharacterData->STR_DEF, CharacterData->INT, CharacterData->INT_DEF, CharacterData->PawnType);
 		}
 	}
+}
+
+void ABasePlayer::SetInventoryData(const FDataTableRowHandle& InDataTableRowHandle)
+{
+	DataTableRowHandle = InDataTableRowHandle;
+	if (DataTableRowHandle.IsNull()) { return; }
+	FBasePawnData* Data = DataTableRowHandle.GetRow<FBasePawnData>(TEXT("Character"));
+	if (!Data) { ensure(false); return; }
+
+	CharacterData = Data;
 }
 
 // Called every frame

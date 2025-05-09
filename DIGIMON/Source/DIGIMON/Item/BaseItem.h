@@ -65,6 +65,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Item|Sound")
 	float VolumeMultiplier = 1.f;
 
+	//Drop 확률		Owner가 Monster의 경우 사용하고 아닐경우 사용 안함
+	UPROPERTY(EditAnywhere, Category = "Item|Drop")
+	float Drop = 0;
 
 };
 

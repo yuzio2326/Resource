@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Item/BaseItem.h"
 //#include "../Misc/Utils.h"
 #include "AI/MonsterAIController.h"
 #include "Aicontroller.h"
@@ -59,6 +60,16 @@ public: // Animation
 
 	UPROPERTY(EditAnywhere, Category = "Pawn|Skill", meta = (RowType = "/Script/DIGIMON.SkillTableRow"))
 	FDataTableRowHandle OwnSkillData;
+
+public:	//Item 관련 입니다
+	struct OwnItem
+	{
+		uint8 OwnItemID;
+		uint8 OwnItemType;
+		uint8 OwnItemStack;
+	};
+	//소유중인 Item 넣기		Monster 는 Drop 하고 Player는 보유하고 있는 아이템
+	TArray<OwnItem>	OwningItems;
 
 
 public: // Movement
