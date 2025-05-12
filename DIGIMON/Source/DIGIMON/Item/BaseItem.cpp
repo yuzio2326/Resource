@@ -50,7 +50,6 @@ void ABaseItem::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	//	SetRootComponent(CollisionComponent);
 	//	DefaultSceneRoot->SetRelativeTransform(FTransform::Identity);
 	//	DefaultSceneRoot->AttachToComponent(CollisionComponent, FAttachmentTransformRules::KeepRelativeTransform);
-
 	//	//Forcheck visable true
 	//	CollisionComponent->SetVisibility(true);
 	//}
