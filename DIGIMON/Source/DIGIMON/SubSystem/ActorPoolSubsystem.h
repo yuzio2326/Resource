@@ -19,8 +19,6 @@ class DIGIMON_API UActorPoolSubsystem : public UWorldSubsystem
 
 public:
 	void SpawnEffect(const FTransform& SpawnTransform, const FDataTableRowHandle& InDataTableRowHandle);
-	//void SpawnHitEffectWithDecal(const FTransform& SpawnTransform, const FDataTableRowHandle& InDataTableRowHandle);
-	// ㄴ> decal 굳이? 그냥 spawn으로만 해도 ㄱㅊ을거 같은데?
 	
 protected:
 	/** Called when world is ready to start gameplay before the game mode transitions to the correct state and call BeginPlay on all actors */
@@ -28,5 +26,4 @@ protected:
 
 protected:
 	FCircularActorPool<AEffect> EffectPool;
-	//FCircularActorPool<AEffectWithDecal> HitEffectDecalPool;
 };

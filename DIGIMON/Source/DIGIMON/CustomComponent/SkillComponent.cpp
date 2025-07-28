@@ -34,16 +34,11 @@ void USkillComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 	//Owner 정보 빼오고
 	SkeletalMeshComponent = GetOwner()->FindComponentByClass<USkeletalMeshComponent>();
 	AnimInstance = SkeletalMeshComponent->GetAnimInstance();
-
-	//SkillCooldowns.SetNum(SkillTableRow.SkillDataArray.Num());
-	
 	//원거리 근거리 스킬 저장 방식을 나눴음
-
-
 	int32 OwnSkillNum = SkillTableRow.SkillDataArray.Num();
 	int32 RangeSkillNum = SkillTableRow.RangedSkillArray.Num();
-
-	// 원거리 근거리 스킬 쿨타임 세팅
+	// 원거리 근거리 스킬 쿨타임 세팅		
+	// 근데 Tarray가 맞는건가? vector쓰는게 더 낫지 않나?
 	SkillCooldowns.SetNum(OwnSkillNum);
 	for (int32 i = 0; i < OwnSkillNum; i++)
 	{
@@ -211,7 +206,7 @@ void USkillComponent::UseSkill()
 		OnUsingSkill.Broadcast(UsingSkill, CanUseSkill, false);
 		
 	}
-	//skill 사용중이면
+	//해당 skill 사용중이면
 	else
 	{
 		FSkillDataRow CurrentSkillMontage = SkillTableRow.SkillDataArray[ChosenSkillNum];
@@ -256,7 +251,6 @@ void USkillComponent::UseRangeSkill()
 	//skill data의 cooltime을 비교 하면서 사용 가능한지 아닌지 여기서 확인하고 useSkill을 사용합니다.
 	//bIsRange = true;
 	bool CanUseSkill = true;
-
 	//Skill 사용중이 아니면
 	if (!UsingSkill)
 	{ 
@@ -281,9 +275,7 @@ void USkillComponent::UseRangeSkill()
 				ChosenSkillNum = Index;
 				break;
 			}
-
 		}
-
 		//선택한 스킬을 사용하도록 한다
 		if (RangedSkillCooldowns[ChosenSkillNum] <= 0)
 		{

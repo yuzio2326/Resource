@@ -155,5 +155,7 @@ void ABaseItem::EquipItem(AController* PC)
 
 FItemTableRow::FItemTableRow()
 	: ItemClass(ABaseItem::StaticClass())
+	, Thumnail(nullptr)
 {
 }
+

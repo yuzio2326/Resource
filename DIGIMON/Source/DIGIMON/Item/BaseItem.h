@@ -10,7 +10,7 @@
 #include "BaseItem.generated.h"
 
 //고민중... 그냥 아이템 종류별로 만들어 놓고 얘는 쓰지 말까?
-USTRUCT()
+USTRUCT(BlueprintType)
 struct DIGIMON_API FItemTableRow : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -20,19 +20,17 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Item")
 	TSubclassOf<ABaseItem> ItemClass;
 
-	/*
-		Usable=0, Other, EquipWeapon, EquipArmor, EquipHelm, EquipCapsule, EquipCrest, Partner
-	*/ 
+	/* Usable=0, Other, EquipWeapon, EquipArmor, EquipHelm, EquipCapsule, EquipCrest, Partner */ 
 	UPROPERTY(EditAnywhere, Category = "Item")
 	uint8 Itemtype = 0;
 	UPROPERTY(EditAnywhere, Category = "Item")
 	uint8 itemID = 0;
 	//Stack 가능한 타입인지 bool 로 ㄱㄱ
 	UPROPERTY(EditAnywhere, Category = "Item")
-	bool Stackable = false;
+	bool Stackable = true;
 	//count item number
 	UPROPERTY(EditAnywhere, Category = "Item")
-	uint8 itemStack = 0;
+	uint8 MaxitemStack = 255;
 	//inventory 에서 보여줄 texture 2d
 	UPROPERTY(EditAnywhere, Category = "Item")
 	UTexture2D* Thumnail;
@@ -64,11 +62,6 @@ public:
 	TObjectPtr<USoundBase> Sound;
 	UPROPERTY(EditAnywhere, Category = "Item|Sound")
 	float VolumeMultiplier = 1.f;
-
-	//Drop 확률		Owner가 Monster의 경우 사용하고 아닐경우 사용 안함
-	UPROPERTY(EditAnywhere, Category = "Item|Drop")
-	float Drop = 0;
-
 };
 
 class USceneCaptureComponent2D;

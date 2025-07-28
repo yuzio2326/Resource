@@ -17,6 +17,9 @@
 #include "GameFramework/Pawn.h"
 #include "BaseMonster.generated.h"
 
+//Monster가 보유한 드랍 테이블
+struct FMonsterDropTableRow;
+
 USTRUCT()
 struct DIGIMON_API FBaseMonsterTableRow : public FBasePawnData
 {
@@ -29,9 +32,9 @@ public:
 	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/KDT3D.ItemPackTableRow"))
 	//FDataTableRowHandle DropItem;
 	
-	//특수 객체 만들기 힘들다는 단점이 있긴함...
-	//UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/DIGIMON.PawnTableRow"))
-	//FDataTableRowHandle BasePawnData;
+	// 드랍할 아이템
+	UPROPERTY(EditAnywhere, Category = "DropItem", meta = (RowType = "/Script/DIGIMON.MonsterDropTableRow"))
+	FDataTableRowHandle DropItem;
 
 
 	bool BossVision = false;//인식 범위 넓히기용
@@ -49,6 +52,8 @@ public:
 	ABaseMonster();
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
 	virtual void SetSkillData(const FDataTableRowHandle& InSkillDataTableRowHandle);
+	void DropItem(const FDataTableRowHandle& InDataTableRowHandle);
+
 protected:
 	//Duplacte In Editor
 	virtual void PostDuplicate(EDuplicateMode::Type DuplicateMode) override;

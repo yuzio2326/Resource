@@ -5,8 +5,17 @@
 
 
 FSkillDataRow::FSkillDataRow()
+	: UseMP(0.0f)
+	, Damage(0.0f)
+	, IsUseStatusSTR(false)
+	, BonusDamage(0.0f)
+	, SkillDamageType(false)
+	, SkillCoolTime(0.0f)
+	, CurrentSkillCoolTime(0.0f)
+	, IsRanged(false)
 {
 }
+
 
 
 // Sets default values

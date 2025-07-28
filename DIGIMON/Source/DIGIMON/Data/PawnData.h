@@ -19,6 +19,7 @@ USTRUCT()		//나중에
 struct DIGIMON_API  FBasePawnData : public FTableRowBase
 {
 	GENERATED_BODY()
+	FBasePawnData() : EvolutionType(0) {}
 public:
 	UPROPERTY(EditAnywhere, Category = "Pawn")
 	USkeletalMesh* SkeletalMesh = nullptr;

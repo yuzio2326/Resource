@@ -29,11 +29,12 @@ void UInventoryComponent::SetData(FDataTableRowHandle InDataTableRowHandle)
 	//For문 돌려서 가지고 있는 모든 아이템 순회할 예정
 	DataTableRowHandle = InDataTableRowHandle;
 	if (DataTableRowHandle.IsNull()) { return; }
-	FItemTableRow* Data = DataTableRowHandle.GetRow<FItemTableRow>(TEXT("ItemTableRow"));
+	FPlayerInventory* Data = DataTableRowHandle.GetRow<FPlayerInventory>(TEXT("ItemTableRow"));
 	if (!Data) { ensure(false); return; }
 
+	PlayerInventory = Data;
 
-
+	//OnInventoryUpdated.Broadcast();
 
 }
 
@@ -53,6 +54,18 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 
 void UInventoryComponent::UseItem()
 {
+
+}
+
+void UInventoryComponent::AddItem(const FDataTableRowHandle& NewItemData)
+{
+	// FItemTableRow 사용시 Stack 미아요
+	FItemTableRow* Item = NewItemData.GetRow<FItemTableRow>(TEXT("NewItem"));
+
+	//FPlayerOwnItem 는 Stack이랑 FItemTableRow을 rowtype으로 들고 있음
+	PlayerInventory; //Tarray FPlayerOwnItem로 들고 있음
+	//FPlayerOwnItem는 
+	OnInventoryUpdated.Broadcast();
 
 }
 

@@ -41,7 +41,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 	SpringArm->SetRelativeTransform(SpringArmTransform);
 
 	StatusComponent = CreateDefaultSubobject<UStatusComponent>(TEXT("StatusComponent"));
-	
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 
 	// Minimap		minimap 대신 그냥 worldmap 하나만 할까 고민중...  
 	{
@@ -102,7 +102,7 @@ void ABasePlayer::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 	SetData(DataTableRowHandle);
-	SetInventoryData(DataTableRowHandle);
+	SetInventoryData(InventoryDataTable);
 }
 
 bool ABasePlayer::CanJumpInternal_Implementation() const
@@ -156,10 +156,14 @@ void ABasePlayer::SetInventoryData(const FDataTableRowHandle& InDataTableRowHand
 {
 	DataTableRowHandle = InDataTableRowHandle;
 	if (DataTableRowHandle.IsNull()) { return; }
-	FBasePawnData* Data = DataTableRowHandle.GetRow<FBasePawnData>(TEXT("Character"));
+	FPlayerInventory* Data = DataTableRowHandle.GetRow<FPlayerInventory>(TEXT("Character"));
 	if (!Data) { ensure(false); return; }
 
-	CharacterData = Data;
+	if (Data->ItemClass.Num() > 0)
+	{
+		int OwnItemNum = Data->ItemClass.Num();
+	}
+	
 }
 
 // Called every frame
