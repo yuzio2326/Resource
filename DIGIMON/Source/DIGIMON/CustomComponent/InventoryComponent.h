@@ -53,11 +53,19 @@ protected:
 	//usable은 해당하는 창을 불러와서 사용 대상 눌러서 사용 UI 의 Temp_UseItemTarget을 참고하도록 
 	// 기능 추가중이라 하직 안됌
 	//void UseItem(FItemTableRow* InItemTableRow);
-
+	// 
+	// 상점이나 상자를 이용할때는 서로의 inventory 창만 띄우고 status나 다른것들은 안띄우도록 하기(Wd_Maininventory 말고 Wd_inventory만)
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	// Usable item Party 등 분류 전에 사용
+	UFUNCTION(BlueprintCallable)
+	void UseItem();
+	//Partner와 장비는 해당 기능을 사용할 예정
+	//void UseItemEquip();
+	// 소모품 아이템은 해당 기능 사용 예정
+	//void UseItemUsable();
 
 public:
 	// 인벤 열리고 닫히는거 아이템 사용, 이동(드래그 드롭)
