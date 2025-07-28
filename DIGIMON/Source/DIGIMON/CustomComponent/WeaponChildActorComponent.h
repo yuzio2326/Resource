@@ -17,4 +17,5 @@ class DIGIMON_API UWeaponChildActorComponent : public UChildActorComponent
 public:
 	UWeaponChildActorComponent();
 	void SetData(FDataTableRowHandle InDataTableRowHandle);
+
 };

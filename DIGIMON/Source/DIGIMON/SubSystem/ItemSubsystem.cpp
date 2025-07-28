@@ -57,11 +57,11 @@ FDataTableRowHandle UItemSubsystem::FindItem(const FName& InKey)
 		DataTableRowHandle.DataTable = WeaponDataTable;
 		DataTableRowHandle.RowName = InKey;
 	}
-	else if (GunDataTable->GetRowMap().Find(InKey))
-	{
-		DataTableRowHandle.DataTable = GunDataTable;
-		DataTableRowHandle.RowName = InKey;
-	}
+	//else if (GunDataTable->GetRowMap().Find(InKey))
+	//{
+	//	DataTableRowHandle.DataTable = GunDataTable;
+	//	DataTableRowHandle.RowName = InKey;
+	//}
 	//else if (ItemPackDataTable->GetRowMap().Find(InKey))
 	//{
 	//	DataTableRowHandle.DataTable = ItemPackDataTable;

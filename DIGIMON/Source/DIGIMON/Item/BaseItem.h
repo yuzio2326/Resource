@@ -89,7 +89,7 @@ public:
 
 
 protected:
-	void OnConstruction(const FTransform& Transform);
+	virtual void OnConstruction(const FTransform& Transform) override;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UFUNCTION()
@@ -97,6 +97,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void EquipItem(AController* PC);
+
 
 public:
 	UPROPERTY()
@@ -109,8 +111,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USceneComponent> DefaultSceneRoot;
+
+	/* Base MeshComponent Chose one plz*/
+	UPROPERTY(VisibleAnywhere)
+	USkeletalMeshComponent* SkeletalMeshComponent;
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMeshComponent;
+
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
 	FDataTableRowHandle DataTableRowHandle;
 	UPROPERTY()

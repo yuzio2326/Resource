@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{ADB1F274-49B2-24DA-BFA7-72BF666E870E}",
+	"EngineAssociation": "5.4",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -28,6 +28,10 @@
 			"SupportedTargetPlatforms": [
 				"Win64"
 			]
+		},
+		{
+			"Name": "LearningAgents",
+			"Enabled": true
 		}
 	]
 }
