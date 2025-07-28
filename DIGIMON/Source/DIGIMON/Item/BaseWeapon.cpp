@@ -29,7 +29,12 @@ void ABaseWeapon::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	SkeletalMeshComponent->SetSkeletalMesh(Data->SkeletalMesh);
 	SkeletalMeshComponent->SetRelativeTransform(Data->Transform);
 	
-	USkeletalMeshComponent* MeshComponent = GetOwner()->GetComponentByClass<USkeletalMeshComponent>();
+	//if (USkeletalMeshComponent* MeshComponent = GetOwner()->GetComponentByClass<USkeletalMeshComponent>())
+	//{
+	//	OwningPawn = Cast<APawn>(GetOwner());
+	//	check(OwningPawn);
+	//}
+
 
 	/*check(MeshComponent);
 	{
@@ -52,6 +57,10 @@ void ABaseWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (!DataTableRowHandle.IsNull())
+	{
+		SetData(DataTableRowHandle);
+	}
 }
 
 // Called every frame

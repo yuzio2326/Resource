@@ -13,7 +13,7 @@
 
 UProjectileAnimNotify::UProjectileAnimNotify()
 {
-	NotifyColor = FColor(255, 255, 255, 255);
+	//NotifyColor = FColor(255, 255, 255, 255);
 }
 
 FRotator UProjectileAnimNotify::GetPlayerProjectileRotation(const FVector& InProjectSpawnLocation, UCameraComponent* InCameraComponent)

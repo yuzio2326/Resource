@@ -128,7 +128,7 @@ void ABaseItem::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	//AActor* PlayerPawn = OverlappedActor;//nullptr
 
 	// if OverlappedActor is Player
-	if (ABasePlayer* OverlapPlayer = Cast<ABasePlayer>(OtherActor))
+	if (ABasePlayer* OverlapPlayer = Cast<ABasePlayer>(OverlappedActor))
 	{
 		//해당 아이템이 없는 경우 즉시 사용하도록 하기		
 		if (!OverlapPlayer->OwnWeapon())
