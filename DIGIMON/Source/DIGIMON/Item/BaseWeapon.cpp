@@ -71,5 +71,8 @@ void ABaseWeapon::Tick(float DeltaTime)
 }
 
 FWeaponTableRow::FWeaponTableRow()
+	: WeaponTypeAP(false)
+	, WeaponDamage(0.0f)
 {
 }
+

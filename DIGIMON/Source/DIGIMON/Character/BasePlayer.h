@@ -111,6 +111,10 @@ protected:
 	//UPROPERTY(EditAnywhere, meta = (RowType = "/Script/KDT3D.PawnTableRow"))
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.BasePawnData"))
 	FDataTableRowHandle DataTableRowHandle;
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.PlayerInventory"))
+	FDataTableRowHandle InventoryDataTable;
+
+
 
 	FBasePawnData* CharacterData;
 

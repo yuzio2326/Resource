@@ -56,12 +56,8 @@ void APartyMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	//AI 나중에 추가하기
 	AIControllerClass = PawnData->AIControllerClass;
 
-
-
 	//Speed 조절
 	MovementComponent->MaxSpeed = PawnData->MovementMaxSpeed;
-
-
 
 	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != PawnData->CollisionClass)
 	{
@@ -156,16 +152,6 @@ void APartyMonster::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	//Party M<onster 임으로 다 필요 없음
-	//AIController 만들고 patrol 하고난 이후 주석 풀기		AMonsterAIController 대신 다른걸로 바뀔수 있음
-	//if (AMonsterAIController* EnemyAIController = Cast<AMonsterAIController>(Controller))
-	//{
-		//EnemyAIController->SetPatrolPath(PatrolPathRef->GetPath());
-		//if (PawnData)
-		//{
-		//	EnemyAIController->BaseAgro(PawnData->BossVision);
-		//}
-	//}
 }
 
 // Called when the game starts or when spawned
@@ -213,7 +199,6 @@ void APartyMonster::OnDie()
 float APartyMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	if (StatusComponent->IsDie()) { return 0.f; }
-
 	float DamageResult = StatusComponent->TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 	if (FMath::IsNearlyZero(DamageResult)) { return 0.0; }
 
@@ -229,10 +214,8 @@ float APartyMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, A
 			Controller->Destroy();
 		}
 		SetActorEnableCollision(false);
-
 		const int64 Index = FMath::RandRange(0, PawnData->DieMontage.Num() - 1);
 		CurrentDieMontage = PawnData->DieMontage[Index];
-
 		AnimInstance->Montage_Play(CurrentDieMontage);
 		UKismetSystemLibrary::K2_SetTimer(this, TEXT("OnDie"),
 			PawnData->DieMontage[Index]->GetPlayLength() - 0.5f, false);

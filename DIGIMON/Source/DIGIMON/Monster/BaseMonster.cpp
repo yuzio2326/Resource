@@ -17,12 +17,7 @@ ABaseMonster::ABaseMonster()
 
 	SkeletalMeshComponent->SetupAttachment(DefaultSceneRoot);
 	SkeletalMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
-
-
 	//use actorpool and SetActorEnableCollision
-
-
 	/*Add All Data */
 
 	//ADDMovementComponent Later
@@ -44,11 +39,9 @@ ABaseMonster::ABaseMonster()
 		static ConstructorHelpers::FObjectFinder<UCurveFloat> CurveAsset(TEXT("/Script/Engine.CurveFloat'/Game/Digimon/FX/FX_BaseMonster/CV_PaperBurn.CV_PaperBurn'"));
 		check(CurveAsset.Object);
 		PaperBurnEffectTimelineComponent = CreateDefaultSubobject<UTimelineComponent>(TEXT("PaperBurnEffectTimelineComponent"));
-
 		FOnTimelineFloat Delegate;
 		Delegate.BindDynamic(this, &ThisClass::OnPaperBurnEffect);
 		PaperBurnEffectTimelineComponent->AddInterpFloat(CurveAsset.Object, Delegate);
-
 		FOnTimelineEvent EndDelegate;
 		EndDelegate.BindDynamic(this, &ThisClass::OnPaperBurnEffectEnd);
 		PaperBurnEffectTimelineComponent->SetTimelineFinishedFunc(EndDelegate);
@@ -62,17 +55,10 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	FBaseMonsterTableRow* Data = MonsterDataTableRowHandle.GetRow<FBaseMonsterTableRow>(TEXT("Enemy"));
 	if (!Data) { ensure(false); return; }
 	MonsterData = Data;
-
 	//AI 나중에 추가하기 // 완료
 	AIControllerClass = MonsterData->AIControllerClass;
-
-
-
 	//Speed 조절
 	MovementComponent->MaxSpeed = MonsterData->MovementMaxSpeed;
-
-	
-
 	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != MonsterData->CollisionClass)
 	{
 		EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
@@ -83,7 +69,6 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 		SetRootComponent(CollisionComponent);
 		DefaultSceneRoot->SetRelativeTransform(FTransform::Identity);
 		DefaultSceneRoot->AttachToComponent(CollisionComponent, FAttachmentTransformRules::KeepRelativeTransform);
-		
 		//Forcheck visable true
 		CollisionComponent->SetVisibility(true);
 	}
@@ -100,7 +85,6 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	{
 		CapsuleComponent->SetCapsuleSize(MonsterData->CollisionCapsuleRadius, MonsterData->CollisionCapsuleHalfHeight);
 	}
-
 	SkeletalMeshComponent->SetSkeletalMesh(MonsterData->SkeletalMesh);
 	SkeletalMeshComponent->SetAnimClass(MonsterData->AnimClass);
 	SkeletalMeshComponent->SetRelativeTransform(MonsterData->MeshTransform);
@@ -109,7 +93,6 @@ void ABaseMonster::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 	{
 		StatusComponent->StatusSetting(MonsterData->Level, MonsterData->EXP, MonsterData->HP, MonsterData->MP, MonsterData->STR, MonsterData->STR_DEF, MonsterData->INT, MonsterData->INT_DEF, MonsterData->PawnType);
 	}
-
 	AnimInstance = SkeletalMeshComponent->GetAnimInstance();
 
 	if (!IsValid(CollisionComponent))
@@ -141,6 +124,11 @@ void ABaseMonster::SetSkillData(const FDataTableRowHandle& InSkillDataTableRowHa
 
 }
 
+void ABaseMonster::DropItem(const FDataTableRowHandle& InDataTableRowHandle)
+{
+
+}
+
 void ABaseMonster::PostDuplicate(EDuplicateMode::Type DuplicateMode)
 {
 	Super::PostDuplicate(DuplicateMode);
@@ -167,7 +155,6 @@ void ABaseMonster::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	
-	//AIController 만들고 patrol 하고난 이후 주석 풀기
 	if (AMonsterAIController* EnemyAIController = Cast<AMonsterAIController>(Controller))
 	{
 		//EnemyAIController->SetPatrolPath(PatrolPathRef->GetPath());
@@ -200,12 +187,10 @@ float ABaseMonster::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 
 	float DamageResult = StatusComponent->TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 	if (FMath::IsNearlyZero(DamageResult)) { return 0.0; }
-
 	if (Controller)
 	{
 		Controller->StopMovement();
 	}
-
 	if (StatusComponent->IsDie() && !MonsterData->DieMontage.IsEmpty())
 	{
 		if (Controller)
@@ -247,8 +232,6 @@ void ABaseMonster::OnPaperBurnEffectEnd()
 void ABaseMonster::OnDie()
 {
 	AnimInstance->Montage_Pause(CurrentDieMontage);
-
-
 	//Spawn Effect 하고 alpha를 천천히 없애기 ㄱㄱ
 
 	//PaperBurn Parts

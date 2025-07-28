@@ -44,13 +44,6 @@ FDataTableRowHandle UItemSubsystem::FindItem(const FName& InKey)
 		DataTableRowHandle.DataTable = UsableDataTable;
 		DataTableRowHandle.RowName = InKey;
 	}
-	//if (ItemPackDataTable->GetRowMap().Find(InKey))
-	//{
-	//	check(!bFind);
-	//	bFind = true;
-	//	DataTableRowHandle.DataTable = ItemPackDataTable;
-	//	DataTableRowHandle.RowName = InKey;
-	//}
 #else
 	if (WeaponDataTable->GetRowMap().Find(InKey))
 	{

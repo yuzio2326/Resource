@@ -7,19 +7,67 @@
 #include "InventoryComponent.generated.h"
 
 
-USTRUCT()	//Item관리용
-struct DIGIMON_API FDropTableRow : public FTableRowBase
+USTRUCT()
+struct FNADropItemPair
 {
 	GENERATED_BODY()
+	FNADropItemPair() : Probability(0.0f) {}
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item", meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
-	TArray<FDataTableRowHandle> ItemDataArray;
+	UPROPERTY(EditAnywhere, Category = "MonsterDropTable", meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
+	FDataTableRowHandle DropItem;
+
+	//해당 아이템을 무조건 N개 드랍해야 할때는 해당 숫자만 바꿔주세요
+	UPROPERTY(EditAnywhere, Category = "MonsterDropTable")
+	unsigned int Stack = 1;
+
+	// 해당 아이템을 Stack 부터 End 까지 N개 드랍 해야 할때 Stack 보다 큰 수를 넣어주세요
+	UPROPERTY(EditAnywhere, Category = "MonsterDropTable")
+	unsigned int StackEnd = 1;
+
+
+	UPROPERTY(EditAnywhere, Category = "MonsterDropTable")
+	float Probability;
 
 };
 
+USTRUCT()	//Item관리용
+struct DIGIMON_API FMonsterDropTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Category = "Pawn|Drop")
+	TArray<FNADropItemPair> ItemClass;
+
+};
+
+USTRUCT()
+struct FPlayerOwnItem
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category = "PlayerOwnItemTable", meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
+	FDataTableRowHandle OwnItem;
+	UPROPERTY(EditAnywhere, Category = "MonsterDropTable")
+	unsigned int Stack = 1;
+};
+
+USTRUCT()	//Item관리용
+struct FPlayerInventory : public FTableRowBase
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Category = "Pawn|Drop")
+	TArray<FPlayerOwnItem> ItemClass;
+
+};
 
 // 안써도될지도?
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOpenInventory, bool, IsOpenInventory);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FEquipItemType, FItemTableRow, ItemType, bool, IsEquip);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerOwnItems, TArray<FPlayerOwnItem>, PlayerOwnItems,uint8, ItemType, bool, MaxCooltime01);
+
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DIGIMON_API UInventoryComponent : public UActorComponent
@@ -62,6 +110,9 @@ public:
 	// Usable item Party 등 분류 전에 사용
 	UFUNCTION(BlueprintCallable)
 	void UseItem();
+	UFUNCTION(BlueprintCallable)
+	void AddItem(const FDataTableRowHandle& NewItemData);
+
 	//Partner와 장비는 해당 기능을 사용할 예정
 	//void UseItemEquip();
 	// 소모품 아이템은 해당 기능 사용 예정
@@ -76,6 +127,14 @@ public:
 	//UI 쪽에서 button action으로 해당 값을 바꾸도록 하고 해당 값에 따라서 visable을 바꾸도록 한다.
 	UPROPERTY(EditAnywhere)
 	bool IsOpenInventory = false;
+
+
+	UPROPERTY(BlueprintAssignable)
+	FEquipItemType EquipItemType;
+	//UPROPERTY(BlueprintAssignable)
+	//FPlayerOwnItems PlayerOwnItems;
+	UPROPERTY(BlueprintAssignable)
+	FOnInventoryUpdated OnInventoryUpdated;
 
 	//UPROPERTY(BlueprintAssignable)
 	//FOpenInventory	OnInventory;
@@ -93,5 +152,5 @@ public:
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
 	FDataTableRowHandle DataTableRowHandle;
 	
-
+	FPlayerInventory* PlayerInventory;
 };

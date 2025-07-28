@@ -138,5 +138,8 @@ void AProjectile::ChargeProjectile()
 
 FProjectileTableRow::FProjectileTableRow()
 	: ProjectileClass(AProjectile::StaticClass())
+	, bProjetileCharge(false)
+	, ChargeTime(0.0f)
 {
 }
+

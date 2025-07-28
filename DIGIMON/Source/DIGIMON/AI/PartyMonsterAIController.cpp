@@ -1,7 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "AI/PartyMonsterAIController.h"
+#include "Character/BasePlayer.h"
 #include "GameFramework/Character.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -11,11 +10,11 @@ void APartyMonsterAIController::BeginPlay()
 
 	if (!IsValid(BrainComponent))
 	{
-		UBehaviorTree* BehaviorTree = LoadObject<UBehaviorTree>(nullptr, TEXT("/Script/AIModule.BehaviorTree'/Game/Digimon/AI/BT_BasePartyMonster.BT_BasePartyMonster'"));
+		UBehaviorTree* BehaviorTree = LoadObject<UBehaviorTree>(nullptr, 
+			TEXT("/Script/AIModule.BehaviorTree'/Game/Digimon/AI/BT_BasePartyMonster.BT_BasePartyMonster'"));
 		check(BehaviorTree);
 		RunBehaviorTree(BehaviorTree);
 	}
-
 	//Spawn 위치 기준 일정 범위 이상 못나가게 하려고 할때 쓸 예정
 	APawn* OwningPawn = GetPawn();
 	FVector FSpawnLocation = OwningPawn->GetActorLocation();
@@ -81,16 +80,17 @@ void APartyMonsterAIController::OnDamaged(float CurrentHP, float MaxHP)
 	Blackboard->SetValueAsObject(TEXT("DetectTarget"), Cast<UObject>(InstigatorPawn));
 	Blackboard->SetValueAsBool(TEXT("OnDamage"), true);
 
-	//5초뒤 어그로 리셋
-	//UKismetSystemLibrary::K2_SetTimer(this, TEXT("ResetOnDamagedMontage"), 1.f, false);
 }
 
 void APartyMonsterAIController::PlayerOnDamaged()
 {
-	AController* PlayerInstigator = OwnerPlayerStatusComponentRef->GetLastInstigator();
-	if (PlayerInstigator)
-	{
-		Blackboard->SetValueAsObject(TEXT("DetectTarget"), Cast<UObject>(PlayerInstigator));
+	if (Blackboard->GetValueAsObject(TEXT("DetectPlayer")))
+	{		
+		AController* PlayerInstigator = OwnerPlayerStatusComponentRef->GetLastInstigator();
+		if (PlayerInstigator)
+		{
+			Blackboard->SetValueAsObject(TEXT("DetectTarget"), Cast<UObject>(PlayerInstigator));
+		}
 	}
 }
 
@@ -108,9 +108,9 @@ void APartyMonsterAIController::FindPlayerByPerception()
 		AIPerceptionComponent->GetCurrentlyPerceivedActors(UAISenseConfig_Sight::StaticClass(), OutActors);
 
 		bool bFound = false;
-		for (AActor* It : OutActors)
+		for (AActor* PlayerActor : OutActors)
 		{
-			if (ACharacter* DetectedPlayer = Cast<ACharacter>(It))
+			if (ACharacter* DetectedPlayer = Cast<ACharacter>(PlayerActor))
 			{
 				bFound = true;
 				Blackboard->SetValueAsObject(TEXT("DetectPlayer"), Cast<UObject>(DetectedPlayer));
