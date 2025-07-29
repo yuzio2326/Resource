@@ -130,12 +130,13 @@ void ABaseItem::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	// if OverlappedActor is Player
 	if (ABasePlayer* OverlapPlayer = Cast<ABasePlayer>(OtherActor))
 	{
-		//해당 아이템이 없는 경우 즉시 사용하도록 하기		
-		if (!OverlapPlayer->OwnWeapon())
-		{
-			// 무기라는 조건도 여기에 추가해야 됌. -> 일단 Test 단계니까 대충 ㄱㄱ
-			EquipItem(OverlapPlayer->GetController());
-		}
+		EquipItem(OverlapPlayer->GetController());
+		////해당 아이템이 없는 경우 즉시 사용하도록 하기		
+		//if (!OverlapPlayer->OwnWeapon())
+		//{
+		//	// 무기라는 조건도 여기에 추가해야 됌. -> 일단 Test 단계니까 대충 ㄱㄱ
+		//	EquipItem(OverlapPlayer->GetController());
+		//}
 	}
 
 }
@@ -149,6 +150,8 @@ void ABaseItem::Tick(float DeltaTime)
 
 void ABaseItem::EquipItem(AController* PC)
 {
+	PC->GetPawn();
+
 	bool TestCheck = true;
 
 }
