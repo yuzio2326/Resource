@@ -9,6 +9,7 @@
 #include "Character/BasePlayer.h"
 #include "Components/SphereComponent.h"
 #include "Item/BaseWeapon.h"
+#include "Components/SphereComponent.h"
 
 // Sets default values
 ABaseItem::ABaseItem()
@@ -29,6 +30,11 @@ ABaseItem::ABaseItem()
 	SkeletalMeshComponent->SetupAttachment(RootComponent);
 	SkeletalMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+	Collider = CreateDefaultSubobject<UShapeComponent>(TEXT("Collider"));
+	
+
+	
+
 	PrimaryActorTick.bCanEverTick = true;
 	OnActorBeginOverlap.AddDynamic(this, &ThisClass::OnBeginOverlap);
 }
@@ -37,23 +43,50 @@ void ABaseItem::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 {
 	DataTableRowHandle = InDataTableRowHandle;
 	if (DataTableRowHandle.IsNull()) { return; }
-	FItemTableRow* Data = DataTableRowHandle.GetRow<FItemTableRow>(TEXT("ItemPack"));
-	if (!Data) { ensure(false); return; }
 
-	//�ϴ� static mesh�� 
-	StaticMeshComponent->SetStaticMesh(Data->StaticMesh);
-	StaticMeshComponent->SetRelativeTransform(Data->Transform);
-	StaticMeshComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
 
-	SkeletalMeshComponent->SetSkeletalMesh(Data->SkeletalMesh);
-	SkeletalMeshComponent->SetRelativeScale3D(Data->Scale);
-	SkeletalMeshComponent->SetRelativeTransform(Data->Transform);
-	SkeletalMeshComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
 
-	if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != Data->CollisionClass)
+	FItemTableRow* Data = DataTableRowHandle.GetRow<FItemTableRow>(TEXT("BaseItem"));
+	FWeaponTableRow* WeaponData = DataTableRowHandle.GetRow<FWeaponTableRow>(TEXT("Weapon"));
+
+
+	if (!Data&&!WeaponData) { ensure(false); return; }
+
+	if (Data)
 	{
+		//�ϴ� static mesh�� 
+		StaticMeshComponent->SetStaticMesh(Data->StaticMesh);
+		StaticMeshComponent->SetRelativeTransform(Data->Transform);
+		StaticMeshComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
+
+		SkeletalMeshComponent->SetSkeletalMesh(Data->SkeletalMesh);
+		SkeletalMeshComponent->SetRelativeScale3D(Data->Scale);
+		SkeletalMeshComponent->SetRelativeTransform(Data->Transform);
+		SkeletalMeshComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
+
+		if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != Data->CollisionClass)
+		{
+			EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
+			CollisionComponent = NewObject<UShapeComponent>(this, Data->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
+			CollisionComponent->RegisterComponent();
+			CollisionComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
+			CollisionComponent->SetCanEverAffectNavigation(false);
+			//SetRootComponent(CollisionComponent);
+			CollisionComponent->SetRelativeTransform(FTransform::Identity);
+			CollisionComponent->AttachToComponent(DefaultSceneRoot, FAttachmentTransformRules::KeepRelativeTransform);
+			//Forcheck visable true
+			CollisionComponent->SetVisibility(true);
+		}
+	}
+	else
+	{
+
+		SkeletalMeshComponent->SetSkeletalMesh(WeaponData->SkeletalMesh);
+		SkeletalMeshComponent->SetRelativeTransform(WeaponData->Transform);
+		SkeletalMeshComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
+
 		EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
-		CollisionComponent = NewObject<UShapeComponent>(this, Data->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
+		CollisionComponent = NewObject<UShapeComponent>(this, USphereComponent::StaticClass(), TEXT("CollisionComponent"), SubobjectFlags);
 		CollisionComponent->RegisterComponent();
 		CollisionComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
 		CollisionComponent->SetCanEverAffectNavigation(false);
@@ -62,7 +95,22 @@ void ABaseItem::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 		CollisionComponent->AttachToComponent(DefaultSceneRoot, FAttachmentTransformRules::KeepRelativeTransform);
 		//Forcheck visable true
 		CollisionComponent->SetVisibility(true);
+
+		//if (!IsValid(CollisionComponent) || CollisionComponent->GetClass() != WeaponData->CollisionClass)
+		//{
+		//	EObjectFlags SubobjectFlags = GetMaskedFlags(RF_PropagateToSubObjects) | RF_DefaultSubObject;
+		//	CollisionComponent = NewObject<UShapeComponent>(this, WeaponData->CollisionClass, TEXT("CollisionComponent"), SubobjectFlags);
+		//	CollisionComponent->RegisterComponent();
+		//	CollisionComponent->SetCollisionProfileName(CollisionProfileName::PawnTrigger);
+		//	CollisionComponent->SetCanEverAffectNavigation(false);
+		//	//SetRootComponent(CollisionComponent);
+		//	CollisionComponent->SetRelativeTransform(FTransform::Identity);
+		//	CollisionComponent->AttachToComponent(DefaultSceneRoot, FAttachmentTransformRules::KeepRelativeTransform);
+		//	//Forcheck visable true
+		//	CollisionComponent->SetVisibility(true);
+		//}
 	}
+
 
 
 	//Overlap �� ���� ���� �ϱ�
@@ -109,7 +157,7 @@ void ABaseItem::OnConstruction(const FTransform& Transform)
 	//SetData(DataTableRowHandle);
 	 
 	// Weapon 쪽
-	SetData(WeaponDataTableRowHandle);
+	SetData(DataTableRowHandle);
 }
 
 void ABaseItem::SetWeaponMesh(UStaticMesh* NewMesh)
@@ -180,6 +228,8 @@ void ABaseItem::EquipItem(AController* PC)
 				Player->Weapon->SetData(DataTableRowHandle);
 
 			}
+
+			Player->Weapon->SetData(DataTableRowHandle);
 		}
 	}
 

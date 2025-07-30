@@ -118,10 +118,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMeshComponent;
 
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
+	//RowType을 Item관련으로 해주세요		meta = (RowType = "/Script/DIGIMON.WeaponTableRow")
+	UPROPERTY(EditAnywhere)
 	FDataTableRowHandle DataTableRowHandle;
-	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.WeaponTableRow"))
-	FDataTableRowHandle WeaponDataTableRowHandle;
 
 
 	UPROPERTY()
