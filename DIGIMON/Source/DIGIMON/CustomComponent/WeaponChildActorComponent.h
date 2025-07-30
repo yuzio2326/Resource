@@ -9,6 +9,8 @@
 /**
  * 
  */
+struct FWeaponTableRow;
+
 UCLASS()
 class DIGIMON_API UWeaponChildActorComponent : public UChildActorComponent
 {
@@ -17,5 +19,10 @@ class DIGIMON_API UWeaponChildActorComponent : public UChildActorComponent
 public:
 	UWeaponChildActorComponent();
 	void SetData(FDataTableRowHandle InDataTableRowHandle);
+	FWeaponTableRow* GetData();
+
+
+protected:
+	FWeaponTableRow* OwnWeaponTable;
 
 };

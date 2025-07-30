@@ -84,6 +84,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TObjectPtr<UCameraComponent> Camera;
 
+public:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UWeaponChildActorComponent> Weapon;
 

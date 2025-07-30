@@ -8,6 +8,7 @@
 #include "CustomComponent/StatusComponent.h"
 #include "Character/BasePlayer.h"
 #include "Components/SphereComponent.h"
+#include "Item/BaseWeapon.h"
 
 // Sets default values
 ABaseItem::ABaseItem()
@@ -105,7 +106,10 @@ void ABaseItem::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
 
-	SetData(DataTableRowHandle);
+	//SetData(DataTableRowHandle);
+	 
+	// Weapon 쪽
+	SetData(WeaponDataTableRowHandle);
 }
 
 void ABaseItem::SetWeaponMesh(UStaticMesh* NewMesh)
@@ -130,12 +134,27 @@ void ABaseItem::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	// if OverlappedActor is Player
 	if (ABasePlayer* OverlapPlayer = Cast<ABasePlayer>(OtherActor))
 	{
-		//해당 아이템이 없는 경우 즉시 사용하도록 하기		
-		if (!OverlapPlayer->OwnWeapon())
+		if (UWeaponChildActorComponent* WeaponChildActorComponent = OverlapPlayer->Weapon.Get())
 		{
-			// 무기라는 조건도 여기에 추가해야 됌. -> 일단 Test 단계니까 대충 ㄱㄱ
-			EquipItem(OverlapPlayer->GetController());
+			//무기 장착하고 있을 경우 
+			if (FWeaponTableRow* WeaponData = WeaponChildActorComponent->GetData())
+			{
+				
+			}
+			else
+			{
+				EquipItem(OverlapPlayer->GetController());
+			}
+
+
 		}
+		////해당 아이템이 없는 경우 즉시 사용하도록 하기		
+		//if (!OverlapPlayer->OwnWeapon())
+		//{
+		//	// 무기라는 조건도 여기에 추가해야 됌. -> 일단 Test 단계니까 대충 ㄱㄱ
+		//	EquipItem(OverlapPlayer->GetController());
+		//	
+		//}
 	}
 
 }
@@ -149,7 +168,27 @@ void ABaseItem::Tick(float DeltaTime)
 
 void ABaseItem::EquipItem(AController* PC)
 {
+
+	
+	if (ABasePlayer* Player = Cast<ABasePlayer>(PC->GetPawn()))
+	{		
+		if (!DataTableRowHandle.IsNull())
+		{
+			// Item의 하위 Struct로 Weapon 이런식으로 해야 할거 같음... 여기 부분은 그럼 일단 Weapon만으로 특정되게 바꿔야지..
+			if (FWeaponTableRow* WeaponTableRow = DataTableRowHandle.GetRow<FWeaponTableRow>(TEXT("Item")))
+			{
+				Player->Weapon->SetData(DataTableRowHandle);
+
+			}
+		}
+	}
+
+
 	bool TestCheck = true;
+
+	// 아이템 사용 구현, 및 아이템 장착 기능 
+
+
 
 }
 

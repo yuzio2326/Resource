@@ -120,6 +120,10 @@ public:
 
 	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.ItemTableRow"))
 	FDataTableRowHandle DataTableRowHandle;
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.WeaponTableRow"))
+	FDataTableRowHandle WeaponDataTableRowHandle;
+
+
 	UPROPERTY()
 	FItemTableRow ItemTable;
 	UPROPERTY()

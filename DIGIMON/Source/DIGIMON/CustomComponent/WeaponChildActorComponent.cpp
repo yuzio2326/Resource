@@ -17,6 +17,8 @@ void UWeaponChildActorComponent::SetData(FDataTableRowHandle InDataTableRowHandl
 	if (GetChildActorClass() != Data->WeaponClass)
 	{
 		SetChildActorClass(Data->WeaponClass);
+		
+		OwnWeaponTable = Data;
 	}
 
 	APawn* OwnerPawn = Cast<APawn>(GetOwner());
@@ -28,3 +30,9 @@ void UWeaponChildActorComponent::SetData(FDataTableRowHandle InDataTableRowHandl
 	Weapon->SetOwner(OwnerPawn);
 	Weapon->SetInstigator(OwnerPawn);
 }
+
+FWeaponTableRow* UWeaponChildActorComponent::GetData()
+{
+	return OwnWeaponTable;
+}
+
