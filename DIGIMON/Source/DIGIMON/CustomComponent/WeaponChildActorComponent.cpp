@@ -29,6 +29,7 @@ void UWeaponChildActorComponent::SetData(FDataTableRowHandle InDataTableRowHandl
 
 	Weapon->SetOwner(OwnerPawn);
 	Weapon->SetInstigator(OwnerPawn);
+	Weapon->SetData(InDataTableRowHandle);
 }
 
 FWeaponTableRow* UWeaponChildActorComponent::GetData()

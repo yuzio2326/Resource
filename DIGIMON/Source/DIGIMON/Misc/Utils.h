@@ -17,7 +17,9 @@ namespace CollisionProfileName
 }
 namespace SocketName
 {
+	static inline FName WeaponR = TEXT("weapon_r");
 	static inline FName Weapon = TEXT("Weapon");
+	static inline FName R_Hand = TEXT("hand_r");
 	static inline FName Muzzle = TEXT("Muzzle"); // 총구
 	static inline FName SpawnParty = TEXT("SpawnParty"); //Player Party Spawn Position
 

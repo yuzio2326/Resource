@@ -56,6 +56,7 @@ protected:
 protected:
 	virtual void SetData(const FDataTableRowHandle& InDataTableRowHandle);
 	virtual void SetInventoryData(const FDataTableRowHandle& InDataTableRowHandle);
+	void TestEquipWeapon();
 
 public:	
 	// Called every frame
@@ -68,6 +69,7 @@ public:
 
 	bool OwnWeapon();
 
+	void DefaultTestWeapon();
 
 	UInventoryComponent* GetInventoryComponent() { return InventoryComponent; }
 	UStatusComponent* GetStatusComponent() { return StatusComponent; }
@@ -88,6 +90,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UWeaponChildActorComponent> Weapon;
 
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* TestStaticWeapon;
+
 	UPROPERTY(VisibleAnywhere)
 	UStatusComponent* StatusComponent;
 
@@ -99,6 +104,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	UPaperSpriteComponent* MinimapSpriteComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* StaticMeshComponent;
+
+	UPROPERTY(EditAnywhere, meta = (RowType = "/Script/DIGIMON.WeaponTableRow"))
+	FDataTableRowHandle WeaponData;
 
 	UPawnAnimInstance* AnimInstance;
 

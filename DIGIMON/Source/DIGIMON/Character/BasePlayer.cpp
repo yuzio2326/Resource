@@ -5,6 +5,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "PaperSprite.h"
+#include "Item/BaseWeapon.h"
 
 
 // Sets default values
@@ -17,6 +18,8 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 	SpringArm = CreateDefaultSubobject<USoftWheelSpringArmComponent>(TEXT("SpringArm"));
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Weapon = CreateDefaultSubobject<UWeaponChildActorComponent>(TEXT("Weapon"));
+	TestStaticWeapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TestWeapon"));
+	
 	//TODO::
 	//spawn static 총 mesh spawn 시키고 muzzle 위치 설정하기
 	//레벨업 관련 ui 만들기 skillcomponent에서 원거리 공격 하는걸로 하도록 설정해가지고 자기 stat 추가뎀 만들기     	
@@ -30,6 +33,7 @@ ABasePlayer::ABasePlayer(const FObjectInitializer& ObjectInitializer)
 	}
 	Camera->SetupAttachment(SpringArm);
 	Weapon->SetupAttachment(GetMesh(), SocketName::Weapon);
+	TestStaticWeapon->SetupAttachment(GetMesh(), SocketName::R_Hand);
 
 	bUseControllerRotationYaw = false;
 
@@ -96,6 +100,11 @@ void ABasePlayer::BeginPlay()
 	FActorSpawnParameters ActorSpawnParameters;
 	ActorSpawnParameters.Owner = this;
 	AActor* MinimapActor = GetWorld()->SpawnActor<AActor>(MinimapClass, ActorSpawnParameters);
+
+	if (!WeaponData.IsNull())
+	{
+		DefaultTestWeapon();
+	}
 }
 
 void ABasePlayer::OnConstruction(const FTransform& Transform)
@@ -162,6 +171,14 @@ void ABasePlayer::SetInventoryData(const FDataTableRowHandle& InDataTableRowHand
 	CharacterData = Data;
 }
 
+void ABasePlayer::TestEquipWeapon()
+{
+	//FWeaponTableRow* TestWeaponData = WeaponData.GetRow<FWeaponTableRow>(TEXT("Weapon"));	
+	//StaticMeshComponent->SetStaticMesh(TestWeaponData->StaticMesh);
+	//StaticMeshComponent->setparentsoket
+
+}
+
 // Called every frame
 void ABasePlayer::Tick(float DeltaTime)
 {
@@ -218,6 +235,19 @@ bool ABasePlayer::OwnWeapon()
 		return false;
 	else
 		return true;
+
+}
+
+void ABasePlayer::DefaultTestWeapon()
+{
+	if (!WeaponData.IsNull())
+	{
+		Weapon->SetData(WeaponData);
+	}
+	else
+	{
+		return;
+	}
 
 }
 

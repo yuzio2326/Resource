@@ -28,12 +28,24 @@ void ABaseWeapon::SetData(const FDataTableRowHandle& InDataTableRowHandle)
 
 	SkeletalMeshComponent->SetSkeletalMesh(Data->SkeletalMesh);
 	SkeletalMeshComponent->SetRelativeTransform(Data->Transform);
-	
-	//if (USkeletalMeshComponent* MeshComponent = GetOwner()->GetComponentByClass<USkeletalMeshComponent>())
-	//{
-	//	OwningPawn = Cast<APawn>(GetOwner());
-	//	check(OwningPawn);
-	//}
+	//check(Data->AnimClass);
+
+	//defaultData Owner Check 
+	if (USkeletalMeshComponent* MeshComponent = GetOwner()->GetComponentByClass<USkeletalMeshComponent>())
+	{
+		OwningPawn = Cast<APawn>(GetOwner());
+		check(OwningPawn);
+		
+		if (APlayerController* PC = Cast<APlayerController>(OwningPawn->GetController()))
+		{
+			if (!Data->AnimClass)
+			{
+				//BaseAnimInstance->OnMontageEnded.AddDynamic(this, &ThisClass::OnMontageEnd);
+			}
+			//BaseAnimInstance
+		}
+
+	}
 
 
 	/*check(MeshComponent);
